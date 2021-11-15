@@ -1,0 +1,22 @@
+.map__image path {
+    fill: #009E60;
+    stroke: #fff;
+    stroke-width: 1px;
+    transition: fill .3s;
+}
+
+.map__image .is-active path {
+    fill: #F77F00;
+    stroke: #fff;
+    stroke-width: 1px;
+    transition: fill .3s;
+}
+
+.map__list a{
+    text-decoration: none;
+}
+
+.map__list a.is-active{
+    text-decoration: underline;
+    font-weight: bold;
+}

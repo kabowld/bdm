@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="advanced custom search, agency, agent, business, clean, corporate, directory, google maps, homes, idx agent, listing properties, membership packages, property, real broker, real estate, real estate agent, real estate agency, realtor">
+    <meta name="description" content="FindHouse - Real Estate HTML Template">
+    <meta name="CreativeLayers" content="ATFN">
+    <link rel="stylesheet" href="{{ asset('front/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/app.css') }}">
+    <!-- Responsive stylesheet -->
+    <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
+    <!-- Title -->
+    <!-- Title -->
+    <title>FindHouse - Real Estate HTML Template</title>
+    <!-- Favicon -->
+    <link href="{{ asset('front/images/favicon.ico') }}"  rel="shortcut icon" type="image/x-icon" />
+    <link href="{{ asset('front/images/favicon.ico') }}" rel="shortcut icon" />
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div class="wrapper">
+    <div class="preloader"></div>
+    {% block header %}
+        {% include 'Front/Inc/header_inc.html.twig' %}
+    {% endblock %}
+
+    {% block content %}{% endblock %}
+
+    {% block footer %}
+        {% include 'Front/Inc/footer_inc.html.twig' %}
+    {% endblock %}
+    <a class="scrollToHome" href="#"><i class="flaticon-arrows"></i></a>
+</div>
+
+<script type="text/javascript" src="{{ asset('front/js/jquery-3.3.1.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/jquery-migrate-3.0.0.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/popper.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/bootstrap.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/jquery.mmenu.all.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/ace-responsive-menu.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/bootstrap-select.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/isotop.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/snackbar.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/simplebar.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/parallax.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/scrollto.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/jquery-scrolltofixed-min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/jquery.counterup.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/wow.min.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/slider.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/pricing-slider.js') }}"></script>
+<script type="text/javascript" src="{{ asset('front/js/timepicker.js') }}"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="{{ asset('front/js/script.js') }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+<script>
+    $(function() {
+        const map = $('#map');
+        const paths = $('#map .map__image a');
+        const links = $('#map .map__list a');
+
+        let activeArea = function (id) {
+            $('#map .is-active').each(function(i, v) {
+                $(this).removeClass('is-active');
+            })
+            if (id !== undefined) {
+                $('#list-' + id).addClass('is-active');
+                $('#region-' + id).addClass('is-active');
+            }
+        }
+
+        paths.each(function (index, path) {
+            path.addEventListener('mouseenter', function (e) {
+                let id  = this.id.replace('region-', '');
+                activeArea(id);
+            });
+        });
+
+        links.each(function (index, link) {
+            link.addEventListener('mouseenter', function (e) {
+                let id  = this.id.replace('list-', '');
+                activeArea(id);
+            });
+        });
+
+        map.on('mouseover', function () {
+            activeArea();
+        })
+
+    });
+</script>
+</body>
+</html>
