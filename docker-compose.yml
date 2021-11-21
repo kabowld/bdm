@@ -1,21 +1,63 @@
-version: '3'
-
+version: '3.9'
+###< doctrine/doctrine-bundle ###
 services:
-###> doctrine/doctrine-bundle ###
-  database:
-    image: postgres:${POSTGRES_VERSION:-13}-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-app}
-      # You should definitely change the password in production
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-ChangeMe}
-      POSTGRES_USER: ${POSTGRES_USER:-symfony}
+  web:
+    container_name: web_bdm
+    image: nginx:latest
     volumes:
-      - db-data:/var/lib/postgresql/data:rw
+      - ./:/var/www/bdm
+      - ./docker/default.tpl.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - 80:80
+    environment:
+      - NGINX_HOST=app-bdm.lab
+    links:
+      - "dbbdm"
+      - "php:php"
+  php:
+    container_name: app_bdm
+    build: .
+    ports:
+      - '9000:9000'
+    volumes:
+      - ./:/var/www/bdm
+      - ./docker/php.ini:/usr/local/etc/php/php.ini
+    links:
+      - "dbbdm:dbbdm"
+      - mailer_bdm
+  dbbdm:
+    container_name: dbbdm
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: main
+      POSTGRES_PASSWORD: rootroot
+    volumes:
+      - data-bdm:/var/lib/postgresql/data:rw
       # You may use a bind-mounted host directory instead, so that it is harder to accidentally remove the volume and lose all your data!
       # - ./docker/db/data:/var/lib/postgresql/data:rw
-###< doctrine/doctrine-bundle ###
-
+    ports:
+      - "5432:5432"
+  pgadminbdm:
+    container_name: pgadminbdm
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: app@bandama.lab
+      PGADMIN_DEFAULT_PASSWORD: secret
+    ports:
+      - 8808:80
+    depends_on:
+      - "dbbdm"
+    links:
+      - "dbbdm"
+  ###< doctrine/doctrine-bundle ###
+  mailer_bdm:
+    container_name: mailer_bdm
+    image: maildev/maildev
+    command: maildev --hide-extensions STARTTLS
+    ports:
+      - 1080:1080
+      - 1025:1025
 volumes:
-###> doctrine/doctrine-bundle ###
-  db-data:
-###< doctrine/doctrine-bundle ###
+  data-bdm:
