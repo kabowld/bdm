@@ -20,3 +20,94 @@
     text-decoration: underline;
     font-weight: bold;
 }
+
+.map__image {
+    text-align: center;
+}
+
+.map__list {
+    text-align: center;
+}
+
+.map__image svg {
+    width: 50%;
+}
+
+
+.carte-select .dropdown-item:hover {
+    color: #fff;
+    background: #009E60;
+}
+
+.carte-select .dropdown-toggle:focus {
+    box-shadow: none;
+}
+
+.carte-select button#dropdownMenuButton {
+    background: #F77F00 !important;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    width: 180px;
+    color: #fff !important;
+}
+
+.carte-select .dropdown-menu.show {
+    width: 180px;
+    height: 200px;
+    background: #fff;
+    overflow-y: scroll;
+}
+
+.carte-select .dropdown-menu.show::-webkit-scrollbar {
+    width: 3px;
+    /* height: 25px; */
+}
+
+.carte-select .dropdown-menu.show::-webkit-scrollbar-thumb {
+    background-color: #009E60;
+    border-radius: 6px;
+    border: 1px solid #009E60;
+}
+.carte-select .dropdown-menu.show::-webkit-scrollbar-track {
+    background: #fff;
+}
+
+.carte-select .dropdown-menu.show {
+    scrollbar-width: 3px; /* "auto" or "thin" */
+    scrollbar-color: #009E60 #fff; /* scroll thumb and track */
+}
+
+
+.header-nav {
+    box-shadow: 0 0 5px #22222257;
+}
+
+header.header-nav.menu_style_home_one .ace-responsive-menu li a {
+    color: #222 !important;
+}
+
+header.header-nav.menu_style_home_one .ace-responsive-menu li a {
+    color: #222 !important;
+    font-family: 'Quicksand', sans-serif !important;
+    font-weight: 400;
+    font-size: 1rem;
+}
+
+.header-nav .flaticon-user .dn-lg {
+    background: #F77F00;
+    color: #fff;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+}
+
+.header-nav .flaticon-user:before{
+    display: none;
+}
+
+.copyright-widget p {
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 300;
+    font-size: 13px;
+}
+

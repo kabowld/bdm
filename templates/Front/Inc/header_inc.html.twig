@@ -1,6 +1,6 @@
 <!-- Main Header Nav -->
 <header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
-    <div class="container-fluid p0">
+    <div class="container">
         <!-- Ace Responsive Menu -->
         <nav>
             <!-- Menu Toggle btn-->
@@ -12,7 +12,7 @@
                     <span class="icon-bar"></span>
                 </button>
             </div>
-            <a href="#" class="navbar_brand float-left dn-smd">
+            <a href="{{ path('home_bdmk') }}" class="navbar_brand float-left dn-smd">
                 <img class="logo1 " src="{{ asset('front/images/logo.png') }}" style="width: 150px; height: auto" alt="logo">
                 <img class="logo2 " src="{{ asset('front/images/logo.png') }}" style="width: 150px; height: auto" alt="logo">
             </a>
@@ -20,7 +20,7 @@
             <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
             <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
                 <li>
-                    <a href="#"><span class="title">Home</span></a>
+                    <a href="{{ path('home_bdmk') }}"><span class="title">Accueil</span></a>
                 </li>
                 <li>
                     <a href="{{ path('contact_bdmk') }}"><span class="title">Contact</span></a>
@@ -28,7 +28,7 @@
                 <li>
                     <a href="#"><i class="fa fa-plus-circle"></i>Déposer une annonce</a>
                 </li>
-                <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg">Login/Register</span></a></li>
+                <li class="list-inline-item list_s"><a href="#" class="btn flaticon-user" data-toggle="modal" data-target=".bd-example-modal-lg"> <span class="dn-lg"> <i class="fa fa-user-circle"></i> Login/Register</span></a></li>
             </ul>
         </nav>
     </div>
