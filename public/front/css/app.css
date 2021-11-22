@@ -107,9 +107,8 @@ header.header-nav.menu_style_home_one .ace-responsive-menu li a {
 
 header.header-nav.menu_style_home_one .ace-responsive-menu li a,
 header.header-nav.menu_style_home_one .ace-responsive-menu li a .title {
-    color: #2a2a2ae3 !important;
-    font-family: 'Raleway', sans-serif !important;
-    font-weight: 600;
+    color: #222 !important;
+    font-weight: 700;
     font-size: .9rem;
 }
 
@@ -123,12 +122,6 @@ header.header-nav.menu_style_home_one .ace-responsive-menu li a .title {
 
 .header-nav .flaticon-user:before{
     display: none;
-}
-
-.copyright-widget p {
-    font-family: 'Montserrat', sans-serif !important;
-    font-weight: 300;
-    font-size: 13px;
 }
 
 header.header-nav a.navbar_brand{
@@ -181,10 +174,6 @@ header.header-nav a.navbar_brand{
     margin-top: 0;
 }
 
-.title-home {
-    margin-bottom: 20px;
-}
-
 .box-btn-gv-ann {
     margin: 30px 0;
     padding: 30px 0;
@@ -230,7 +219,7 @@ header.header-nav a.navbar_brand{
     display: block;
     font-weight: 700;
     color: #222;
-    font-size: 16px;
+    font-size: 22px;
     font-family: inherit;
     margin: .5em 0;
 }
@@ -305,5 +294,51 @@ header.header-nav a.navbar_brand{
 
 .main {
     background: #f7f7f796;
-    padding-bottom: 40px;
+    padding-bottom: 60px;
+}
+
+.rub-cat-title {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    color: #222;
+}
+
+.cat-list-by-rub li {
+    font-size: 16px;
+    color: #22222285;
+    font-weight: 600;
+}
+
+.rub-box-bdmk:not(:last-child)::after {
+    content: '';
+    width: 100%;
+    height: 1px;
+    display: block;
+    background: #2222223d;
+    margin: 20px auto;
+}
+
+.rub-cat-bdmk {
+    background: #cecece69;
+}
+
+.btn-bdmk-mb {
+    background: var(--main-orange-color);
+    color: #fff;
+    font-weight: 600;
+}
+
+.mm-navbar__title {
+    font-weight: bold;
+}
+@media (min-width: 768px) {
+    .title-home{
+        font-size: 36px !important;
+    }
+}
+
+.title-home {
+    margin-bottom: 20px;
+    font-size: 20px;
 }
