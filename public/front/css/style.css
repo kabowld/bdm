@@ -6997,6 +6997,11 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_middle_area{
   border-top: 1px solid #f7f7f75e;
   background-color: #323232;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
 }
 .footer_bottom_area {
   background-color: #484848;
@@ -8901,9 +8906,7 @@ a.btn.btn_error{
 
 
 /*== LogIn Register Page ==*/
-.our-log {
-  background-color: #f9fafc;
-}
+
 .login_form {
   padding: 0;
 }
@@ -8917,7 +8920,7 @@ a.btn.btn_error{
   background-color: #ffffff;
   bottom: 0;
   color: #006c70;
-  content: "Or";
+  content: "Ou";
   font-size: 14px;
   position: absolute;
   left: 0;
@@ -8943,7 +8946,8 @@ a.btn.btn_error{
   padding-top: 2px;
 }
 .login_form .btn-fpswd{
-  color: #8b91dd;
+  color: #222;
+  font-weight:bold;
   font-size: 14px;
   font-family: "Nunito";
   line-height: 2.214;
@@ -9069,11 +9073,11 @@ a.btn.btn_error{
 }
 .login_form .btn-log {
   border-radius: 8px;
-  background-color: #ff5a5f;
-  -webkit-box-shadow:0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-  -moz-box-shadow:0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-  -o-box-shadow:0px 1px 4px 0px rgba(255, 90, 95, 0.3);
-  box-shadow:0px 1px 4px 0px rgba(255, 90, 95, 0.3);
+  background-color: #F77F00;
+  -webkit-box-shadow:0px 1px 4px 0px rgba(247, 127, 0, 0.3);
+  -moz-box-shadow:0px 1px 4px 0px rgba(247, 127, 0, 0.3);
+  -o-box-shadow:0px 1px 4px 0px rgba(247, 127, 0, 0.3);
+  box-shadow:0px 1px 4px 0px rgba(247, 127, 0, 0.3);
   color: #ffffff;
   font-family: "Nunito";
   font-size: 16px;
@@ -12996,13 +13000,14 @@ a.btn.btn_error{
   width: 100% !important;
 }
 .text-thm {
-  color: #ff5a5f !important;
+  color: #F77F00 !important;
+  font-weight: bold;
 }
 .hvr-text-thm:hover {
-  color: #ff5a5f !important;
+  color: #F77F00 !important;
 }
 .text-thm2 {
-  color: #ff787c !important;
+  color: #F77F00 !important;
 }
 .text-thm3 {
   color: #006c70 !important;
@@ -13014,7 +13019,7 @@ a.btn.btn_error{
   color: #192675;
 }
 .text-thm6 {
-  color: #ff1053;
+  color: #F77F00;
 }
 .color-white {
   color: #ffffff !important;
@@ -13268,9 +13273,7 @@ a.btn.btn_error{
 .bgc-f9 {
   background-color: #f9f9f9;
 }
-.bgc-fa {
-  background-color: #fafafa !important;
-}
+
 .bgc-transparent {
   background-color: transparent !important;
 }
@@ -13372,20 +13375,20 @@ a.btn.btn_error{
 .btn-thm:hover,
 .btn-thm:active,
 .btn-thm:focus{
-  background-color: #ffffff;
-  border-color: #ff5a5f;
-  color: #ff5a5f; }
+  background-color: #F77F00;
+  border-color: #F77F00;
+  color: #F77F00; }
 
 .btn-thm.white:hover,
 .btn-thm.white:active,
 .btn-thm.white:focus{
-  background-color: #ff5a5f;
-  border-color: #ff5a5f;
+  background-color: #F77F00;
+  border-color: #F77F00;
   color: #ffffff;  
 }
 .btn-thm2 {
-  background-color: #ff787c;
-  border-color: #ff787c;
+  background-color: #F77F00;
+  border-color: #F77F00;
   color: #ffffff;
   border-radius: 0px;
   -webkit-transition: all 0.3s ease;
@@ -13396,8 +13399,8 @@ a.btn.btn_error{
 .btn-thm2:active,
 .btn-thm2:focus {
   background-color: #ffffff;
-  border-color: #ff787c;
-  color: #ff787c; }
+  border-color: #F77F00;
+  color: #F77F00; }
 
 .btn-thm3 {
   background-color: #ff1053;

@@ -332,13 +332,49 @@ header.header-nav a.navbar_brand{
 .mm-navbar__title {
     font-weight: bold;
 }
-@media (min-width: 768px) {
-    .title-home{
-        font-size: 36px !important;
-    }
-}
+
 
 .title-home {
     margin-bottom: 20px;
     font-size: 20px;
+}
+
+.login_form.inner_page {
+    padding: 25px;
+    box-shadow: 0 0 10px 0 rgb(0 0 0 / 15%);
+    border-radius: 7px;
+    background: #fff;
+    width: 100%;
+}
+
+.stylehome1.h0 {
+    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 10%);
+}
+
+.txt-cg{
+    font-weight: bold;
+}
+
+.rl_bdmk{
+    display: block;
+}
+
+.text-underline{
+    text-decoration: underline;
+}
+
+@media (min-width: 768px) {
+    .title-home{
+        font-size: 36px !important;
+    }
+
+    .login_form.inner_page {
+        width: 550px;
+    }
+
+    .rl_bdmk{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 }
