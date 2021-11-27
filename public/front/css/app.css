@@ -189,12 +189,14 @@ header.header-nav a.navbar_brand{
     padding: 0.5em 1em;
     border-radius: 5px;
     border: 2px solid var(--main-green-color);
+    transition: .3s all ease-in-out;
 }
 
 
 .btn-gv-ann:hover {
     background: #fff;
-    color: var(--main-green-color);
+    color: var(--main-green-color) !important;
+    transition: .3s all ease-in;
 }
 
 .search-home {
