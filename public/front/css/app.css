@@ -35,7 +35,7 @@
 }
 
 .map__image svg {
-    width: 50%;
+    width: 100%;
 }
 
 
@@ -376,5 +376,9 @@ header.header-nav a.navbar_brand{
         display: flex;
         justify-content: center;
         align-items: center;
+    }
+
+    .map__image svg {
+        width: 50%;
     }
 }

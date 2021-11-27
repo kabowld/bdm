@@ -62,12 +62,38 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $groupe;
+    private Groupe $groupe;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private bool $isVerified;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetToken;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $resetAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confirmatoken;
+
+    /**
+     * @ORM\Column(type="datetime_immutable", nullable=true)
+     */
+    private $confirmationAt;
 
     public function __construct()
     {
         $this->enabled = false;
         $this->createdAt = new \DateTimeImmutable();
+        $this->isVerified = false;
     }
 
     public function getId(): ?int
@@ -285,6 +311,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setGroupe(?Groupe $groupe): self
     {
         $this->groupe = $groupe;
+
+        return $this;
+    }
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    public function getResetToken(): ?string
+    {
+        return $this->resetToken;
+    }
+
+    public function setResetToken(?string $resetToken): self
+    {
+        $this->resetToken = $resetToken;
+
+        return $this;
+    }
+
+    public function getResetAt(): ?\DateTimeImmutable
+    {
+        return $this->resetAt;
+    }
+
+    public function setResetAt(?\DateTimeImmutable $resetAt): self
+    {
+        $this->resetAt = $resetAt;
+
+        return $this;
+    }
+
+    public function getConfirmatoken(): ?string
+    {
+        return $this->confirmatoken;
+    }
+
+    public function setConfirmatoken(?string $confirmatoken): self
+    {
+        $this->confirmatoken = $confirmatoken;
+
+        return $this;
+    }
+
+    public function getConfirmationAt(): ?\DateTimeImmutable
+    {
+        return $this->confirmationAt;
+    }
+
+    public function setConfirmationAt(?\DateTimeImmutable $confirmationAt): self
+    {
+        $this->confirmationAt = $confirmationAt;
 
         return $this;
     }
