@@ -321,7 +321,7 @@
 	.our-dashbord:before {width: 34% !important;}
 	.footer_social_widget li {margin-right: 0 !important;}
 	.m_box.our-dashbord:before {width: 33%;}
-	.sign_up_form.inner_page,.login_form.inner_page{padding: 0;}
+	.sign_up_form.inner_page,.login_form.inner_page{padding: 25px;}
 
 	header.header-nav.menu_style_home_five .ace-responsive-menu li a{padding: 22px 10px 12px 10px;}
 	.home_slider2 i.left{left: 15px;}

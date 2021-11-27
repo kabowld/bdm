@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
  * @ORM\Table(name="`user`")
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -57,30 +59,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $confirmationToken;
-
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $confirmationAt;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $resetToken;
-
-    /**
-     * @ORM\Column(type="datetime_immutable", nullable=true)
-     */
-    private $resetAt;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="users")
      * @ORM\JoinColumn(nullable=false)
      */
     private $groupe;
+
+    public function __construct()
+    {
+        $this->enabled = false;
+        $this->createdAt = new \DateTimeImmutable();
+    }
 
     public function getId(): ?int
     {
@@ -117,7 +105,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return (string) $this->email;
     }
 
-    public function addRole($role)
+    /**
+     * @param $role
+     *
+     * @return $this
+     */
+    public function addRole($role): self
     {
         $role = strtoupper($role);
 
@@ -128,7 +121,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function hasRole($role)
+    /**
+     * @param $role
+     *
+     * @return bool
+     */
+    public function hasRole(string $role): bool
     {
         return in_array(strtoupper($role), $this->getRoles(), true);
     }
@@ -139,12 +137,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
+    /**
+     * @param array $roles
+     *
+     * @return $this
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -152,7 +153,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function removeRole($role)
+    /**
+     * @param $role
+     *
+     * @return $this
+     */
+    public function removeRole(string $role)
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
@@ -170,6 +176,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->password;
     }
 
+    /**
+     * @param string $password
+     *
+     * @return $this
+     */
     public function setPassword(string $password): self
     {
         $this->password = $password;
@@ -197,11 +208,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         // $this->plainPassword = null;
     }
 
+    /**
+     * @return bool|null
+     */
     public function isEnabled(): ?bool
     {
         return $this->enabled;
     }
 
+    /**
+     * @param bool $enabled
+     *
+     * @return $this
+     */
     public function setEnabled(bool $enabled): self
     {
         $this->enabled = $enabled;
@@ -238,6 +257,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->updatedAt;
     }
 
+    /**
+     * @param \DateTimeImmutable|null $updatedAt
+     *
+     * @return $this
+     */
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
@@ -245,63 +269,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getConfirmationToken(): ?string
-    {
-        return $this->confirmationToken;
-    }
-
-    public function setConfirmationToken(?string $confirmationToken): self
-    {
-        $this->confirmationToken = $confirmationToken;
-
-        return $this;
-    }
-
-    public function getConfirmationAt(): ?\DateTimeImmutable
-    {
-        return $this->confirmationAt;
-    }
-
-    public function setConfirmationAt(?\DateTimeImmutable $confirmationAt): self
-    {
-        $this->confirmationAt = $confirmationAt;
-
-        return $this;
-    }
-
-    public function getResetToken(): ?string
-    {
-        return $this->resetToken;
-    }
-
-    public function setResetToken(?string $resetToken): self
-    {
-        $this->resetToken = $resetToken;
-
-        return $this;
-    }
-
-    public function getResetAt(): ?\DateTimeImmutable
-    {
-        return $this->resetAt;
-    }
-
-    public function setResetAt(?\DateTimeImmutable $resetAt): self
-    {
-        $this->resetAt = $resetAt;
-
-        return $this;
-    }
-
+    /**
+     * @return Groupe|null
+     */
     public function getGroupe(): ?Groupe
     {
         return $this->groupe;
     }
 
+    /**
+     * @param Groupe|null $groupe
+     *
+     * @return $this
+     */
     public function setGroupe(?Groupe $groupe): self
     {
         $this->groupe = $groupe;
 
         return $this;
     }
+
 }

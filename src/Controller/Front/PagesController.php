@@ -79,27 +79,5 @@ class PagesController extends AbstractController
         return $this->render('Front/Pages/condition-general.html.twig');
     }
 
-    /**
-     * About Action Controller
-     *
-     * @Route("/se-connecter", name="login_bdmk", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function login(): Response
-    {
-        return $this->render('Front/Pages/login.html.twig');
-    }
 
-    /**
-     * About Action Controller
-     *
-     * @Route("/inscription", name="register_bdmk", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function register(): Response
-    {
-        return $this->render('Front/Pages/register.html.twig');
-    }
 }

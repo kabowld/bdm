@@ -1,0 +1,50 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Se connecter' %}
+
+{% block content %}
+
+    <!-- Our LogIn Register -->
+    <section class="our-log bgc-fa">
+        <div class="container rl_bdmk">
+            <div class="login_form inner_page">
+                <form action="{{ path('login_bdmk') }}" method="post">
+                    <div class="heading">
+                        <h3 class="text-center txt-cg">Connectez-vous à votre compte</h3>
+                        <p class="text-center">Avez-vous déjà un compte? <a class="text-thm text-underline" href="{{ path('register_bdmk') }}">Inscrivez-vous !</a></p>
+                    </div>
+                    {% if error %}
+                        <div class="alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                    {% endif %}
+                    <div class="form-group">
+                        <input type="email" name="_username" value="{{ last_username }}" class="form-control" id="exampleInputEmail3" placeholder="Votre mail" required="required">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="_password" class="form-control" id="exampleInputPassword4" placeholder="Mot de passe" required="required">
+                    </div>
+                    <div class="form-group custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="_remember_me" id="exampleCheck3">
+                        <label class="custom-control-label txt-cg" for="exampleCheck3">Se souvenir de moi</label>
+                        <a class="tdu btn-fpswd float-right" href="#">Mot de passe oublié?</a>
+                    </div>
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                    <button type="submit" class="btn btn-log btn-block btn-thm2">Se connecter</button>
+                    <div class="divide">
+                        <hr>
+                    </div>
+                    <div class="row mt40">
+                        <div class="col-lg">
+                            <button type="submit" class="btn btn-block color-white bgc-fb mb0"><i class="fa fa-facebook float-left mt5"></i> Facebook</button>
+                        </div>
+                        <div class="col-lg">
+                            <button type="submit" class="btn btn2 btn-block color-white bgc-gogle mb0"><i class="fa fa-google float-left mt5"></i> Google</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+{% block footer %}
+    {% include 'Front/Inc/footer_copyright.html.twig' %}
+{% endblock %}
