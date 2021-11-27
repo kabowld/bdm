@@ -194,7 +194,7 @@ header.header-nav a.navbar_brand{
 
 .btn-gv-ann:hover {
     background: #fff;
-    color: var(--main-green-color);
+    color: var(--main-green-color) !important;
 }
 
 .search-home {
