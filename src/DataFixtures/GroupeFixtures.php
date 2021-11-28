@@ -17,13 +17,13 @@ class GroupeFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $tab = $this->rolesList();
-        for ($i = 0; $i < 3; $i++) {
+        //for ($i = 0; $i < 3; $i++) {
             $groupe = new Groupe();
             $groupe
-                ->setTitle($tab['title'][$i])
-                ->setRole($tab['role'][$i]);
+                ->setTitle($tab['title'][2])
+                ->setRole($tab['role'][2]);
             $manager->persist($groupe);
-        }
+        //}
 
         $manager->flush();
     }
@@ -36,8 +36,8 @@ class GroupeFixtures extends Fixture implements FixtureGroupInterface
     private function rolesList(): array
     {
         return [
-            'title' => ['SuperAdmin', 'Admin', 'User'],
-            'role' => ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_USER']
+            'title' => ['SuperAdmin', 'Admin', 'Professionel', 'User'],
+            'role' => ['ROLE_SUPER_ADMIN', 'ROLE_ADMIN', 'ROLE_PRO', 'ROLE_USER']
         ];
     }
 

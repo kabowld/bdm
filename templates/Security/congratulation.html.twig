@@ -1,0 +1,13 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Félicitation compte créé' %}
+
+
+{% block content %}
+    <div class="box_congratulation container">
+        <h1 class="congrat_title">Bravo, votre compte a été créé avec succès !</h1>
+        <div class="congrat_text">
+            Un email vient de vous êtes envoyé sur votre adresse mail <span class="color-mail-congrat">{{ email }}</span>, afin de validé votre compte !
+        </div>
+    </div>
+{% endblock %}

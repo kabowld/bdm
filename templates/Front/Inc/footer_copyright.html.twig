@@ -1,11 +1,32 @@
-<section class="footer_middle_area pt20 pb20">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12 col-xl-12">
-                <div class="copyright-widget text-center">
-                    <p>Bandama Market - 2022</p>
+{% if
+    app.request.attributes.get('_route') == 'registration_bdmk' or
+    app.request.attributes.get('_route') == 'login_bdmk'
+%}
+    <section class="footer-fixed pt20 pb20">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="copyright-widget text-center">
+                        <p>Bandama Market - 2022</p>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+{% else %}
+    <section class="footer_middle_area pt20 pb20">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="copyright-widget text-center">
+                        <p>Bandama Market - 2022</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endif %}
+
+
+
+

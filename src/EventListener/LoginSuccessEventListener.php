@@ -3,7 +3,7 @@
 namespace App\EventListener;
 
 use App\Entity\User;
-use App\Services\HandlingUser;
+use App\Service\HandlingUser;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
 
 class LoginSuccessEventListener
