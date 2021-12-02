@@ -31,15 +31,4 @@ class SecurityController extends AbstractController
         ]);
     }
 
-    /**
-     * Register Action
-     *
-     * @Route("/inscription", name="register_bdmk", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function register(): Response
-    {
-        return $this->render('Security/register.html.twig');
-    }
 }

@@ -11,7 +11,7 @@
                 <form action="{{ path('login_bdmk') }}" method="post">
                     <div class="heading">
                         <h3 class="text-center txt-cg">Connectez-vous à votre compte</h3>
-                        <p class="text-center">Avez-vous déjà un compte? <a class="text-thm text-underline" href="{{ path('register_bdmk') }}">Inscrivez-vous !</a></p>
+                        <p class="text-center">Avez-vous déjà un compte? <a class="text-thm text-underline" href="{{ path('choice_registration_bdmk') }}">Inscrivez-vous !</a></p>
                     </div>
                     {% if error %}
                         <div class="alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>

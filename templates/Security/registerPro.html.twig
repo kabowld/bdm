@@ -1,0 +1,70 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Créez votre compte professionnel' %}
+
+{% block content %}
+    <main class="main-register">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                    <div class="form_register">
+                        <div class="heading">
+                            <h3 class="text-center">Créer votre compte professionnel</h3>
+                            <p class="text-center">Avez-vous déjà un compte ? <a class="text-thm" href="{{ path('login_bdmk') }}">Connectez-vous !</a></p>
+                        </div>
+                        <div class="details">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    {{ form_row(form.civility) }}
+                                </div>
+                                <div class="col-md-6 col-sm-12 form-group">
+                                    {{ form_row(form.siret) }}
+                                </div>
+                                <div class="form-group col-sm-12 col-md-6">
+                                    {{ form_row(form.societyName) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_row(form.rubrique) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_row(form.tel) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_row(form.city) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_row(form.adresse) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_row(form.name) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_row(form.firstname) }}
+                                </div>
+                                <hr />
+                                <div class="form-group col-md-6 col-lg-6 col-sm-12">
+                                    {{ form_row(form.email) }}
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-sm-12">
+                                    {{ form_row(form.password.first) }}
+                                </div>
+                                <div class="form-group col-md-6 col-lg-6 col-sm-12">
+                                    {{ form_row(form.password.second) }}
+                                </div>
+                                <div class="col-md-12">
+                                    {{ form_widget(form.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
+
+{% block footer %}
+    {% include 'Front/Inc/footer_copyright.html.twig' %}
+{% endblock %}

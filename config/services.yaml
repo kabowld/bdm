@@ -4,13 +4,19 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
+    app.url_local.dev: 'http://app-bdm.lab'
+    app.url_local.prod: 'http://dev-space.bandama-market.com'
+    app.email_admin: 'info@bandama-market.com'
+    app.admin_name: 'Bandama Market'
 
 services:
     # default configuration for services in *this* file
     _defaults:
         autowire: true      # Automatically injects dependencies in your services.
         autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
-
+        bind:
+            $senderTo: '%app.email_admin%'
+            $senderName: '%app.admin_name%'
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
     App\:
@@ -32,3 +38,15 @@ services:
     App\EventListener\AuthenticationSuccessListener:
         tags:
             - { name: kernel.event_listener, method: onAuthenticationSuccessEvent, dispatcher: security.event_dispatcher.main }
+
+
+    # EventListener Entity User Doctrine
+    App\EventDoctrine\User\RegistrationUser:
+        tags:
+            -
+                name: 'doctrine.orm.entity_listener'
+                event: 'postPersist'
+                entity: 'App\Entity\User'
+                dispatcher: 'security.event_dispatcher.main'
+                lazy: true
+

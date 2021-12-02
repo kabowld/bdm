@@ -1,0 +1,41 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Création de compte' %}
+
+
+{% block content %}
+   <main class="choice_registration">
+        <div class="container">
+            <h1 class="main_title_ch_r">Bienvenue !</h1>
+            <span class="subtitle_ch_r">Faites le choix de création de votre compte</span>
+            <div class="row">
+                <div class="col-md-12 col-lg-6 col-sm-12 fx_ch_r">
+                    <div class="box_ch_r">
+                        <h3 class="title_ch_r">Compte personnel</h3>
+                        <ul class="liste_ch_r">
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                        </ul>
+                        <a href="{{ path('registration_bdmk') }}" class="link_ch_r">Créer votre compte</a>
+                    </div>
+                </div>
+                <div class="col-md-12 col-lg-6 col-sm-12">
+                    <div class="box_ch_r">
+                        <h3 class="title_ch_r">Compte professionel</h3>
+                        <ul class="liste_ch_r">
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                            <li class="ch_r"><i class="fa fa-check"></i> Fusce metus ante, tincidunt non mi sed, varius commodo erat</li>
+                        </ul>
+                        <a href="{{ path('registration_pro_bdmk') }}" class="link_ch_r">Créer votre compte</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </main>
+{% endblock %}

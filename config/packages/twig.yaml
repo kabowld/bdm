@@ -1,6 +1,10 @@
 twig:
     default_path: '%kernel.project_dir%/templates'
+    paths:
+        '%kernel.project_dir%/public/front/images/email': emails
 
 when@test:
     twig:
         strict_variables: true
+        form_themes: ['bootstrap_4_horizontal_layout.html.twig']
+

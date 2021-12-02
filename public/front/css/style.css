@@ -6997,7 +6997,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_middle_area{
   border-top: 1px solid #f7f7f75e;
   background-color: #323232;
-  position: fixed;
+  position: relative;
   bottom: 0;
   right: 0;
   left: 0;
@@ -9071,8 +9071,9 @@ a.btn.btn_error{
   font-size: 14px;
   padding-left: 8px;
 }
-.login_form .btn-log {
-  border-radius: 8px;
+.login_form .btn-log, .form_register button {
+  margin-top: 2em;
+  border-radius: 4px;
   background-color: #F77F00;
   -webkit-box-shadow:0px 1px 4px 0px rgba(247, 127, 0, 0.3);
   -moz-box-shadow:0px 1px 4px 0px rgba(247, 127, 0, 0.3);
@@ -13398,9 +13399,10 @@ a.btn.btn_error{
 .btn-thm2:hover,
 .btn-thm2:active,
 .btn-thm2:focus {
-  background-color: #ffffff;
-  border-color: #F77F00;
-  color: #F77F00; }
+  background-color: #d97102;
+  border-color: #d97102;
+  color: #fff;
+}
 
 .btn-thm3 {
   background-color: #ff1053;

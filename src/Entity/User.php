@@ -20,43 +20,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      */
-    private $email;
+    private string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
      */
-    private $password;
+    private string $password;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $enabled;
+    private bool $enabled;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $lastLogin;
+    private ?\DateTimeImmutable $lastLogin;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private $createdAt;
+    private \DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $updatedAt;
+    private ?\DateTimeImmutable $updatedAt;
 
     /**
      * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="users")
@@ -72,22 +72,69 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $resetToken;
+    private ?string $resetToken;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $resetAt;
+    private ?\DateTimeImmutable $resetAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $confirmatoken;
+    private ?string $confirmatoken;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $confirmationAt;
+    private ?\DateTimeImmutable $confirmationAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $firstname;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private ?string $siret;
+
+    /**
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
+    private ?string $societyName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private ?string $adresse;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private ?string $tel;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     */
+    private ?string $civility;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Rubrique::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Rubrique $rubrique;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=City::class, inversedBy="users")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?City $city;
 
     public function __construct()
     {
@@ -304,11 +351,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @param Groupe|null $groupe
+     * @param Groupe $groupe
      *
      * @return $this
      */
-    public function setGroupe(?Groupe $groupe): self
+    public function setGroupe(Groupe $groupe): self
     {
         $this->groupe = $groupe;
 
@@ -375,4 +422,120 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): self
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function getFirstname(): ?string
+    {
+        return $this->firstname;
+    }
+
+    public function setFirstname(?string $firstname): self
+    {
+        $this->firstname = $firstname;
+
+        return $this;
+    }
+
+    public function getSiret(): ?string
+    {
+        return $this->siret;
+    }
+
+    public function setSiret(?string $siret): self
+    {
+        $this->siret = $siret;
+
+        return $this;
+    }
+
+    public function getSocietyName(): ?string
+    {
+        return $this->societyName;
+    }
+
+    public function setSocietyName(?string $societyName): self
+    {
+        $this->societyName = $societyName;
+
+        return $this;
+    }
+
+    public function getAdresse(): ?string
+    {
+        return $this->adresse;
+    }
+
+    public function setAdresse(?string $adresse): self
+    {
+        $this->adresse = $adresse;
+
+        return $this;
+    }
+
+    public function getTel(): ?string
+    {
+        return $this->tel;
+    }
+
+    public function setTel(?string $tel): self
+    {
+        $this->tel = $tel;
+
+        return $this;
+    }
+
+    public function getCivility(): ?string
+    {
+        return $this->civility;
+    }
+
+    public function setCivility(?string $civility): self
+    {
+        $this->civility = $civility;
+
+        return $this;
+    }
+
+    public function getRubrique(): ?Rubrique
+    {
+        return $this->rubrique;
+    }
+
+    public function setRubrique(?Rubrique $rubrique): self
+    {
+        $this->rubrique = $rubrique;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public static function listCivility(): array
+    {
+        return [
+            'Monsieur' => 'monsieur',
+            'Madame' => 'madame',
+            'Mademoiselle' => 'mademoiselle',
+        ];
+    }
 }
