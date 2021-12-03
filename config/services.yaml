@@ -39,6 +39,10 @@ services:
         tags:
             - { name: kernel.event_listener, method: onAuthenticationSuccessEvent, dispatcher: security.event_dispatcher.main }
 
+    App\EventListener\ExceptionListener:
+        tags:
+            - { name: kernel.event_listener, method: onKernelException, event: kernel.exception }
+
 
     # EventListener Entity User Doctrine
     App\EventDoctrine\User\RegistrationUser:

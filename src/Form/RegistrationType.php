@@ -70,7 +70,8 @@ class RegistrationType extends AbstractType
                 'class' => City::class,
                 'label' => 'Ville',
                 'choice_label' => 'slug',
-                'attr' => ['class' => 'form-control select-field', 'placeholder' => 'Sélectionner votre ville',]
+                'placeholder' => 'Sélectionner votre ville',
+                'attr' => ['class' => 'form-control select-field']
             ])
             ->add('tel', TextType::class, [
                 'attr' => ['placeholder' => 'Saisir votre numéro de téléphone', 'class' => 'form-control'],
@@ -86,7 +87,8 @@ class RegistrationType extends AbstractType
                 'class' => Rubrique::class,
                 'label' => 'Catégorie de votre activité',
                 'choice_label' => 'title',
-                'attr' => ['placeholder' => 'Catégorie de votre activité', 'class' => 'form-control']
+                'placeholder' => 'Sélectionner la catégorie de votre activité',
+                'attr' => [ 'class' => 'form-control select-field']
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',

@@ -43,7 +43,7 @@
                 <img style="width: 120px; height: auto" class="nav_logo_img img-fluid mt20" src="{{ asset('front/images/logo.png') }}" alt="logo">
             </div>
             <ul class="menu_bar_home2">
-                <li class="list-inline-item list_s"><a href="page-register.html"><span class="flaticon-user"></span></a></li>
+                <li class="list-inline-item list_s"><a href="{{ path('choice_registration_bdmk') }}"><span class="flaticon-user"></span></a></li>
                 <li class="list-inline-item"><a href="#menu"><span></span></a></li>
             </ul>
         </div>
@@ -53,8 +53,8 @@
             <li>
                 <a href="{{ path('home_bdmk') }}">Accueil</a>
             </li>
-            <li><a href="#"><span class="flaticon-user"></span> Se connecter</a></li>
-            <li><a href="#"><span class="flaticon-edit"></span> S'inscrire</a></li>
+            <li><a href="{{ path('login_bdmk') }}"><span class="flaticon-user"></span> Se connecter</a></li>
+            <li><a href="{{ path('choice_registration_bdmk') }}"><span class="flaticon-edit"></span> S'inscrire</a></li>
             <li class="cl_btn"><a href="#" class="btn btn-block btn-lg btn-bdmk-mb circle mm-listitem__text"><i class="fa fa-plus"></i> Déposer une annonce</a>
         </ul>
     </nav>

@@ -1,0 +1,25 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title %}Erreur {{ statusCode }}{% endblock %}
+
+{% block content %}
+    <section class="our-error bgc-f7">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-10 offset-lg-1 text-center">
+                    <div class="error_page footer_apps_widget">
+                        <img class="img-fluid" src="{{ asset('front/images/error.png') }}" alt="error.png">
+                        <div class="erro_code"><h1>Erreur {{ statusCode }}</h1></div>
+                        <p>{{ message }}</p>
+                        {#<form class="form-inline mailchimp_form">
+                            <label class="sr-only" for="inlineFormInputName">Name</label>
+                            <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName" placeholder="Search">
+                            <button type="submit" class="btn btn-primary mb-2"><span class="flaticon-magnifying-glass"></span></button>
+                        </form>#}
+                    </div>
+                    <a class="btn btn_error btn-thm" href="{{ path('home_bdmk') }}">Retour à l'accueil</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
