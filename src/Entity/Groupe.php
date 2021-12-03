@@ -6,6 +6,7 @@ use App\Repository\GroupeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=GroupeRepository::class)
@@ -17,22 +18,27 @@ class Groupe
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private int $id;
 
     /**
+     * @Assert\NotBlank(message="Le titre ne doit pas être vide !")
+     * @Assert\Length(max=50, maxMessage="Le titre doit comporter {{ limit }} caractères maximum !")
      * @ORM\Column(type="string", length=50)
      */
-    private $title;
+    private string $title;
 
     /**
+     * @Assert\NotBlank(message="Le rôle ne doit pas être vide !")
+     * @Assert\Length(max=50, maxMessage="Le rôle doit comporter {{ limit }} caractères maximum !")
+     * @Assert\Regex(pattern="/^ROLE_/", message="Syntaxe incorrecte pour le rôle !")
      * @ORM\Column(type="string", length=50)
      */
-    private $role;
+    private string $role;
 
     /**
      * @ORM\OneToMany(targetEntity=User::class, mappedBy="groupe")
      */
-    private $users;
+    private Collection $users;
 
     public function __construct()
     {

@@ -175,14 +175,14 @@ header.header-nav a.navbar_brand{
 }
 
 .link_ch_r {
-    background: var(--main-orange-color);
+    background: var(--main-green-color);
     color: #fff;
-    border: 1px solid var(--main-orange-color);
+    border: 1px solid var(--main-green-color);
 }
 
 .link_ch_r:hover {
-    background-color: #d97102;
-    border-color: #d97102;
+    background-color: #146947;
+    border-color: #009E60;
     color: #fff;
 }
 
@@ -537,20 +537,28 @@ label[for="registration_city"] {
     text-align: center;
     font-weight: 600;
     font-size: 18px;
-    text-decoration: underline;
+    margin: 0 auto;
+    border: 2px solid var(--main-green-color);
+    padding: 0.5em 0;
+    color: #fff;
+    background: var(--main-green-color);
 }
 
 .liste_ch_r {
     margin: 2rem 0;
 }
-.ch_r i {
-    color: #009E60;
+.ch_r i.fa-check {
+    color: var(--main-green-color);
+}
+
+.ch_r i.fa-ban {
+    color: var(--main-orange-color);
 }
 
 .ch_r {
     color: #222;
     font-size: 15px;
-    font-weight: 400;
+    font-weight: 600;
     margin: 1.5em 0;
     text-align: center;
 }
@@ -561,9 +569,9 @@ label[for="registration_city"] {
 }
 
 .link_ch_r {
-    background: var(--main-orange-color);
+    background: var(--main-green-color);
     color: #fff;
-    border: 1px solid var(--main-orange-color);
+    border: 1px solid var(--main-green-color);
     font-size: 13px;
     font-weight: 600;
     padding: 0.7em;
@@ -578,6 +586,10 @@ label[for="registration_city"] {
     background: #2226;
     height: 1px;
     margin: 0 auto 40px;
+}
+
+.link_hct{
+    color: var(--main-orange-color);
 }
 
 @media (min-width: 992px) {
