@@ -47,4 +47,16 @@ class CityRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return int|mixed|string
+     */
+    public function getCitiesByOrderTitle()
+    {
+        return $this->createQueryBuilder('c')
+            ->orderBy('c.title')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
