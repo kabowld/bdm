@@ -1,0 +1,67 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Modifier paramètre' %}
+
+{% block content %}
+    <main class="main-register">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-8 col-lg-8">
+                    <div class="form_register">
+                        <div class="heading">
+                            <h3 class="text-center">Vos informations</h3>
+                            <p class="text-center">Paramètres</p>
+                        </div>
+                        {% if error is defined %}
+                            <div class="alert alert-danger text-center">{{ error }}</div>
+                        {% endif %}
+                        <div class="details">
+                            {{ form_start(form) }}
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    {{ form_label(form.civility) }}
+                                    {{ form_widget(form.civility) }}
+                                    {{ form_errors(form.civility) }}
+                                </div>
+                                <div class="col-md-6 col-sm-12 form-group">
+                                    {{ form_label(form.name) }}
+                                    {{ form_widget(form.name) }}
+                                    {{ form_errors(form.name) }}
+                                </div>
+                                <div class="form-group col-sm-12 col-md-6">
+                                    {{ form_label(form.firstname) }}
+                                    {{ form_widget(form.firstname) }}
+                                    {{ form_errors(form.firstname) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_label(form.adresse) }}
+                                    {{ form_widget(form.adresse) }}
+                                    {{ form_errors(form.adresse) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_label(form.tel) }}
+                                    {{ form_widget(form.tel) }}
+                                    {{ form_errors(form.tel) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_label(form.email) }}
+                                    {{ form_widget(form.email) }}
+                                    {{ form_errors(form.email) }}
+                                </div>
+                                <div class="form-group col-md-6 col-sm-12">
+                                    {{ form_label(form.passwordVerify) }}
+                                    {{ form_widget(form.passwordVerify) }}
+                                    {{ form_errors(form.passwordVerify) }}
+                                </div>
+                                <div class="col-md-12">
+                                    {{ form_widget(form.save) }}
+                                </div>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
