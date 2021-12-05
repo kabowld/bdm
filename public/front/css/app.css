@@ -419,11 +419,11 @@ form input:focus {
     margin-top: 1em;
 }
 
-#registration_civility input {
+#registration_civility input, #profil_particular_civility input {
     margin-right: 5px;
 }
 
-#registration_civility label {
+#registration_civility label, #profil_particular_civility label {
     margin-right: 15px;
 }
 
