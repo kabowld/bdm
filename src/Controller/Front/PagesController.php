@@ -19,14 +19,14 @@ class PagesController extends AbstractController
      * @Route("/", name="home_bdmk", methods={"GET"})
      *
      * @param RubriqueRepository $rubriqueRepository
-     * @param CityRepository $cityRepository
+     * @param CityRepository     $cityRepository
      *
      * @return Response
      */
     public function index(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
     {
         return $this->render('Front/Pages/home.html.twig', [
-            'cities' => $cityRepository->findAll(),
+            'cities' => $cityRepository->getCitiesByOrderTitle(),
             'rubriques' => $rubriqueRepository->findAll()
         ]);
     }

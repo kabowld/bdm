@@ -28,7 +28,21 @@
                 <li>
                     <a href="#"><span class="give-annonce"><i class="fa fa-plus-circle"></i>Déposer une annonce</span></a>
                 </li>
-                <li class="list-inline-item list_s"><a href="{{ path('login_bdmk') }}" class="btn flaticon-user"> <span class="dn-lg"> <i class="fa fa-user-o"></i> Se connecter</span></a></li>
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" id="user-icon-header" data-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-user-circle-o icon-iuser"></i>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="{{ path('admin_dashboard_bdmk') }}"><i class="fa fa-dashboard"></i>Tableau de bord</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa fa-user-circle"></i> Mon profil</a></li>
+                            <li><a class="dropdown-item" href="#"><i class="fa fa-cog"></i> Paramètres</a></li>
+                            <li><a class="dropdown-item signout-head" href="{{ path('app_logout') }}"><i class="fa fa-sign-out"></i> Se déconnecter</a></li>
+                        </ul>
+                    </li>
+                {% else %}
+                    <li class="list-inline-item list_s"><a href="{{ path('login_bdmk') }}" class="btn flaticon-user"> <span class="dn-lg"> <i class="fa fa-user-o"></i> Se connecter</span></a></li>
+                {% endif %}
             </ul>
         </nav>
     </div>

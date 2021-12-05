@@ -1320,7 +1320,7 @@ header.header-nav.menu_style_home_eight .ace-responsive-menu li ul.sub-menu li:l
 }
 header.header-nav.menu_style_home_one .ace-responsive-menu li ul.sub-menu li a:hover,
 header.header-nav.menu_style_home_one .ace-responsive-menu li ul.sub-menu li ul.sub-menu {
-  color: #c75533;
+  color: #F77F00 !important;
   padding-left: 20px;
   box-shadow: none !important;
 }

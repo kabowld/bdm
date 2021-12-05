@@ -35,6 +35,8 @@ class RegistrationController extends AbstractController
      */
     public function choiceRegistration(): Response
     {
+        $this->handlingUser->redirectUserIfLogged();
+
         return $this->render('Security/choice_registration.html.twig');
     }
 
@@ -49,6 +51,8 @@ class RegistrationController extends AbstractController
      */
     public function registerParticular(Request $request): Response
     {
+        $this->handlingUser->redirectUserIfLogged();
+
         $user = new User();
         $form = $this->createForm(RegistrationParticular::class, $user);
         $form->handleRequest($request);
@@ -77,6 +81,8 @@ class RegistrationController extends AbstractController
      */
     public function registerPro(Request $request): Response
     {
+        $this->handlingUser->redirectUserIfLogged();
+
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
 

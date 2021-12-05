@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use App\Validator as BdmAssert;
+use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -34,6 +36,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     /**
      * @var string The hashed password
+     * @Assert\NotBlank(message="Le mot de passe ne doit pas être vide !")
+     * @BdmAssert\PasswordRules()
      * @ORM\Column(type="string")
      */
     private string $password;
