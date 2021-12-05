@@ -631,7 +631,11 @@ a.dropdown-item.signout-head{
     font-weight: 300;
 }
 
-
+.form-group ul li {
+    color: #d50000;
+    font-weight: 600;
+    font-size: 13px;
+}
 
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {

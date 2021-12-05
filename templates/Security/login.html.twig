@@ -14,7 +14,13 @@
                         <p class="text-center">Avez-vous déjà un compte? <a class="text-thm text-underline" href="{{ path('choice_registration_bdmk') }}">Inscrivez-vous !</a></p>
                     </div>
                     {% if error %}
-                        <div class="alert alert-danger text-center">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                        <div class="alert alert-danger text-center">
+                            {% if error.messageKey == 'Invalid credentials.' %}
+                                Le nom d'utilisateur ou le mot de passe est invalide !
+                            {% else %}
+                                {{ error.messageKey|trans(error.messageData, 'security') }}
+                            {% endif %}
+                        </div>
                     {% endif %}
                     <div class="form-group">
                         <input type="email" name="_username" value="{{ last_username }}" class="form-control" id="exampleInputEmail3" placeholder="Votre mail" required="required">

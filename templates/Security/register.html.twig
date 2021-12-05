@@ -15,13 +15,19 @@
                         <div class="details">
                             {{ form_start(form) }}
                                 <div class="form-group">
-                                    {{ form_row(form.email) }}
+                                    {{ form_label(form.email) }}
+                                    {{ form_widget(form.email) }}
+                                    {{ form_errors(form.email) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(form.password.first) }}
+                                    {{ form_label(form.password.first) }}
+                                    {{ form_widget(form.password.first) }}
+                                    {{ form_errors(form.password.first) }}
                                 </div>
                                 <div class="form-group">
-                                    {{ form_row(form.password.second) }}
+                                    {{ form_label(form.password.second) }}
+                                    {{ form_widget(form.password.second) }}
+                                    {{ form_errors(form.password.second) }}
                                 </div>
                                 {{ form_widget(form.save) }}
                             {{ form_end(form) }}

@@ -6,6 +6,9 @@ namespace App\Service;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareTrait;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Security\Core\Security;
 
 class HandlingUser
 {
@@ -14,15 +17,20 @@ class HandlingUser
     const MESS_ERROR_RANDOM_STR = 'Random string error: %s';
 
     private $em;
+    private $security;
+    private $urlGenerator;
 
     /**
      * HandlingUser constructor.
      *
      * @param EntityManagerInterface $em
+     * @param Security               $security
      */
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, Security $security, UrlGeneratorInterface $urlGenerator)
     {
         $this->em = $em;
+        $this->security = $security;
+        $this->urlGenerator = $urlGenerator;
     }
 
     /**
@@ -47,9 +55,7 @@ class HandlingUser
     public function setConfirmationToken(int $length)
     {
         try {
-
             return bin2hex(random_bytes(60));
-
         } catch (\Exception $e) {
             $this->logger->error(sprintf(self::MESS_ERROR_RANDOM_STR, $e->getMessage()), ['exception' => $e]);
         }
@@ -57,5 +63,17 @@ class HandlingUser
         $alphabet = '0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN';
 
         return substr(str_shuffle(str_repeat($alphabet, $length)), 0, $length);
+    }
+
+    /**
+     * @return RedirectResponse|null
+     */
+    public function redirectUserIfLogged(): ?RedirectResponse
+    {
+        if ($this->security->getUser()) {
+            return new RedirectResponse($this->urlGenerator->generate('admin_dashboard_bdmk'));
+        }
+
+        return null;
     }
 }
