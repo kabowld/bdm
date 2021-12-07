@@ -4,8 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
-    app.url_local.dev: 'http://app-bdm.lab'
-    app.url_local.prod: 'http://dev-space.bandama-market.com'
+    app.url_local: 'https://bandama-market.com'
     app.email_admin: 'info@bandama-market.com'
     app.admin_name: 'Bandama Market'
 

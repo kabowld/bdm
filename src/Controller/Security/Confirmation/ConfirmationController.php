@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Security;
+namespace App\Controller\Security\Confirmation;
 
 
 use App\Entity\User;
@@ -25,13 +25,24 @@ class ConfirmationController extends AbstractController
         if (!$user) {
             throw $this->createNotFoundException('Error 404');
         }
+
+        /** @var User $user */
+        $today = new \DateTimeImmutable();
+        $result = $today->getTimestamp() - $user->getCreatedAt()->getTimestamp();
+        if ($result > 3600) {
+            $user
+                ->setConfirmatoken(null)
+            ;
+            $em->flush();
+
+            return new Response('Le lien a expiré !');
+        }
         /** @var User $user */
         $user
             ->setIsVerified(true)
             ->setConfirmatoken(null)
             ->setConfirmationAt(new \DateTimeImmutable())
             ->setEnabled(true)
-            ->setUpdatedAt(new \DateTimeImmutable())
         ;
         $em->flush();
 

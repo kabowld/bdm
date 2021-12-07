@@ -37,12 +37,14 @@ class SendMail
     }
 
     /**
-     * @param string $to
-     * @param string $subject
-     * @param string $tplPath
+     * @param string     $to
+     * @param string     $subject
+     * @param string     $tplPath
      * @param array|null $context
+     *
+     * @return void
      */
-    public function verifyAccountUser(string $to, string $subject, string $tplPath, ?array $context = [])
+    public function validAccountUser(string $to, string $subject, string $tplPath, ?array $context = []): void
     {
         try {
             $email = (new TemplatedEmail())

@@ -72,6 +72,8 @@
 <!-- Custom script for all pages -->
 <script type="text/javascript" src="{{ asset('front/js/script.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <script>
     $(function() {
         const map = $('#map');
@@ -111,6 +113,32 @@
         $('.mm-navbar__title').text('Navigation');
 
         $('.select-field').select2();
+
+
+        /* ==== recovery password === */
+        $('form#form-recovery-passwd').on('submit', function (e) {
+            e.preventDefault();
+            const email = $('#email-recovery').val();
+            if (email === '') {
+                console.error('saisir email');
+
+                return false;
+            }
+            $.ajax({
+                url: Routing.generate('recovery_password_bdmk'),
+                method: 'POST',
+                data: {email: email},
+                dataType: 'json'
+            }).done(function (data) {
+                if (data.state === "success") {
+                    $('#form-recovery-passwd').hide();
+                    $('#recovery-box-password').append('<div class="alert alert-success text-center">'+data.message+'</div>');
+                }
+            }).fail(function (jqXHR) {
+                console.log(jqXHR.responseJSON.message);
+                console.error('Erreur email');
+            });
+        });
     });
 </script>
 </body>

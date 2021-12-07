@@ -1,0 +1,3 @@
+
+parameters:
+    app.url_local: 'http://dev-space.bandama-market.com'

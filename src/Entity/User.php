@@ -542,4 +542,5 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             'Mademoiselle' => 'mademoiselle',
         ];
     }
+
 }

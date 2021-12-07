@@ -59,6 +59,6 @@ class PasswordRulesValidator extends ConstraintValidator
             preg_match_all('/[a-z]+/', $value) &&
             preg_match_all('/\d+/', $value) &&
             (strlen($value) >= self::MIN_LENGTH  &&  strlen($value) <= self::MAX_LENGTH)
-            ;
+        ;
     }
 }
