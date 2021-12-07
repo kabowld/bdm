@@ -79,6 +79,15 @@ class GroupeTest extends EntityTestCase {
         $this->assertHasErrors($groupe, 3);
     }
 
+    public function testUniqueRoleAndTitle(): void
+    {
+        $groupe = $this->getInstance()
+            ->setTitle('Admin')
+            ->setRole('ROLE_ADMIN')
+        ;
+        $this->assertHasErrors($groupe, 2);
+    }
+
     private function  getInstance(): Groupe
     {
         return new Groupe();
