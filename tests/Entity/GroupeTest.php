@@ -13,8 +13,7 @@ class GroupeTest extends EntityTestCase {
      */
     public function testGoodLengthAndSyntaxForTitleAndRole(): void
     {
-        $groupe = new Groupe();
-        $groupe
+        $groupe = $this->getInstance()
             ->setTitle('testTitleRole')
             ->setRole('ROLE_TEST')
         ;
@@ -28,8 +27,7 @@ class GroupeTest extends EntityTestCase {
      */
     public function testWithEmptyValueForTitleAndRole(): void
     {
-        $groupe = new Groupe();
-        $groupe
+        $groupe = $this->getInstance()
             ->setTitle('')
             ->setRole('')
         ;
@@ -43,8 +41,7 @@ class GroupeTest extends EntityTestCase {
      */
     public function testWithBadSyntaxOfRole(): void
     {
-        $groupe = new Groupe();
-        $groupe
+        $groupe = $this->getInstance()
             ->setTitle('testTitleRole')
             ->setRole('role_test')
         ;
@@ -58,8 +55,7 @@ class GroupeTest extends EntityTestCase {
      */
     public function testBadLengthTitleAndRole(): void
     {
-        $groupe = new Groupe();
-        $groupe
+        $groupe = $this->getInstance()
             ->setTitle($this->str_random(51))
             ->setRole('ROLE_'.strtoupper($this->str_random(51)))
         ;
@@ -76,11 +72,24 @@ class GroupeTest extends EntityTestCase {
      */
     public function testListErrorsTitleAndRole(): void
     {
-        $groupe = new Groupe();
-        $groupe
+        $groupe = $this->getInstance()
             ->setTitle($this->str_random(51))
             ->setRole('role_'.strtoupper($this->str_random(51)))
         ;
         $this->assertHasErrors($groupe, 3);
+    }
+
+    public function testUniqueRoleAndTitle(): void
+    {
+        $groupe = $this->getInstance()
+            ->setTitle('Admin')
+            ->setRole('ROLE_ADMIN')
+        ;
+        $this->assertHasErrors($groupe, 2);
+    }
+
+    private function  getInstance(): Groupe
+    {
+        return new Groupe();
     }
 }
