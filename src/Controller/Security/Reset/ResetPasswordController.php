@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Security;
+namespace App\Controller\Security\Reset;
 
 
 use App\Entity\ResetPassword;

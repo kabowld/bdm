@@ -1,0 +1,2 @@
+parameters:
+    app.url_local: 'http://app-bdm.lab'

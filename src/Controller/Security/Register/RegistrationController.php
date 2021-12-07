@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Controller\Security;
+namespace App\Controller\Security\Register;
 
 
 use App\Entity\Groupe;
@@ -30,15 +30,6 @@ class RegistrationController extends AbstractController
         $this->handlingUser = $handlingUser;
     }
 
-    /**
-     * @Route("/choix/compte", name="choice_registration_bdmk", methods={"GET"})
-     */
-    public function choiceRegistration(): Response
-    {
-        $this->handlingUser->redirectUserIfLogged();
-
-        return $this->render('Security/choice_registration.html.twig');
-    }
 
     /**
      * Registration particular user
@@ -105,12 +96,11 @@ class RegistrationController extends AbstractController
      *
      * @Route("/congratulation/{token}", name="congratulation_bdmk", methods={"GET"})
      *
-     * @param Request $request
      * @param string $token
      *
      * @return Response
      */
-    public function congratulation(Request $request, string $token): Response
+    public function congratulation(string $token): Response
     {
         $user = $this->em->getRepository(User::class)->findOneBy(['confirmatoken' => $token]);
         if (!$user) {

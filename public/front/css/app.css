@@ -637,6 +637,12 @@ a.dropdown-item.signout-head{
     font-size: 13px;
 }
 
+.libelle_recovery {
+    font-weight: 400;
+    font-size: 15px;
+    margin-bottom: 1.5em;
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;

@@ -41,6 +41,7 @@
                             {% elseif is_granted('ROLE_PRO') %}
                             <li><a class="dropdown-item" href="{{ path('edit_profile_pro_admin_bdmk') }}"><i class="fa fa-cog"></i> Paramètres</a></li>
                             {% endif %}
+                            <li><a class="dropdown-item" href="{{ path('reset_password_bdmk') }}"><i class="fa fa-cog"></i> Mot de passe</a></li>
                             <li><a class="dropdown-item signout-head" href="{{ path('app_logout') }}"><i class="fa fa-sign-out"></i> Se déconnecter</a></li>
                         </ul>
                     </li>

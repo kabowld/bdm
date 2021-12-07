@@ -31,7 +31,7 @@ class ProfilProType extends AbstractType
             ])
             ->add('passwordVerify', PasswordType::class, [
                 'mapped' => false,
-                'attr' => ['class' => 'form-control', 'placeholder' =>  'Saisir votre mot de de passe'],
+                'attr' => ['class' => 'form-control', 'placeholder' =>  'Saisir votre mot de passe'],
                 'label'=> 'Confirmer votre mot de passe',
                 'required' => true
             ])

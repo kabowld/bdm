@@ -31,7 +31,7 @@
                     <div class="form-group custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" name="_remember_me" id="exampleCheck3">
                         <label class="custom-control-label txt-cg" for="exampleCheck3">Se souvenir de moi</label>
-                        <a class="tdu btn-fpswd float-right" href="#">Mot de passe oublié?</a>
+                        <a class="tdu btn-fpswd float-right" href="{{ path('recovery_password_bdmk') }}">Mot de passe oublié?</a>
                     </div>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <button type="submit" class="btn btn-log btn-block btn-thm2">Se connecter</button>
