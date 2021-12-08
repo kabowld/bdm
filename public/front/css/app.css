@@ -683,4 +683,31 @@ a.dropdown-item.signout-head{
     .map__image svg {
         width: 50%;
     }
+
+    .bx-mti:first-child {
+        margin-bottom: 0;
+    }
+}
+
+
+
+.bx-mti img {
+    width: 100%;
+    display: block;
+    transform: translateY(-16px);
+}
+
+
+.bx-mti {
+    width: 100%;
+    height: 450px;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+
+
+.main-register .container {
+    background: url('../images/bm-log.jpg') no-repeat right top 65%;
+    background-size: 50% auto;
 }
