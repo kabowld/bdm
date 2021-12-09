@@ -529,41 +529,6 @@ label[for="registration_city"] {
     color: #222222c4;
 }
 
-.title_ch_r {
-    text-align: center;
-    font-weight: 600;
-    font-size: 18px;
-    margin: 0 auto;
-    border: 2px solid var(--main-green-color);
-    padding: 0.5em 0;
-    color: #fff;
-    background: var(--main-green-color);
-}
-
-.liste_ch_r {
-    margin: 2rem 0;
-}
-.ch_r i.fa-check {
-    color: var(--main-green-color);
-}
-
-.ch_r i.fa-ban {
-    color: var(--main-orange-color);
-}
-
-.ch_r {
-    color: #222;
-    font-size: 15px;
-    font-weight: 600;
-    margin: 1.5em 0;
-    text-align: center;
-}
-
-.box_ch_r{
-    text-align: center;
-    margin-bottom: 50px;
-}
-
 .link_ch_r {
     background: var(--main-green-color);
     color: #fff;
@@ -575,14 +540,6 @@ label[for="registration_city"] {
     margin: 2em 0;
 }
 
-.fx_ch_r::after {
-    content: '';
-    width: 60%;
-    display: block;
-    background: #2226;
-    height: 1px;
-    margin: 0 auto 40px;
-}
 
 .link_hct, .link_hct:hover {
     color: var(--main-orange-color);
@@ -642,6 +599,11 @@ a.dropdown-item.signout-head{
     font-size: 15px;
     margin-bottom: 1.5em;
 }
+.img-welcome {
+    max-width: 400px;
+    margin: 0 auto;
+    width: 100%;
+}
 
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
@@ -650,13 +612,13 @@ a.dropdown-item.signout-head{
     .box-panel-dash {
         margin: 0;
     }
-    .fx_ch_r::after {
-        display: none;
-    }
 
     .box_congratulation {
         padding: 60px 0;
     }
+
+
+
 }
 @media (min-width: 768px) {
 

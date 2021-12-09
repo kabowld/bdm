@@ -8862,8 +8862,8 @@ a.btn.btn_error{
   padding: 35px 0;
 }
 .pricing_table .pricing_header .price{
-  font-size: 40px;
-  color: #ff5a5f;
+  font-size: 25px;
+  color: #F77F00;
   font-weight: bold;
   line-height: 0.65;
   margin-bottom: 20px;
@@ -8886,9 +8886,9 @@ a.btn.btn_error{
 }
 .pricing_table .pricing_footer a.btn.pricing_btn{
   background-color: #ffffff;
-  border: 2px solid #ff5a5f;
+  border: 2px solid #009E60;
   border-radius: 8px;
-  color: #ff5a5f;
+  color: #009E60;
   font-size: 16px;
   font-family: "Nunito";
   font-weight: bold;
@@ -8900,7 +8900,7 @@ a.btn.btn_error{
   height: 46px;
 }
 .pricing_table .pricing_footer a.btn.pricing_btn:hover{
-  background-color:  #ff5a5f;
+  background-color:  #009E60;
   color: #ffffff;
 }
 
