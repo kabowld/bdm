@@ -25,11 +25,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $id;
 
     /**
+     * @Assert\Length(max=180, maxMessage="L'adresse mail excède le  nombre de caractère !")
+     * @Assert\NotBlank(message="L'adresse doit être saisi pour créer le compte !")
      * @ORM\Column(type="string", length=180, unique=true)
      */
     private string $email;
 
     /**
+     * @Assert\All({
+     *     @Assert\Length(max=50, maxMessage="Le rôle doit comporter {{ limit }} caractères maximum !"),
+     *     @Assert\Regex(pattern="/^ROLE_/", message="Syntaxe incorrecte pour le rôle !")
+     * })
      * @ORM\Column(type="json")
      */
     private array $roles = [];
@@ -63,7 +69,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="users")
+     * @ORM\ManyToOne(targetEntity=Groupe::class, inversedBy="users", cascade={"persist"})
      * @ORM\JoinColumn(nullable=false)
      */
     private Groupe $groupe;
@@ -86,7 +92,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $confirmatoken;
+    private ?string $confirmatoken = null;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -104,12 +110,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstname;
 
     /**
+     * @Assert\Length(max=50, maxMessage="Le numéro  de sécurité social n'est pas correcte !")
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private ?string $siret;
 
     /**
-     * @ORM\Column(type="string", length=100, nullable=true)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $societyName;
 
@@ -119,11 +126,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $adresse;
 
     /**
+     * @Assert\Length(max=15, maxMessage="Le numéro de téléphone n'est pas correcte")
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     private ?string $tel;
 
     /**
+     * @Assert\Length(max=15, maxMessage="Le titre de civilité n'est pas correcte")
+     * @Assert\Choice({"monsieur", "madame", "mademoiselle"})
      * @ORM\Column(type="string", length=15, nullable=true)
      */
     private ?string $civility;
@@ -541,6 +551,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             'Madame' => 'madame',
             'Mademoiselle' => 'mademoiselle',
         ];
+
     }
 
 }

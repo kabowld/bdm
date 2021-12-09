@@ -88,7 +88,7 @@ class GroupeTest extends EntityTestCase {
         $this->assertHasErrors($groupe, 2);
     }
 
-    private function  getInstance(): Groupe
+    private function getInstance(): Groupe
     {
         return new Groupe();
     }

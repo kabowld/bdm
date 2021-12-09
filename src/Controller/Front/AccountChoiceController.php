@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\Controller\Front;
 
 
-use App\Service\HandlingUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,13 +13,13 @@ class AccountChoiceController extends AbstractController
     /**
      * @Route("/choix/compte", name="choice_registration_bdmk", methods={"GET"})
      *
-     * @param HandlingUser $handlingUser
-     *
      * @return Response
      */
-    public function choiceRegistration(HandlingUser $handlingUser): Response
+    public function choiceRegistration(): Response
     {
-        $handlingUser->redirectUserIfLogged();
+        if ($this->getUser()) {
+            return $this->redirectToRoute('admin_dashboard_bdmk');
+        }
 
         return $this->render('Security/choice_registration.html.twig');
     }

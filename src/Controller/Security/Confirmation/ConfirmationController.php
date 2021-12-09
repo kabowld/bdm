@@ -4,7 +4,8 @@ declare(strict_types=1);
 namespace App\Controller\Security\Confirmation;
 
 
-use App\Entity\User;
+use App\Repository\UserRepository;
+use App\Service\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,40 +13,23 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConfirmationController extends AbstractController
 {
     /**
-     * @Route("/validation/compte/{token}", name="validation_account_bdmk", methods={"GET"})
+     * Action to validate Account
      *
-     * @param string $token
+     * @Route("/validation/compte/{token}", name="validation_account_bdmk", methods={"GET"}, requirements={"token" = ".+"})
+     *
+     * @param string         $token
+     * @param UserRepository $userRepository
+     * @param UserManager    $userManager
      *
      * @return Response
      */
-    public function confirmationAccount(string $token): Response
+    public function validationUserAccount(string $token, UserRepository $userRepository, UserManager $userManager): Response
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository(User::class)->findOneBy(['confirmatoken' => $token]);
-        if (!$user) {
-            throw $this->createNotFoundException('Error 404');
+        if (!$user = $userRepository->findOneBy(['confirmatoken' => $token])) {
+            throw $this->createNotFoundException(UserManager::ERROR_MESS_NOT_FOUND);
         }
+        $info = $userManager->validateAccount($user);
 
-        /** @var User $user */
-        $today = new \DateTimeImmutable();
-        $result = $today->getTimestamp() - $user->getCreatedAt()->getTimestamp();
-        if ($result > 3600) {
-            $user
-                ->setConfirmatoken(null)
-            ;
-            $em->flush();
-
-            return new Response('Le lien a expiré !');
-        }
-        /** @var User $user */
-        $user
-            ->setIsVerified(true)
-            ->setConfirmatoken(null)
-            ->setConfirmationAt(new \DateTimeImmutable())
-            ->setEnabled(true)
-        ;
-        $em->flush();
-
-        return $this->render('Security/confirmation.html.twig');
+        return $this->render('Security/confirmation.html.twig', compact('info'));
     }
 }
