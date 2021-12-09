@@ -4,32 +4,25 @@ declare(strict_types=1);
 namespace App\Controller\Security\Register;
 
 
-use App\Entity\Groupe;
 use App\Entity\User;
 use App\Form\RegistrationParticular;
 use App\Form\RegistrationType;
-use App\Service\HandlingUser;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\UserRepository;
+use App\Service\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class RegistrationController extends AbstractController
 {
-    const LENGTH_CONFIRMATION_TOKEN = 80;
-    private $dispatcher;
-    private $handlingUser;
-    private $em;
 
-    public function __construct(EventDispatcherInterface $eventDispatcher, EntityManagerInterface $em, HandlingUser $handlingUser)
+    private UserManager $userManager;
+
+    public function __construct(UserManager $userManager)
     {
-        $this->dispatcher = $eventDispatcher;
-        $this->em = $em;
-        $this->handlingUser = $handlingUser;
+        $this->userManager = $userManager;
     }
-
 
     /**
      * Registration particular user
@@ -42,18 +35,15 @@ class RegistrationController extends AbstractController
      */
     public function registerParticular(Request $request): Response
     {
-        $this->handlingUser->redirectUserIfLogged();
+        if ($this->getUser()) {
+            return $this->redirectToRoute(UserManager::ADMIN_DASHBOARD_PATH);
+        }
 
         $user = new User();
         $form = $this->createForm(RegistrationParticular::class, $user);
         $form->handleRequest($request);
-
         if ($form->isSubmitted() && $form->isValid()) {
-            $groupe = $this->em->getRepository(Groupe::class)->findOneBy(['role' => 'ROLE_USER']);
-            $user->setConfirmatoken($this->handlingUser->setConfirmationToken(self::LENGTH_CONFIRMATION_TOKEN));
-            $user->setGroupe($groupe);
-            $this->em->persist($user);
-            $this->em->flush();
+            $this->userManager->registration($user, 'ROLE_USER');
 
             return $this->redirectToRoute('congratulation_bdmk', ['token' => $user->getConfirmatoken()]);
         }
@@ -72,18 +62,15 @@ class RegistrationController extends AbstractController
      */
     public function registerPro(Request $request): Response
     {
-        $this->handlingUser->redirectUserIfLogged();
+        if ($this->getUser()) {
+            return $this->redirectToRoute(UserManager::ADMIN_DASHBOARD_PATH);
+        }
 
         $user = new User();
         $form = $this->createForm(RegistrationType::class, $user);
-
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $groupe = $this->em->getRepository(Groupe::class)->findOneBy(['role' => 'ROLE_PRO']);
-            $user->setConfirmatoken($this->handlingUser->setConfirmationToken(self::LENGTH_CONFIRMATION_TOKEN));
-            $user->setGroupe($groupe);
-            $this->em->persist($user);
-            $this->em->flush();
+            $this->userManager->registration($user, 'ROLE_PRO');
 
             return $this->redirectToRoute('congratulation_bdmk', ['token' => $user->getConfirmatoken()]);
         }
@@ -92,19 +79,19 @@ class RegistrationController extends AbstractController
     }
 
     /**
-     * Congratulation account
+     * Congratulation after registration success
      *
      * @Route("/congratulation/{token}", name="congratulation_bdmk", methods={"GET"})
      *
      * @param string $token
      *
+     * @param UserRepository $userRepository
      * @return Response
      */
-    public function congratulation(string $token): Response
+    public function congratulation(string $token, UserRepository $userRepository): Response
     {
-        $user = $this->em->getRepository(User::class)->findOneBy(['confirmatoken' => $token]);
-        if (!$user) {
-            throw $this->createNotFoundException('Error 404');
+        if (!$user = $userRepository->findOneBy(['confirmatoken' => $token])) {
+            throw $this->createNotFoundException(UserManager::ERROR_MESS_NOT_FOUND);
         }
 
         return $this->render('Security/congratulation.html.twig', ['email' => $user->getEmail()]);

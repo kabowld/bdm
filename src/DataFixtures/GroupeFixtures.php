@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\Groupe;
+use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
@@ -18,14 +19,35 @@ class GroupeFixtures extends Fixture implements FixtureGroupInterface
     {
         $tab = $this->rolesList();
         for ($i = 0; $i < 4; $i++) {
+
             $groupe = new Groupe();
             $groupe
                 ->setTitle($tab['title'][$i])
                 ->setRole($tab['role'][$i]);
+
+            if ($groupe->getRole() === 'ROLE_USER') {
+                $user = $this->loadUser($groupe);
+                $manager->persist($user);
+            }
+
             $manager->persist($groupe);
         }
 
         $manager->flush();
+    }
+
+    private function loadUser(Groupe $groupe)
+    {
+        $user = new User();
+        $user
+            ->setEmail('user@mail.test')
+            ->setPassword('P@ssw0rd')
+            ->setConfirmatoken('36f4fffbc8d978a4bab1fe3c1a144093e9c6f3ac4a0bd0fef8ccaa8806999030e88f8081bf96d92d4351c8c9ed955e40222325f482f4a53c396d5348ed52a71d590ab3b24f513e9a2ec695aba0bf89278e64dd3b6b8a964550c1d0004612173a46a3a2ba91ca8079c296fd991154b876cff8a793654cda58')
+            ->setGroupe($groupe)
+            ->addRole($groupe->getRole())
+        ;
+
+        return $user;
     }
 
     /**

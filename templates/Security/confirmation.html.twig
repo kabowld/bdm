@@ -5,10 +5,12 @@
 
 {% block content %}
     <div class="box_congratulation container">
-        <h1 class="congrat_title">Bravo, votre compte a été activé avec succès !</h1>
-        <div class="congrat_text">
-            Bienvenue sur Bandama Market.
-        </div>
-        <a class="connect-bdmk" href="{{ path('login_bdmk') }}">Se connecter !</a>
+        <h1 class="congrat_title">{{ info.message }}</h1>
+        {% if info.status == 'success' %}
+            <div class="congrat_text">
+                Bienvenue sur Bandama Market.
+            </div>
+            <a class="connect-bdmk" href="{{ path('login_bdmk') }}">Se connecter !</a>
+        {% endif %}
     </div>
 {% endblock %}

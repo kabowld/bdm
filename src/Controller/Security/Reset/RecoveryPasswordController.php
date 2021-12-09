@@ -8,7 +8,7 @@ use App\Core\Utils;
 use App\Entity\RecoveryPassword;
 use App\Entity\User;
 use App\Form\RecoveryPasswordType;
-use App\Service\HandlingUser;
+use App\Service\UserManager;
 use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -26,13 +26,13 @@ class RecoveryPasswordController extends AbstractController
      * @Route("/rappel-mot-de-passe", name="recovery_password_bdmk", methods={"GET", "POST"}, options ={"expose"=true})
      *
      * @param Request $request
-     * @param HandlingUser $handlingUser
+     * @param UserManager $handlingUser
      *
      * @param SendMail $sendMail
      * @param Utils $utils
      * @return Response
      */
-    public function recoveryPassword(Request $request, HandlingUser $handlingUser, SendMail $sendMail, Utils $utils): Response
+    public function recoveryPassword(Request $request, UserManager $handlingUser, SendMail $sendMail, Utils $utils): Response
     {
         $handlingUser->redirectUserIfLogged();
         if ($request->isXmlHttpRequest()) {
