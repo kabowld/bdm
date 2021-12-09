@@ -139,6 +139,17 @@
                 console.error('Erreur email');
             });
         });
+
+        $('.eye-icon-passwd').on('click', function(e) {
+            $(this).toggleClass('visible-eye-password');
+            if ($(this).hasClass('visible-eye-password')) {
+                $('#exampleInputPassword4').attr('type', 'text');
+            } else  {
+                $('#exampleInputPassword4').attr('type', 'password');
+
+            }
+        });
+
     });
 </script>
 </body>

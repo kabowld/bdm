@@ -605,6 +605,29 @@ a.dropdown-item.signout-head{
     width: 100%;
 }
 
+.eye-icon-passwd {
+    width: 50px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    text-align: center;
+    height: 100%;
+    line-height: 44px;
+    color: #a3a3a3;
+}
+
+.login_form.inner_page .form-control{
+    padding-right: 45px;
+}
+.fx-passwd {
+    position: relative;
+}
+.visible-eye-password {
+    color: #222 !important;
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;
