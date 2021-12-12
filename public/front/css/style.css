@@ -8876,19 +8876,31 @@ a.btn.btn_error{
   line-height: 1.444;
 }
 .pricing_table .pricing_content ul li{
-  font-size: 14px;
+  font-size: 13px;
   font-family: "Nunito";
   color: #484848;
-  line-height: 3.571;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.8rem 0;
+  border-bottom: 1px solid #22222221;
+}
+
+.pricing_table .pricing_content ul li:last-child {
+  margin-bottom: .8rem !important;
+  border-bottom: none !important;
+}
+
+.pricing_table .pricing_content ul li i{
+  color: #009E60;
 }
 .pricing_table .pricing_footer{
   margin-top: 20px;
 }
 .pricing_table .pricing_footer a.btn.pricing_btn{
-  background-color: #ffffff;
+  background-color:  #009E60;
+  color: #ffffff;
   border: 2px solid #009E60;
   border-radius: 8px;
-  color: #009E60;
   font-size: 16px;
   font-family: "Nunito";
   font-weight: bold;
@@ -8900,8 +8912,8 @@ a.btn.btn_error{
   height: 46px;
 }
 .pricing_table .pricing_footer a.btn.pricing_btn:hover{
-  background-color:  #009E60;
-  color: #ffffff;
+  background-color:  #fff;
+  color: #009E60;
 }
 
 

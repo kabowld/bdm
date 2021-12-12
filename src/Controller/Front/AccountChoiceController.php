@@ -21,6 +21,6 @@ class AccountChoiceController extends AbstractController
             return $this->redirectToRoute('admin_dashboard_bdmk');
         }
 
-        return $this->render('Security/choice_registration.html.twig');
+        return $this->render('Front/Pages/choice_registration.html.twig');
     }
 }
