@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
@@ -18,26 +19,33 @@ class Annonce
     private $id;
 
     /**
+     * @Assert\Length(min=3, max=150, minMessage="Le titre doit comporter au moins {{ limit }} !", minMessage="Le titre doit comporter {{ limit }} au maximum !")
+     * @Assert\NotBlank(message="Le titre ne doit pas être vide !")
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
     /**
+     * @Assert\NotBlank(message="Le choix du type d'une annonce doit être mentionné !")
+     * @Assert\Choice({"offre", "demande"})
      * @ORM\Column(type="string", length=7)
      */
     private $type;
 
     /**
+     * @Assert\NotBlank(message="Veuillez saisir une description !")
+     * @Assert\Length(min=5, minMessage="La description doit comporter au moins {{ limit }} !")
      * @ORM\Column(type="text")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="float", nullable=true)
+     * @ORM\Column(type="float", nullable=true, scale=2)
      */
     private $price;
 
     /**
+     * @var string $location c'est l'adresse précise
      * @ORM\Column(type="string", length=255)
      */
     private $location;
@@ -54,14 +62,32 @@ class Annonce
     private $createdAt;
 
     /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $postalCode;
+
+    /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\ManyToOne(targetEntity=Region::class)
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $postalCode;
+    private ?Region $region;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=City::class)
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?City $city;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Commune::class)
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private ?Commune $commune;
 
     public function __construct()
     {
@@ -177,6 +203,42 @@ class Annonce
     public function setPostalCode(string $postalCode): self
     {
         $this->postalCode = $postalCode;
+
+        return $this;
+    }
+
+    public function getRegion(): ?Region
+    {
+        return $this->region;
+    }
+
+    public function setRegion(?Region $region): self
+    {
+        $this->region = $region;
+
+        return $this;
+    }
+
+    public function getCity(): ?City
+    {
+        return $this->city;
+    }
+
+    public function setCity(?City $city): self
+    {
+        $this->city = $city;
+
+        return $this;
+    }
+
+    public function getCommune(): ?Commune
+    {
+        return $this->commune;
+    }
+
+    public function setCommune(?Commune $commune): self
+    {
+        $this->commune = $commune;
 
         return $this;
     }

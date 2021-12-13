@@ -12,9 +12,10 @@ class StateTest extends EntityTestCase
     {
         return [
             ['Mauvais état'],
+            ['Etat correct'],
             ['Bon état'],
-            ['Etat satisfant'],
             ['Très bon état'],
+            ['Neuf'],
         ];
     }
 
