@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use App\Entity\City;
+use App\Entity\Commune;
 use App\Entity\Region;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
@@ -33,7 +34,7 @@ class RegionFixtures extends Fixture implements FixtureGroupInterface
         'Denguélé' => ['Odienné' ],
     ];
 
-    private $slugger;
+    private SluggerInterface $slugger;
 
     public function __construct(SluggerInterface $slugger)
     {
@@ -60,10 +61,29 @@ class RegionFixtures extends Fixture implements FixtureGroupInterface
                     ->setRegion($region)
                 ;
                 $manager->persist($city);
+                if ($value === 'Abidjan') {
+                    foreach ($this->getCommunes() as $info) {
+                        $commune = new Commune();
+                        $commune
+                            ->setCity($city)
+                            ->setTitle($info)
+                            ->setSlug($this->slugger->slug($info))
+                        ;
+                        $manager->persist($commune);
+                    }
+                }
             }
         }
 
         $manager->flush();
+    }
+
+    private function getCommunes(): array
+    {
+        return [
+            'Abobo', 'Adjamé', 'Attécoubé', 'Cocody', 'Le Plateau', 'Yopougon',
+            'Treichville', 'Koumassi', 'Marcory', 'Port-Bouët', 'Anyama', 'Songon', 'Bingerville'
+        ];
     }
 
     public static function getGroups(): array
