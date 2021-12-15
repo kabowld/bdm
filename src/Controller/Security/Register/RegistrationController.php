@@ -8,7 +8,7 @@ use App\Entity\User;
 use App\Form\RegistrationParticular;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
-use App\Service\UserManager;
+use App\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;

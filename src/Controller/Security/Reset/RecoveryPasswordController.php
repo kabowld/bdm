@@ -8,7 +8,7 @@ use App\Core\Utils;
 use App\Entity\RecoveryPassword;
 use App\Entity\User;
 use App\Form\RecoveryPasswordType;
-use App\Service\UserManager;
+use App\Manager\UserManager;
 use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

@@ -5,6 +5,8 @@ namespace App\Tests\Entity;
 
 
 use App\Entity\Annonce;
+use App\Entity\City;
+use App\Entity\Region;
 
 class AnnonceTest extends EntityTestCase
 {
@@ -96,11 +98,20 @@ class AnnonceTest extends EntityTestCase
 
     private function getAnnonce(): Annonce
     {
+        $region = (new Region())->setTitle('Region')->setSlug('region');
+        $ville = (new City())->setTitle('Ville')->setSlug('ville');
+
         return (new Annonce())
             ->setTitle('title annonce')
             ->setDescription('description')
             ->setLocation('check adresss')
             ->setPostalCode('01 BP 10605 ABIDJAN 01')
+            ->setCity($ville)
+            ->setRegion($region)
+            ->setType('offre')
             ;
+
+
+
     }
 }

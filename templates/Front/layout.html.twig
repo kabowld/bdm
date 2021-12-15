@@ -150,6 +150,35 @@
             }
         });
 
+
+        $(document).on('change', '#annonce_region, #annonce_city', function () {
+            let $field = $(this)
+            let $regionField = $('#annonce_region');
+            let $form = $field.closest('form')
+            if (('#' + $field.attr('id')) === '#annonce_region') {
+                let $commune = $('#annonce_commune');
+                let $city = $('#annonce_city');
+                $commune.val('');
+                $commune.find('option:not(:first)').remove();
+                $city.val('');
+                $city.find('option:not(:first)').remove();
+            }
+            let target = '#' + $field.attr('id').replace('city', 'commune').replace('region', 'city')
+
+            // Les données à envoyer en Ajax
+            let data = {}
+            data[$regionField.attr('name')] = $regionField.val()
+            data[$field.attr('name')] = $field.val();
+
+            // On soumet les données
+            $.post($form.attr('action'), data).then(function (data) {
+                // On récupère le nouveau <select>
+                let $input = $(data).find(target);
+
+                // On remplace notre <select> actuel
+                $(target).replaceWith($input)
+            });
+        });
     });
 </script>
 </body>

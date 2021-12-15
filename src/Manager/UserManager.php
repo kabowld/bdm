@@ -1,17 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace App\Service;
+namespace App\Manager;
 
 use App\Entity\Groupe;
 use App\Entity\User;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Security\Core\Security;
 
-class UserManager
+class UserManager extends Manager
 {
     use LoggerAwareTrait;
 
@@ -21,22 +18,6 @@ class UserManager
     const ERROR_MESS_NOT_FOUND = 'La page que vous recherchez est introuvable !';
     const DURATION_TOKEN_VALIDATE = 3600;
 
-    private $em;
-    private $security;
-    private $urlGenerator;
-
-    /**
-     * HandlingUser constructor.
-     *
-     * @param EntityManagerInterface $em
-     * @param Security               $security
-     */
-    public function __construct(EntityManagerInterface $em, Security $security, UrlGeneratorInterface $urlGenerator)
-    {
-        $this->em = $em;
-        $this->security = $security;
-        $this->urlGenerator = $urlGenerator;
-    }
 
     /**
      * Update lastLogin

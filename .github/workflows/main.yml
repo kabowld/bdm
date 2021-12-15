@@ -1,0 +1,31 @@
+name: CI
+on: [push]
+jobs:
+  runner-job:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_USER: main
+          POSTGRES_PASSWORD: rootroot
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+      - name: Create database test
+        run: php bin/console doctrine:database:create --env=test
+      - name: Update schema
+        run: php bin/console doctrine:schema:update -f --env=test
+      - name: Load fixtures
+        run: php bin/console doctrine:fixtures:load --env=test
+      - name: Execute all tests
+        run: php bin/phpunit

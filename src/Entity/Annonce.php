@@ -23,38 +23,38 @@ class Annonce
      * @Assert\NotBlank(message="Le titre ne doit pas être vide !")
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private string $title;
 
     /**
      * @Assert\NotBlank(message="Le choix du type d'une annonce doit être mentionné !")
      * @Assert\Choice({"offre", "demande"})
      * @ORM\Column(type="string", length=7)
      */
-    private $type;
+    private string $type;
 
     /**
      * @Assert\NotBlank(message="Veuillez saisir une description !")
      * @Assert\Length(min=5, minMessage="La description doit comporter au moins {{ limit }} !")
      * @ORM\Column(type="text")
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\Column(type="float", nullable=true, scale=2)
      */
-    private $price;
+    private ?float $price;
 
     /**
      * @var string $location c'est l'adresse précise
      * @ORM\Column(type="string", length=255)
      */
-    private $location;
+    private string $location;
 
     /**
      * @ORM\ManyToOne(targetEntity=State::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private $state;
+    private ?State $state;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -64,7 +64,7 @@ class Annonce
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $postalCode;
+    private string $postalCode;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
@@ -72,22 +72,30 @@ class Annonce
     private $updatedAt;
 
     /**
+     * @Assert\NotBlank(message="La région ne doit pas être vide !")
      * @ORM\ManyToOne(targetEntity=Region::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?Region $region;
+    private  $region;
 
     /**
+     * @Assert\NotBlank(message="La ville ne doit pas être vide !")
      * @ORM\ManyToOne(targetEntity=City::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?City $city;
+    private $city;
 
     /**
      * @ORM\ManyToOne(targetEntity=Commune::class)
      * @ORM\JoinColumn(nullable=true)
      */
-    private ?Commune $commune;
+    private $commune;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $owner;
 
     public function __construct()
     {
@@ -242,4 +250,17 @@ class Annonce
 
         return $this;
     }
+
+    public function getOwner(): ?User
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?User $owner): self
+    {
+        $this->owner = $owner;
+
+        return $this;
+    }
+
 }

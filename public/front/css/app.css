@@ -419,11 +419,11 @@ form input:focus {
     margin-top: 1em;
 }
 
-#registration_civility input, #profil_particular_civility input, #profil_pro_civility input {
+#registration_civility input, #profil_particular_civility input, #profil_pro_civility input, #annonce_type input {
     margin-right: 5px;
 }
 
-#registration_civility label, #profil_particular_civility label, #profil_pro_civility label {
+#registration_civility label, #profil_particular_civility label, #profil_pro_civility label, #annonce_type label {
     margin-right: 15px;
 }
 
@@ -559,7 +559,7 @@ a.dropdown-item.signout-head{
     color: var(--main-orange-color) !important;
 }
 
-.main-dashboard {
+.main-dashboard, .main-annonce {
     padding: 60px 0;
 }
 
@@ -626,6 +626,15 @@ a.dropdown-item.signout-head{
 }
 .visible-eye-password {
     color: #222 !important;
+}
+
+.main-annonce card {
+    margin-bottom: 20px;
+}
+
+#annonce_description {
+    height: auto !important;
+
 }
 
 @media (min-width: 992px) {

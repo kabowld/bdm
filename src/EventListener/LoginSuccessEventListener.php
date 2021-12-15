@@ -3,7 +3,7 @@
 namespace App\EventListener;
 
 use App\Entity\User;
-use App\Service\UserManager;
+use App\Manager\UserManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Http\Event\LoginSuccessEvent;
