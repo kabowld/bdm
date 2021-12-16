@@ -1,0 +1,43 @@
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Liste des annonces' %}
+
+{% block content %}
+    <section class="header-box-admin">
+        <div class="container">
+            <h1 class="title-hbx-admin">
+                Mes annonces
+            </h1>
+        </div>
+    </section>
+    <main class="main-annonce">
+        <div class="container">
+            <div class="table-responsive">
+                <table class="table table-striped table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Date d'ajout</th>
+                            <th>Titre</th>
+                            <th>Etat</th>
+                            <th>Prix</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            {% for annonce in annonces %}
+                            <td>{{ annonce.createdAt|date('Y-m-d') }}</td>
+                            <td>{{ annonce.title|slice(0, 15) }}</td>
+                            <td>{{ annonce.state }}</td>
+                            <td>{{ annonce.price }}</td>
+                            <td>
+                                <a href="#" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> </a>
+                            </td>
+                            {% endfor %}
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+{% endblock %}

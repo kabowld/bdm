@@ -5,7 +5,7 @@ namespace App\Controller\Security\Confirmation;
 
 
 use App\Repository\UserRepository;
-use App\Service\UserManager;
+use App\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

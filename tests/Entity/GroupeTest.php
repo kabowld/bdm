@@ -15,7 +15,7 @@ class GroupeTest extends EntityTestCase {
     {
         $groupe = $this->getInstance()
             ->setTitle('testTitleRole')
-            ->setRole('ROLE_TEST')
+            ->setRole('ROLE_TEST_USER')
         ;
         $this->assertHasErrors($groupe);
     }

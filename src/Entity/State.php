@@ -23,7 +23,7 @@ class State
      * @Assert\Length(max=50, maxMessage="Le titre d'un état dépasse la limite autorisée !")
      * @ORM\Column(type="string", length=50)
      */
-    private $title;
+    private string $title;
 
     public function getId(): ?int
     {
