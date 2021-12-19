@@ -1,10 +1,9 @@
 {% extends 'Front/layout.html.twig' %}
 
-{% block title 'Ajout une annonce' %}
+{% block title 'Edition annonce' %}
 
 {% block content %}
     <main class="main main-annonce">
-        <h1 class="title-admin">Ajouter une annonce</h1>
         <div class="container">
             {{ form_start(form) }}
             <div class="card">
@@ -17,9 +16,9 @@
                             {{ form_errors(form.title) }}
                         </div>
                         <div class="col-md-6 form-group">
-                            {{ form_label(form.category) }}
-                            {{ form_widget(form.category) }}
-                            {{ form_errors(form.category) }}
+                            {{ form_label(form.type) }}
+                            {{ form_widget(form.type) }}
+                            {{ form_errors(form.type) }}
                         </div>
                     </div>
                     <div class="row">
@@ -27,11 +26,6 @@
                             {{ form_label(form.state) }}
                             {{ form_widget(form.state) }}
                             {{ form_errors(form.state) }}
-                        </div>
-                        <div class="col-md-6 form-group">
-                            {{ form_label(form.type) }}
-                            {{ form_widget(form.type) }}
-                            {{ form_errors(form.type) }}
                         </div>
                     </div>
                 </div>
@@ -80,7 +74,7 @@
                 </div>
             </div>
             {{ form_widget(form.save) }}
-                {{ form_rest(form) }}
+            {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
     </main>

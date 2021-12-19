@@ -33,6 +33,7 @@ class AnnonceController extends AbstractController
      */
     public function liste(): Response
     {
+        return $this->redirectToRoute('admin_annnonce_add_bdmk');
         return $this->render(
             'Admin/Annonce/liste.html.twig',
             ['annonces' => $this->annonceManager->getMyAnnonces($this->getUser())]
@@ -53,6 +54,8 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setOwner($this->getUser());
+            dd($form->getData());
             $this->annonceManager->persist($annonce);
 
             $this->addFlash('info', 'Votre annonce vient d\être ajoutée avec succès !');
@@ -61,6 +64,33 @@ class AnnonceController extends AbstractController
 
         return $this->render(
             'Admin/Annonce/new.html.twig',
+            ['form' => $form->createView()]
+        );
+    }
+
+    /**
+     * @Route("/edit/{id}", name="admin_annnonce_edit_bdmk", methods={"GET", "POST"}, requirements={"id" = "\d+"})
+     *
+     * @param Annonce $annonce
+     * @param Request $request
+     *
+     * @return Response
+     */
+    public function edit(Annonce $annonce, Request $request): Response
+    {
+        $form = $this->createForm(AnnonceType::class, $annonce);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            dd($form->getData());
+            $this->annonceManager->persist($form->getData(), false);
+
+            $this->addFlash('info', 'Votre annonce vient d\être modifiée avec succès !');
+            return $this->redirectToRoute('admin_annnonce_liste_bdmk');
+        }
+
+        return $this->render(
+            'Admin/Annonce/edit.html.twig',
             ['form' => $form->createView()]
         );
     }

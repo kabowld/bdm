@@ -26,7 +26,7 @@
                     <a href="#"><span class="title"><i class="fa fa-heart-o"></i> Favoris</span></a>
                 </li>
                 <li>
-                    <a href="#"><span class="give-annonce"><i class="fa fa-plus-circle"></i>Déposer une annonce</span></a>
+                    <a href="{{ path('admin_annnonce_add_bdmk') }}"><span class="give-annonce"><i class="fa fa-plus-circle"></i>Déposer une annonce</span></a>
                 </li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     <li class="nav-item dropdown">
@@ -74,7 +74,7 @@
             </li>
             <li><a href="{{ path('login_bdmk') }}"><span class="flaticon-user"></span> Se connecter</a></li>
             <li><a href="{{ path('choice_registration_bdmk') }}"><span class="flaticon-edit"></span> S'inscrire</a></li>
-            <li class="cl_btn"><a href="#" class="btn btn-block btn-lg btn-bdmk-mb circle mm-listitem__text"><i class="fa fa-plus"></i> Déposer une annonce</a>
+            <li class="cl_btn"><a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn btn-block btn-lg btn-bdmk-mb circle mm-listitem__text"><i class="fa fa-plus"></i> Déposer une annonce</a>
         </ul>
     </nav>
 </div>

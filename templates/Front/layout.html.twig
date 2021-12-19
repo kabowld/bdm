@@ -19,6 +19,9 @@
     <link href="{{ asset('front/images/favicon.ico') }}"  rel="shortcut icon" type="image/x-icon" />
     <link href="{{ asset('front/images/favicon.ico') }}" rel="shortcut icon" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/date-1.1.1/datatables.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1/leaflet.css" />
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -74,6 +77,9 @@
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.js"></script>
+<script src="https://cdn.jsdelivr.net/leaflet/1/leaflet.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/date-1.1.1/datatables.min.js"></script>
 <script>
     $(function() {
         const map = $('#map');
@@ -150,35 +156,103 @@
             }
         });
 
+        (function() {
+            const inputLocation = document.querySelector('#annonce_location');
 
-        $(document).on('change', '#annonce_region, #annonce_city', function () {
-            let $field = $(this)
-            let $regionField = $('#annonce_region');
-            let $form = $field.closest('form')
-            if (('#' + $field.attr('id')) === '#annonce_region') {
-                let $commune = $('#annonce_commune');
-                let $city = $('#annonce_city');
-                $commune.val('');
-                $commune.find('option:not(:first)').remove();
-                $city.val('');
-                $city.find('option:not(:first)').remove();
-            }
-            let target = '#' + $field.attr('id').replace('city', 'commune').replace('region', 'city')
+            if (inputLocation !== null) {
+                function addMarker(suggestion) {
+                    var marker = L.marker(suggestion.latlng, {opacity: .4});
+                    marker.addTo(map);
+                    markers.push(marker);
+                }
 
-            // Les données à envoyer en Ajax
-            let data = {}
-            data[$regionField.attr('name')] = $regionField.val()
-            data[$field.attr('name')] = $field.val();
+                function removeMarker(marker) {
+                    map.removeLayer(marker);
+                }
 
-            // On soumet les données
-            $.post($form.attr('action'), data).then(function (data) {
-                // On récupère le nouveau <select>
-                let $input = $(data).find(target);
+                function findBestZoom() {
+                    var featureGroup = L.featureGroup(markers);
+                    map.fitBounds(featureGroup.getBounds().pad(0.5), {animate: false});
+                }
 
-                // On remplace notre <select> actuel
-                $(target).replaceWith($input)
-            });
-        });
+                let place = places({
+                    container: inputLocation
+                }).configure({
+                    language: 'fr',
+                    countries: ['CI'],
+                    type: 'address',
+                    aroundLatLngViaIP: false
+                });
+
+                let map = L.map('box-map-address', {
+                    scrollWheelZoom: false,
+                    zoomControl: false
+                });
+
+                let osmLayer = new L.TileLayer(
+                    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        minZoom: 1,
+                        maxZoom: 16,
+                        touchZoom: true,
+                        attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
+                    }
+                );
+
+                let markers = [];
+
+                map.setView(new L.LatLng(0, 0), 1);
+                map.addLayer(osmLayer);
+
+                place.on('suggestions', function (e) {
+                    markers.forEach(removeMarker);
+                    markers = [];
+
+                    if (e.suggestions.length === 0) {
+                        map.setView(new L.LatLng(0, 0), 1);
+                        return;
+                    }
+
+                    e.suggestions.forEach(addMarker);
+                    findBestZoom();
+                });
+                place.on('cursorchanged', function (e) {
+                        markers
+                            .forEach(function(marker, markerIndex) {
+                                if (markerIndex === e.suggestionIndex) {
+                                    marker.setOpacity(1);
+                                    marker.setZIndexOffset(1000);
+                                } else {
+                                    marker.setZIndexOffset(0);
+                                    marker.setOpacity(0.5);
+                                }
+                            });
+                });
+                place.on('change',  function (e) {
+                    markers
+                        .forEach(function(marker, markerIndex) {
+                            if (markerIndex === e.suggestionIndex) {
+                                markers = [marker];
+                                marker.setOpacity(1);
+                                findBestZoom();
+                            } else {
+                                removeMarker(marker);
+                            }
+                        });
+                    let suggest = e.suggestion;
+                    document.querySelector('#annonce_lat').value = suggest.latlng.lat;
+                    document.querySelector('#annonce_lng').value = suggest.latlng.lng;
+                    document.querySelector('#annonce_postalCode').value = suggest.postcode;
+                    console.log(suggest)
+                });
+                place.on('clear', function () {
+                    map.setView(new L.LatLng(0, 0), 1);
+                    markers.forEach(removeMarker);
+                    document.querySelector('#annonce_lat').value = '';
+                    document.querySelector('#annonce_lng').value = '';
+                    document.querySelector('#annonce_postalCode').value = '';
+                });
+
+        }})();
     });
 </script>
 </body>

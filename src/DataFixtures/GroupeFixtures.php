@@ -7,9 +7,17 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class GroupeFixtures extends Fixture implements FixtureGroupInterface
 {
+    private UserPasswordHasherInterface $userPasswordHasher;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
     /**
      * Load data for Groupe entity
      *
@@ -40,9 +48,11 @@ class GroupeFixtures extends Fixture implements FixtureGroupInterface
     {
         $user = new User();
         $user
-            ->setEmail('user@mail.test')
-            ->setPassword('P@ssw0rd')
+            ->setEmail('dev@mail.test')
+            ->setPassword($this->userPasswordHasher->hashPassword($user, 'P@ssw0rd'))
             ->setConfirmatoken('36f4fffbc8d978a4bab1fe3c1a144093e9c6f3ac4a0bd0fef8ccaa8806999030e88f8081bf96d92d4351c8c9ed955e40222325f482f4a53c396d5348ed52a71d590ab3b24f513e9a2ec695aba0bf89278e64dd3b6b8a964550c1d0004612173a46a3a2ba91ca8079c296fd991154b876cff8a793654cda58')
+            ->setEnabled(true)
+            ->setIsVerified(true)
             ->setGroupe($groupe)
             ->addRole($groupe->getRole())
         ;

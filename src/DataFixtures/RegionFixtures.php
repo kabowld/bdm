@@ -61,29 +61,10 @@ class RegionFixtures extends Fixture implements FixtureGroupInterface
                     ->setRegion($region)
                 ;
                 $manager->persist($city);
-                if ($value === 'Abidjan') {
-                    foreach ($this->getCommunes() as $info) {
-                        $commune = new Commune();
-                        $commune
-                            ->setCity($city)
-                            ->setTitle($info)
-                            ->setSlug($this->slugger->slug($info))
-                        ;
-                        $manager->persist($commune);
-                    }
-                }
             }
         }
 
         $manager->flush();
-    }
-
-    private function getCommunes(): array
-    {
-        return [
-            'Abobo', 'Adjamé', 'Attécoubé', 'Cocody', 'Le Plateau', 'Yopougon',
-            'Treichville', 'Koumassi', 'Marcory', 'Port-Bouët', 'Anyama', 'Songon', 'Bingerville'
-        ];
     }
 
     public static function getGroups(): array

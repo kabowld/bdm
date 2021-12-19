@@ -19,9 +19,5 @@ class AnnonceManager extends Manager
         return $this->em->getRepository(Annonce::class)->findBy(['owner' => $owner], ['createdAt' => 'DESC']);
     }
 
-    public function persist(object $object)
-    {
-        $this->em->persist($object);
-        $this->em->flush();
-    }
+
 }

@@ -47,4 +47,14 @@ class RubriqueRepository extends ServiceEntityRepository
         ;
     }
     */
+
+
+    public function getAllRubriqueByOrderAsc()
+    {
+        return $this->createQueryBuilder('r')
+            ->orderBy('r.title')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }

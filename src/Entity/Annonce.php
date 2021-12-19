@@ -23,32 +23,26 @@ class Annonce
      * @Assert\NotBlank(message="Le titre ne doit pas être vide !")
      * @ORM\Column(type="string", length=255)
      */
-    private string $title;
+    private ?string $title;
 
     /**
      * @Assert\NotBlank(message="Le choix du type d'une annonce doit être mentionné !")
      * @Assert\Choice({"offre", "demande"})
      * @ORM\Column(type="string", length=7)
      */
-    private string $type;
+    private ?string $type;
 
     /**
      * @Assert\NotBlank(message="Veuillez saisir une description !")
      * @Assert\Length(min=5, minMessage="La description doit comporter au moins {{ limit }} !")
      * @ORM\Column(type="text")
      */
-    private string $description;
+    private ?string $description;
 
     /**
      * @ORM\Column(type="float", nullable=true, scale=2)
      */
     private ?float $price;
-
-    /**
-     * @var string $location c'est l'adresse précise
-     * @ORM\Column(type="string", length=255)
-     */
-    private string $location;
 
     /**
      * @ORM\ManyToOne(targetEntity=State::class)
@@ -62,21 +56,14 @@ class Annonce
     private $createdAt;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private string $postalCode;
+    private ?string $postalCode;
 
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
     private $updatedAt;
-
-    /**
-     * @Assert\NotBlank(message="La région ne doit pas être vide !")
-     * @ORM\ManyToOne(targetEntity=Region::class)
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private  $region;
 
     /**
      * @Assert\NotBlank(message="La ville ne doit pas être vide !")
@@ -86,16 +73,26 @@ class Annonce
     private $city;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Commune::class)
-     * @ORM\JoinColumn(nullable=true)
+     * @ORM\Column(type="float", precision=10, nullable=true)
      */
-    private $commune;
+    private $lat;
+
+    /**
+     * @ORM\Column(type="float", precision=10, nullable=true)
+     */
+    private $lng;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="annonces")
      * @ORM\JoinColumn(nullable=false)
      */
     private $owner;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $category;
 
     public function __construct()
     {
@@ -112,7 +109,7 @@ class Annonce
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -124,7 +121,7 @@ class Annonce
         return $this->type;
     }
 
-    public function setType(string $type): self
+    public function setType(?string $type): self
     {
         $this->type = $type;
 
@@ -136,7 +133,7 @@ class Annonce
         return $this->description;
     }
 
-    public function setDescription(string $description): self
+    public function setDescription(?string $description): self
     {
         $this->description = $description;
 
@@ -151,18 +148,6 @@ class Annonce
     public function setPrice(?float $price): self
     {
         $this->price = $price;
-
-        return $this;
-    }
-
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(string $location): self
-    {
-        $this->location = $location;
 
         return $this;
     }
@@ -208,21 +193,9 @@ class Annonce
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $postalCode): self
+    public function setPostalCode(?string $postalCode): self
     {
         $this->postalCode = $postalCode;
-
-        return $this;
-    }
-
-    public function getRegion(): ?Region
-    {
-        return $this->region;
-    }
-
-    public function setRegion(?Region $region): self
-    {
-        $this->region = $region;
 
         return $this;
     }
@@ -239,18 +212,6 @@ class Annonce
         return $this;
     }
 
-    public function getCommune(): ?Commune
-    {
-        return $this->commune;
-    }
-
-    public function setCommune(?Commune $commune): self
-    {
-        $this->commune = $commune;
-
-        return $this;
-    }
-
     public function getOwner(): ?User
     {
         return $this->owner;
@@ -259,6 +220,42 @@ class Annonce
     public function setOwner(?User $owner): self
     {
         $this->owner = $owner;
+
+        return $this;
+    }
+
+    public function getLat(): ?float
+    {
+        return $this->lat;
+    }
+
+    public function setLat(?float $lat): self
+    {
+        $this->lat = $lat;
+
+        return $this;
+    }
+
+    public function getLng(): ?float
+    {
+        return $this->lng;
+    }
+
+    public function setLng(?float $lng): self
+    {
+        $this->lng = $lng;
+
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): self
+    {
+        $this->category = $category;
 
         return $this;
     }

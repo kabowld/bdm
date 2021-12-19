@@ -40,15 +40,9 @@ class City
      */
     private Collection $users;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Commune::class, mappedBy="city")
-     */
-    private $communes;
-
     public function __construct()
     {
         $this->users = new ArrayCollection();
-        $this->communes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -122,33 +116,4 @@ class City
         return $this;
     }
 
-    /**
-     * @return Collection|Commune[]
-     */
-    public function getCommunes(): Collection
-    {
-        return $this->communes;
-    }
-
-    public function addCommune(Commune $commune): self
-    {
-        if (!$this->communes->contains($commune)) {
-            $this->communes[] = $commune;
-            $commune->setCity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCommune(Commune $commune): self
-    {
-        if ($this->communes->removeElement($commune)) {
-            // set the owning side to null (unless already changed)
-            if ($commune->getCity() === $this) {
-                $commune->setCity(null);
-            }
-        }
-
-        return $this;
-    }
 }

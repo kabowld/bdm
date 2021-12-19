@@ -3,26 +3,32 @@
 namespace App\Form;
 
 use App\Entity\Annonce;
+use App\Entity\Category;
 use App\Entity\City;
-use App\Entity\Commune;
-use App\Entity\Region;
+use App\Entity\Rubrique;
 use App\Entity\State;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnonceType extends AbstractType
 {
-    private const CAPITALE = 'abidjan';
+
+    private $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -30,8 +36,9 @@ class AnnonceType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'label' => 'Titre de l\'annonce'
-                ]
+                    'placeholder' => 'Saisissez le titre de l\'annonce'
+                ],
+                'label' => 'Titre de l\'annonce',
             ])
             ->add('type', ChoiceType::class, [
                 'choices' => [
@@ -39,29 +46,61 @@ class AnnonceType extends AbstractType
                     'Demande' => 'demande',
                 ],
                 'expanded' => true,
-                'multiple' => false
+                'multiple' => false,
+                'label' => 'Choisir le type de l\'annonce',
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
                     'rows' => 8,
-                    'cols' => 5
-                ]
+                    'cols' => 5,
+                    'placeholder' => 'Saisir une description'
+                ],
+                'label' => 'Description de l\'annonce'
             ])
-            ->add('price', MoneyType::class, ['attr' => ['class' => 'form-control']])
-            ->add('location', TextType::class, ['attr' => ['class' => 'form-control']])
-            ->add('postalCode', TextType::class, ['attr' => ['class' => 'form-control']])
+            ->add('price', MoneyType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Saisir le prix de l\'annnonce'
+                ],
+                'currency' => false,
+                'label' => 'Définir un prix'
+            ])
+            ->add('location', TextType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Saisir un emplacement'
+                ],
+                'mapped' => false,
+                'label' => 'Adresse',
+                'help' => 'Lieu de l\'emplacement où vous retrouver'
+            ])
+            ->add('postalCode', HiddenType::class)
+            ->add('city', EntityType::class, [
+                'class' => City::class,
+                'placeholder' => 'Sélectionner la ville',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.title', 'ASC');
+                },
+                'choice_label' => 'title',
+                'label' => 'Votre ville',
+                'attr' => ['class' => 'form-control select-field', 'data-live-search' => true ]
+            ])
+            ->add('category', ChoiceType::class, [
+                'label' => 'Catégorie',
+                'placeholder' => 'Sélectionner la catégorie',
+                'choices' => $this->getCategories(),
+                'attr' => ['class' => 'form-control select-field', 'data-live-search' => true ],
+            ])
+            ->add('lat', HiddenType::class)
+            ->add('lng', HiddenType::class)
             ->add('state', EntityType::class, [
                 'class' => State::class,
                 'placeholder' => 'Sélectionner un état',
+                'label' => 'Etat',
                 'choice_label' => 'title',
                 'attr' => ['class' => 'form-control']
-            ])
-            ->add('region', EntityType::class, [
-                'class' => Region::class,
-                'placeholder' => 'Sélectionner la région',
-                'choice_label' => 'title',
-                'attr' => ['class' => 'form-control select-field']
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
@@ -69,117 +108,8 @@ class AnnonceType extends AbstractType
             ])
         ;
 
-        $builder->get('region')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function(FormEvent $event) {
-                $form = $event->getForm();
-                $this->addCityField($form->getParent(), $form->getData());
-                $this->addCommuneField($form->getParent(), null);
-            }
-        );
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) {
-                $event->getForm()
-                    ->add('city', EntityType::class, [
-                        'class' => City::class,
-                        'placeholder' => 'Selectionner la région',
-                        'choice_label' => 'title',
-                        'choices' => [],
-                        'required' => true,
-                        'attr' => ['class' => 'form-control', 'disabled' => 'disabled']
-                    ])
-                    ->add('commune', EntityType::class, [
-                        'class' => Commune::class,
-                        'placeholder' => 'Sélectionner la ville',
-                        'choice_label' => 'title',
-                        'required' => false,
-                        'choices' => [],
-                        'attr' => ['class' => 'form-control', 'disabled' => 'disabled']
-                    ]);
-            }
-        );
-
-        $builder->addEventListener(
-            FormEvents::POST_SET_DATA,
-            function (FormEvent $event) {
-                $data = $event->getData();
-                $form = $event->getForm();
-                /** @var Commune $commune */
-
-                if ($commune = $data->getCommune()) {
-                    $city = $commune->getCity();
-                    $region = $city->getRegion();
-                    $this->addCommuneField($form, $city);
-                    $this->addCityField($form, $region);
-                    $form->get('city')->setData($city);
-                    $form->get('region')->setData($region);
-                    $form->get('commune')->setData($commune);
-
-                    return;
-                }
-                if ($city = $data->getCity()) {
-                    /** @var City $city */
-                    $region = $city->getRegion();
-                    $this->addCommuneField($form, $city);
-                    $this->addCityField($form, $region);
-                    $form->get('city')->setData($city);
-                    $form->get('region')->setData($region);
-
-                    return;
-                }
-                $this->addCommuneField($form, null);
-                $this->addCityField($form, null);
-            }
-        );
     }
 
-    /**
-     * @param FormInterface $form
-     * @param Region|null $region
-     */
-    private function addCityField(FormInterface $form, ?Region $region)
-    {
-        $builder = $form->getConfig()->getFormFactory()->createNamedBuilder(
-            'city',
-            EntityType::class,
-            null,
-            [
-                'class' => City::class,
-                'placeholder' => $region ? 'Sélectionner la ville': 'Selectionner la région',
-                'choice_label' => 'title',
-                'choices' => $region ? $region->getCities(): [],
-                'required' => true,
-                'auto_initialize' => false,
-                'attr' => ['class' => 'form-control']
-            ]
-        );
-        $builder->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $this->addCommuneField($form->getParent(), $form->getData());
-            }
-        );
-        $form->add($builder->getForm());
-    }
-
-    /**
-     * @param FormInterface $form
-     * @param City|null $city
-     */
-    private function addCommuneField(FormInterface $form, ?City $city)
-    {
-        $form->add('commune', EntityType::class, [
-            'class' => Commune::class,
-            'placeholder' => $city ? 'Sélectionner la commune': 'Sélectionner la ville',
-            'choice_label' => 'title',
-            'required' => false,
-            'choices' => $city ? $city->getCommunes() : [],
-            'attr' => ['class' => 'form-control']
-        ]);
-    }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
@@ -187,4 +117,31 @@ class AnnonceType extends AbstractType
             'data_class' => Annonce::class,
         ]);
     }
+
+    /**
+     * @return array
+     */
+    private function getCategories(): array
+    {
+        $choices = [];
+        $rubriques = $this->em->getRepository(Rubrique::class)->getAllRubriqueByOrderAsc();
+
+        foreach ($rubriques as $rubrique) {
+            /** @var Rubrique $rubrique */
+            $choices[$rubrique->getTitle()] = $this->getCatsByIdRubrique($rubrique->getId());
+        }
+
+        return $choices;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return array
+     */
+    private function getCatsByIdRubrique(int $id): array
+    {
+        return $this->em->getRepository(Category::class)->getCategoriesByRubrique($id);
+    }
+
 }

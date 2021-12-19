@@ -81,7 +81,10 @@ class RegistrationUser
         ;
     }
 
-    private function getAppUrl()
+    /**
+     * @return string|null
+     */
+    private function getAppUrl(): ?string
     {
         try {
             return $this->params->get('app.url_local');

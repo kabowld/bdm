@@ -107,6 +107,10 @@
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.15);
 }
 
+#box-map-address {
+    height: 300px;
+}
+
 header.header-nav.menu_style_home_one .ace-responsive-menu li a {
     color: #222 !important;
 }
@@ -634,7 +638,53 @@ a.dropdown-item.signout-head{
 
 #annonce_description {
     height: auto !important;
+}
 
+.main-annonce .card {
+    margin-bottom: 30px;
+}
+
+.main-annonce .card::after {
+    content: '';
+    background: var(--main-green-color);
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: 0 0 .25rem .25rem;
+}
+
+.main-annonce .card::before {
+    content: '';
+    background: var(--main-orange-color);
+    display: block;
+    width: 100%;
+    height: 5px;
+    border-radius: .25rem .25rem 0 0;
+}
+
+.main-annonce .card-title {
+    font-size: 17px;
+    margin-bottom: 1.5em;
+}
+
+.main-annonce label {
+    color: #222;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.main-annonce input,
+.main-annonce textarea {
+    font-weight: 400;
+    font-size: 14px;
+    color: #222;
+}
+
+.title-admin {
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 1em 0;
 }
 
 @media (min-width: 992px) {
@@ -648,9 +698,6 @@ a.dropdown-item.signout-head{
     .box_congratulation {
         padding: 60px 0;
     }
-
-
-
 }
 @media (min-width: 768px) {
 

@@ -32,4 +32,12 @@ abstract class Manager
     {
         return $this->em->getRepository($className)->findAll();
     }
+
+    public function persist(object $object, bool $persist = true)
+    {
+        if ($persist) {
+            $this->em->persist($object);
+        }
+        $this->em->flush();
+    }
 }
