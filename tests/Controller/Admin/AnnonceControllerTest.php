@@ -24,7 +24,7 @@ class AnnonceControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $userRepository = static::getContainer()->get(UserRepository::class);
-        $testUser = $userRepository->findOneByEmail('user@mail.test');
+        $testUser = $userRepository->findOneByEmail('dev@mail.test');
 
         $client->loginUser($testUser);
         $client->request('GET', '/admin/annonce/liste');

@@ -33,7 +33,6 @@ class AnnonceController extends AbstractController
      */
     public function liste(): Response
     {
-        return $this->redirectToRoute('admin_annnonce_add_bdmk');
         return $this->render(
             'Admin/Annonce/liste.html.twig',
             ['annonces' => $this->annonceManager->getMyAnnonces($this->getUser())]

@@ -2,7 +2,10 @@
 
 namespace App\Entity;
 
+use App\Manager\AnnonceFilePictureTrait;
 use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -11,6 +14,9 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Annonce
 {
+
+    use AnnonceFilePictureTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -94,9 +100,15 @@ class Annonce
      */
     private $category;
 
+    /**
+     * @ORM\OneToMany(targetEntity=FilePicture::class, mappedBy="annonce", orphanRemoval=true, cascade={"persist", "remove"})
+     */
+    private $filePictures;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
+        $this->filePictures = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -259,5 +271,46 @@ class Annonce
 
         return $this;
     }
+
+    /**
+     * @return Collection|FilePicture[]
+     */
+    public function getFilePictures(): Collection
+    {
+        return $this->filePictures;
+    }
+
+    public function getFilePicture(): ?FilePicture
+    {
+        if ($this->filePictures->isEmpty()) {
+            return null;
+        }
+        return $this->filePictures->first();
+    }
+
+    public function addFilePicture(FilePicture $file): self
+    {
+        if (!$this->filePictures->contains($file)) {
+            $this->filePictures[] = $file;
+            $file->setAnnonce($this);
+        }
+
+        return $this;
+    }
+
+    public function removeFilePicture(FilePicture $filePicture): self
+    {
+        if ($this->filePictures->contains($filePicture)) {
+            $this->filePictures->removeElement($filePicture);
+            // set the owning side to null (unless already changed)
+            if ($filePicture->getAnnonce() === $this) {
+                $filePicture->setAnnonce(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }

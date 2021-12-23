@@ -39,6 +39,12 @@ class FilePicture
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Annonce::class, inversedBy="filePictures")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $annonce;
+
     public function setFile(?File $file = null): void
     {
         $this->file = $file;
@@ -78,6 +84,18 @@ class FilePicture
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): self
     {
         $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getAnnonce(): ?Annonce
+    {
+        return $this->annonce;
+    }
+
+    public function setAnnonce(?Annonce $annonce): self
+    {
+        $this->annonce = $annonce;
 
         return $this;
     }

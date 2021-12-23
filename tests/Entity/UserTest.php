@@ -36,7 +36,7 @@ class UserTest extends EntityTestCase
      */
     public function testUniqueEmail()
     {
-        $user = $this->getUser()->setEmail('test@mail.test');
+        $user = $this->getUser()->setEmail('dev@mail.test');
 
         $this->assertHasErrors($user, 1);
     }

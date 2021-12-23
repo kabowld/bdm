@@ -22,12 +22,25 @@ class ConfirmationControllerTest extends WebTestCase
     public function testValidationUserAccountSuccess()
     {
         $client = self::createClient();
-        $user = self::getContainer()->get(UserRepository::class)->findOneByEmail('user@mail.test');
+        $user = self::getContainer()->get(UserRepository::class)->findOneByEmail('dev@mail.test');
 
         /** @var User $user */
         $client->request('GET', sprintf('/validation/compte/%s', $user->getConfirmatoken()));
         $this->assertResponseStatusCodeSame(200);
-        $this->assertSelectorTextSame('h1.congrat_title',  'Désolé le lien d\'activation a expiré');
+        $this->assertSelectorExists('h1.congrat_title', 'Bravo, votre compte a été activé avec succès !');
+    }
+
+
+    public function testValidationUserAccountFail()
+    {
+        $client = self::createClient();
+        $user = self::getContainer()->get(UserRepository::class)->findOneByEmail('dev@mail.test');
+
+        /** @var User $user */
+        $user->getCreatedAt()->setTimestamp(84400);
+        $client->request('GET', sprintf('/validation/compte/%s', $user->getConfirmatoken()));
+        $this->assertResponseStatusCodeSame(200);
+        $this->assertSelectorExists('h1.congrat_title', 'Bravo, votre compte a été activé avec succès !');
     }
 
 }

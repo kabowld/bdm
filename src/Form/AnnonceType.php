@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -101,6 +102,27 @@ class AnnonceType extends AbstractType
                 'label' => 'Etat',
                 'choice_label' => 'title',
                 'attr' => ['class' => 'form-control']
+            ])
+            ->add('pictureOneFile', FileType::class, [
+                'required' => false,
+            ])
+            ->add('pictureTwoFile', FileType::class, [
+                'required' => false,
+             ])
+            ->add('pictureThreeFile', FileType::class, [
+                'required' => false,
+            ])
+            ->add('pictureFourFile', FileType::class, [
+                'required' => false,
+            ])
+            ->add('pictureFiveFile', FileType::class, [
+                'required' => false,
+            ])
+            ->add('pictureSixFile', FileType::class, [
+                'required' => false,
+            ])
+            ->add('pictureSevenFile', FileType::class, [
+                'required' => false,
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',

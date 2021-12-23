@@ -12,12 +12,12 @@
     <link rel="stylesheet" href="{{ asset('front/css/app.css') }}">
     <!-- Responsive stylesheet -->
     <link rel="stylesheet" href="{{ asset('front/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/css/form-wizard.css') }}">
     <!-- Title -->
     <!-- Title -->
     <title>{% block title %}{% endblock %} | Bandama Market</title>
     <!-- Favicon -->
     <link href="{{ asset('front/images/favicon.ico') }}"  rel="shortcut icon" type="image/x-icon" />
-    <link href="{{ asset('front/images/favicon.ico') }}" rel="shortcut icon" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/date-1.1.1/datatables.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1/leaflet.css" />
@@ -76,6 +76,7 @@
 <script type="text/javascript" src="{{ asset('front/js/script.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ asset('front/js/form-wizard.js') }}"></script>
 <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/places.js@1.19.0/dist/cdn/places.min.js"></script>
 <script src="https://cdn.jsdelivr.net/leaflet/1/leaflet.js"></script>

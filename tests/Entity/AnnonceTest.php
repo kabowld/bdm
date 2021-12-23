@@ -102,13 +102,9 @@ class AnnonceTest extends EntityTestCase
         return (new Annonce())
             ->setTitle('title annonce')
             ->setDescription('description')
-            ->setLocation('check adresss')
             ->setPostalCode('01 BP 10605 ABIDJAN 01')
             ->setCity($ville)
             ->setType('offre')
             ;
-
-
-
     }
 }
