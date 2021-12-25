@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Annonce;
+use App\Entity\Category;
 use App\Form\AnnonceType;
 use App\Manager\AnnonceManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,7 +55,8 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonce->setOwner($this->getUser());
-            dd($form->getData());
+            $categgory = $this->getDoctrine()->getManager()->getRepository(Category::class)->find($form->get('category')->getData());
+            $annonce->setCategory($categgory);
             $this->annonceManager->persist($annonce);
 
             $this->addFlash('info', 'Votre annonce vient d\être ajoutée avec succès !');

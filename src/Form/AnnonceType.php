@@ -19,6 +19,8 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnonceType extends AbstractType
@@ -88,10 +90,11 @@ class AnnonceType extends AbstractType
                 'label' => 'Votre ville',
                 'attr' => ['class' => 'form-control select-field', 'data-live-search' => true ]
             ])
-            ->add('category', ChoiceType::class, [
+            ->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choice_label' => 'title',
                 'label' => 'Catégorie',
                 'placeholder' => 'Sélectionner la catégorie',
-                'choices' => $this->getCategories(),
                 'attr' => ['class' => 'form-control select-field', 'data-live-search' => true ],
             ])
             ->add('lat', HiddenType::class)
@@ -124,14 +127,15 @@ class AnnonceType extends AbstractType
             ->add('pictureSevenFile', FileType::class, [
                 'required' => false,
             ])
+            ->add('pictureHeightFile', FileType::class, [
+                'required' => false,
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
                 'attr' => ['class' => 'btn btn-log btn-thm2 register-btn']
             ])
         ;
-
     }
-
 
     public function configureOptions(OptionsResolver $resolver): void
     {
