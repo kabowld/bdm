@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/date-1.1.1/datatables.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/leaflet/1/leaflet.css" />
 
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -243,7 +244,6 @@
                     document.querySelector('#annonce_lat').value = suggest.latlng.lat;
                     document.querySelector('#annonce_lng').value = suggest.latlng.lng;
                     document.querySelector('#annonce_postalCode').value = suggest.postcode;
-                    console.log(suggest)
                 });
                 place.on('clear', function () {
                     map.setView(new L.LatLng(0, 0), 1);
@@ -276,6 +276,37 @@
         previewBeforeUpload('annonce_pictureSixFile');
         previewBeforeUpload('annonce_pictureSevenFile');
         previewBeforeUpload('annonce_pictureHeightFile');
+
+        const $rubrique = $('#annonce_rubrique');
+        $('#annonce_category').attr('disabled', 'disabled');
+// When sport gets selected ...
+        $rubrique.change(function() {
+            // ... retrieve the corresponding form.
+            var $form = $(this).closest('form');
+            // Simulate form data, but only include the selected sport value.
+            var data = {};
+            data[$rubrique.attr('name')] = $rubrique.val();
+            // Submit data via AJAX to the form's action path.
+            $.ajax({
+                url : $form.attr('action'),
+                type: $form.attr('method'),
+                data : data,
+                beforeSend: function () {
+                    $('#annonce_category').attr('disabled', 'disabled');
+                    $('#annonce_category').val('');
+                },
+                complete: function(html) {
+                    // Replace current position field ...
+                    $('#annonce_category').replaceWith(
+                        // ... with the returned one from the AJAX response.
+                        $(html.responseText).find('#annonce_category')
+                    );
+                    $('#annonce_category').removeAttr('disabled');
+                    // Position field now displays the appropriate positions.
+                }
+            });
+        });
+
     });
 </script>
 </body>

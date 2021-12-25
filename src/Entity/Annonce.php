@@ -105,6 +105,11 @@ class Annonce
      */
     private $filePictures;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Pack::class, inversedBy="annonces")
+     */
+    private $pack;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -307,6 +312,18 @@ class Annonce
                 $filePicture->setAnnonce(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPack(): ?Pack
+    {
+        return $this->pack;
+    }
+
+    public function setPack(?Pack $pack): self
+    {
+        $this->pack = $pack;
 
         return $this;
     }

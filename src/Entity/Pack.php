@@ -58,9 +58,20 @@ class Pack
      */
     private Collection $detailsPacks;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="pack")
+     */
+    private $annonces;
+
+    /**
+     * @ORM\Column(type="string", length=10)
+     */
+    private $level;
+
     public function __construct()
     {
         $this->detailsPacks = new ArrayCollection();
+        $this->annonces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -156,5 +167,52 @@ class Pack
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Annonce[]
+     */
+    public function getAnnonces(): Collection
+    {
+        return $this->annonces;
+    }
+
+    public function addAnnonce(Annonce $annonce): self
+    {
+        if (!$this->annonces->contains($annonce)) {
+            $this->annonces[] = $annonce;
+            $annonce->setPack($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnnonce(Annonce $annonce): self
+    {
+        if ($this->annonces->removeElement($annonce)) {
+            // set the owning side to null (unless already changed)
+            if ($annonce->getPack() === $this) {
+                $annonce->setPack(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLevel(): ?string
+    {
+        return $this->level;
+    }
+
+    public function setLevel(string $level): self
+    {
+        $this->level = $level;
+
+        return $this;
+    }
+
+    public function getLabel(): string
+    {
+        return sprintf('%s Fcfa  %s  %s Jours', $this->getPrice(), $this->getPriceByDay(), $this->getDays());
     }
 }

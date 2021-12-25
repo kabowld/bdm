@@ -11,7 +11,7 @@ class StateTest extends EntityTestCase
     public function addTitleProviderState(): array
     {
         return [
-            ['Mauvais état'],
+            ['Etat satisfaisant'],
             ['Etat correct'],
             ['Bon état'],
             ['Très bon état'],
@@ -22,22 +22,31 @@ class StateTest extends EntityTestCase
     public function testBadLengthTitle()
     {
         $state = new State();
-        $state->setTitle($this->str_random(51));
+        $state
+            ->setTitle($this->str_random(51))
+            ->setDescription('Description état')
+        ;
         $this->assertHasErrors($state, 1);
     }
 
     public function testGoodLengthTitle()
     {
         $state = new State();
-        $state->setTitle($this->str_random(50));
+        $state
+            ->setTitle($this->str_random(50))
+            ->setDescription('Description état')
+        ;
         $this->assertHasErrors($state);
     }
 
-    public function testBlankTitle()
+    public function testBlankTitleAndDescription()
     {
         $state = new State();
-        $state->setTitle('');
-        $this->assertHasErrors($state, 1);
+        $state
+            ->setTitle('')
+            ->setDescription('')
+        ;
+        $this->assertHasErrors($state, 2);
     }
 
     /**
@@ -46,7 +55,12 @@ class StateTest extends EntityTestCase
     public function testTitleWithGoodTitle($value)
     {
         $state = new State();
-        $state->setTitle($value);
+        $state
+            ->setTitle($value)
+            ->setDescription('description etat')
+        ;
         $this->assertHasErrors($state);
     }
+
+
 }

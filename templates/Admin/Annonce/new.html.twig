@@ -17,21 +17,31 @@
                             {{ form_errors(form.title) }}
                         </div>
                         <div class="col-md-6 form-group">
-                            {{ form_label(form.category) }}
-                            {{ form_widget(form.category) }}
-                            {{ form_errors(form.category) }}
+                            {{ form_label(form.type) }}
+                            {{ form_widget(form.type) }}
+                            {{ form_errors(form.type) }}
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 form-group">
                             {{ form_label(form.state) }}
                             {{ form_widget(form.state) }}
                             {{ form_errors(form.state) }}
+                            <a href="#" data-toggle="modal" data-target="#stateModal">Guides des états</a>
                         </div>
                         <div class="col-md-6 form-group">
-                            {{ form_label(form.type) }}
-                            {{ form_widget(form.type) }}
-                            {{ form_errors(form.type) }}
+                            {{ form_label(form.rubrique) }}
+                            {{ form_widget(form.rubrique) }}
+                            {{ form_errors(form.rubrique) }}
+                        </div>
+                        <div class="col-md-6 form-group">
+                            {{ form_label(form.category) }}
+                            {{ form_widget(form.category) }}
+                            {{ form_errors(form.category) }}
                         </div>
                     </div>
                 </div>
@@ -159,9 +169,45 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Packs disponible</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for pack in packs %}
+                                <div class="box-packs">
+                                    <div class="infos-packs">
+                                        <div class="img-packs">
+                                            {% if pack.level == 'premium' %}
+                                                <img src="{{ asset('front/images/premium.png') }}" alt="{{ pack.level }}"/>
+                                            {% elseif pack.level == 'star' %}
+                                                <img src="{{ asset('front/images/star.png') }}" alt="{{ pack.level }}"/>
+                                            {% else %}
+                                                <img src="{{ asset('front/images/entete.png') }}" alt="{{ pack.level }}"/>
+                                            {% endif %}
+                                        </div>
+                                        <div class="txt-packs">
+                                            <h5 class="title-pack">{{ pack.title }}</h5>
+                                            <p class="text-pack">
+                                                {{ pack.description }}
+                                            </p>
+                                        </div>
+                                        <div class="form-radio">
+                                            <label for="{{ form.pack.vars.id }}{{ '_' ~ pack.id }}" class="{{ form.pack.vars.required ? 'required' }}">{{ pack.label }}</label>
+                                            <input type="radio" id="{{ form.pack.vars.id }}{{ '_' ~pack.id }}" name="{{ form.pack.vars.full_name }}" required="required" value="{{ pack.id }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{ form_widget(form.save) }}
                 {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
     </main>
+
+    {% include 'Admin/Modal/state_modal.html.twig' %}
 {% endblock %}

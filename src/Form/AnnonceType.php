@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Entity\City;
+use App\Entity\Pack;
 use App\Entity\Rubrique;
 use App\Entity\State;
 use Doctrine\ORM\EntityManagerInterface;
@@ -21,6 +22,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AnnonceType extends AbstractType
@@ -50,7 +52,7 @@ class AnnonceType extends AbstractType
                 ],
                 'expanded' => true,
                 'multiple' => false,
-                'label' => 'Choisir le type de l\'annonce',
+                'label' => 'Type de la transaction',
             ])
             ->add('description', TextareaType::class, [
                 'attr' => [
@@ -90,12 +92,13 @@ class AnnonceType extends AbstractType
                 'label' => 'Votre ville',
                 'attr' => ['class' => 'form-control select-field', 'data-live-search' => true ]
             ])
-            ->add('category', EntityType::class, [
-                'class' => Category::class,
+            ->add('rubrique', EntityType::class, [
+                'class' => Rubrique::class,
                 'choice_label' => 'title',
-                'label' => 'Catégorie',
-                'placeholder' => 'Sélectionner la catégorie',
-                'attr' => ['class' => 'form-control select-field', 'data-live-search' => true ],
+                'label' => 'Rubrique',
+                'placeholder' => 'Sélectionner la rubrique',
+                'attr' => ['class' => 'form-control'],
+                'mapped' => false
             ])
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
@@ -103,7 +106,9 @@ class AnnonceType extends AbstractType
                 'class' => State::class,
                 'placeholder' => 'Sélectionner un état',
                 'label' => 'Etat',
-                'choice_label' => 'title',
+                'choice_label' => function (State $state) {
+                    return $state->getTitle();
+                },
                 'attr' => ['class' => 'form-control']
             ])
             ->add('pictureOneFile', FileType::class, [
@@ -130,11 +135,74 @@ class AnnonceType extends AbstractType
             ->add('pictureHeightFile', FileType::class, [
                 'required' => false,
             ])
+            ->add('pack', EntityType::class, [
+                'class' => Pack::class,
+                'choice_label' => function (Pack $pack) {
+                    return sprintf('%s Fcfa  %s  %s Jours', $pack->getPrice(), $pack->getPriceByDay(), $pack->getDays());
+                },
+                'multiple' => false,
+                'expanded' => true,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('p')
+                        ->orderBy('p.id','ASC');
+                },
+                'label' => false,
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
                 'attr' => ['class' => 'btn btn-log btn-thm2 register-btn']
             ])
         ;
+
+        $formModifier = function (FormInterface $form, Rubrique $rubrique = null) {
+            $categories = null === $rubrique ? [] : $rubrique->getCategories();
+            $placeholder = null === $rubrique ? 'Sélectionner la rubrique': 'Sélectionner la catégorie';
+
+            $form->add('category', EntityType::class, [
+                'class' => Category::class,
+                'choices' => $categories,
+                'choice_label' => 'title',
+                'label' => 'Catégorie',
+                'placeholder' => $placeholder,
+                'attr' => ['class' => 'form-control'],
+            ]);
+        };
+
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                // this would be your entity, i.e. SportMeetup
+                $data = $event->getData();
+
+                $formModifier($event->getForm(), $data->getCategory());
+            }
+        );
+
+        $builder->get('rubrique')->addEventListener(
+            FormEvents::POST_SUBMIT,
+            function (FormEvent $event) use ($formModifier) {
+                // It's important here to fetch $event->getForm()->getData(), as
+                // $event->getData() will get you the client data (that is, the ID)
+                $rubrique = $event->getForm()->getData();
+
+                // since we've added the listener to the child, we'll have to pass on
+                // the parent to the callback functions!
+                $formModifier($event->getForm()->getParent(), $rubrique);
+            }
+        );
+        $builder->addEventListener(
+            FormEvents::POST_SET_DATA,
+            function (FormEvent $event) {
+                $form = $event->getForm();
+                $data = $event->getData();
+
+                /** @var $data Annonce */
+                if ($category = $data->getCategory()) {
+                    $form->get('category')->setData($category);
+                    $form->get('rubrique')->setData($category->getRubrique());
+                }
+            }
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
@@ -142,32 +210,6 @@ class AnnonceType extends AbstractType
         $resolver->setDefaults([
             'data_class' => Annonce::class,
         ]);
-    }
-
-    /**
-     * @return array
-     */
-    private function getCategories(): array
-    {
-        $choices = [];
-        $rubriques = $this->em->getRepository(Rubrique::class)->getAllRubriqueByOrderAsc();
-
-        foreach ($rubriques as $rubrique) {
-            /** @var Rubrique $rubrique */
-            $choices[$rubrique->getTitle()] = $this->getCatsByIdRubrique($rubrique->getId());
-        }
-
-        return $choices;
-    }
-
-    /**
-     * @param int $id
-     *
-     * @return array
-     */
-    private function getCatsByIdRubrique(int $id): array
-    {
-        return $this->em->getRepository(Category::class)->getCategoriesByRubrique($id);
     }
 
 }
