@@ -15,6 +15,7 @@ trait AnnonceFilePictureTrait {
     private $pictureFiveFile;
     private $pictureSixFile;
     private $pictureSevenFile;
+    private $pictureHeightFile;
 
     /**
      * @return mixed
@@ -33,7 +34,7 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureOneFile = $file;
 
@@ -57,7 +58,7 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureTwoFile = $file;
 
@@ -81,7 +82,7 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureThreeFile = $file;
 
@@ -104,7 +105,7 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureFourFile = $file;
 
@@ -128,7 +129,7 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureFiveFile = $file;
 
@@ -152,7 +153,7 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureSixFile = $file;
 
@@ -176,13 +177,34 @@ trait AnnonceFilePictureTrait {
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
-        $this->addFilePicture($file);
+        $this->addFilePicture($filePicture);
 
         $this->pictureSevenFile = $file;
 
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPictureHeightFile()
+    {
+        return $this->pictureHeightFile;
+    }
 
+    /**
+     * @param mixed $file
+     *
+     * @return AnnonceFilePictureTrait
+     */
+    public function setPictureHeightFile($file)
+    {
+        $filePicture = new FilePicture();
+        $filePicture->setFile($file);
+        $this->addFilePicture($filePicture);
 
+        $this->pictureHeightFile = $file;
+
+        return $this;
+    }
 }

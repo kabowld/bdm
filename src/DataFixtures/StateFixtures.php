@@ -18,11 +18,20 @@ class StateFixtures extends Fixture implements FixtureGroupInterface
      */
     public function load(ObjectManager $manager): void
     {
-        $states = ['Mauvais état', 'Etat correct', 'Bon état', 'Très bon état', 'Neuf'];
+        $states = [
+            'Etat satisfaisant' => 'Bien en état de fonctionnement correct, comportant des défauts et signes d’usure manifestes (mentionnés dans l’annonce et visibles sur les photos).',
+            'Etat correct' => 'Bon état',
+            'Bon état' => 'Bien en parfait état de fonctionnement, comportant quelques petits défauts (mentionnés dans l’annonce et visibles sur les photos).',
+            'Très bon état' => 'Bien pas ou peu utilisé, sans aucun défaut ni rayure, complet et en parfait état de fonctionnement.',
+            'Neuf' => 'Bien non-utilisé, complet, avec emballage non ouvert et notice(s) d’utilisation.'
+        ];
 
-        foreach($states as $title) {
+        foreach($states as $title => $description) {
             $state = new State();
-            $state->setTitle($title);
+            $state
+                ->setTitle($title)
+                ->setDescription($description)
+            ;
             $manager->persist($state);
         }
 

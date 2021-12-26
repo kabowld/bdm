@@ -17,21 +17,31 @@
                             {{ form_errors(form.title) }}
                         </div>
                         <div class="col-md-6 form-group">
-                            {{ form_label(form.category) }}
-                            {{ form_widget(form.category) }}
-                            {{ form_errors(form.category) }}
+                            {{ form_label(form.type) }}
+                            {{ form_widget(form.type) }}
+                            {{ form_errors(form.type) }}
                         </div>
                     </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 form-group">
                             {{ form_label(form.state) }}
                             {{ form_widget(form.state) }}
                             {{ form_errors(form.state) }}
+                            <a href="#" data-toggle="modal" data-target="#stateModal">Guides des états</a>
                         </div>
                         <div class="col-md-6 form-group">
-                            {{ form_label(form.type) }}
-                            {{ form_widget(form.type) }}
-                            {{ form_errors(form.type) }}
+                            {{ form_label(form.rubrique) }}
+                            {{ form_widget(form.rubrique) }}
+                            {{ form_errors(form.rubrique) }}
+                        </div>
+                        <div class="col-md-6 form-group">
+                            {{ form_label(form.category) }}
+                            {{ form_widget(form.category) }}
+                            {{ form_errors(form.category) }}
                         </div>
                     </div>
                 </div>
@@ -79,9 +89,125 @@
                     </div>
                 </div>
             </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureOneFile) }}
+                            <label for="{{ form.pictureOneFile.vars.id }}" id="{{ form.pictureOneFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureTwoFile) }}
+                            <label for="{{ form.pictureTwoFile.vars.id }}" id="{{ form.pictureTwoFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureThreeFile) }}
+                            <label for="{{ form.pictureThreeFile.vars.id }}" id="{{ form.pictureThreeFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureFourFile) }}
+                            <label for="{{ form.pictureFourFile.vars.id }}" id="{{ form.pictureFourFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureFiveFile) }}
+                            <label for="{{ form.pictureFiveFile.vars.id }}" id="{{ form.pictureFiveFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureSixFile) }}
+                            <label for="{{ form.pictureSixFile.vars.id }}" id="{{ form.pictureSixFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureSevenFile) }}
+                            <label for="{{ form.pictureSevenFile.vars.id }}" id="{{ form.pictureSevenFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-md-3 form-img-el form-group">
+                            {{ form_widget(form.pictureHeightFile) }}
+                            <label for="{{ form.pictureHeightFile.vars.id }}" id="{{ form.pictureHeightFile.vars.id ~ '-preview' }}">
+                                <img src="https://bit.ly/3ubuq5o" alt="">
+                                <div>
+                                    <span>+</span>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Packs disponible</h5>
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% for pack in packs %}
+                                <div class="box-packs">
+                                    <div class="infos-packs">
+                                        <div class="img-packs">
+                                            {% if pack.level == 'premium' %}
+                                                <img src="{{ asset('front/images/premium.png') }}" alt="{{ pack.level }}"/>
+                                            {% elseif pack.level == 'star' %}
+                                                <img src="{{ asset('front/images/star.png') }}" alt="{{ pack.level }}"/>
+                                            {% else %}
+                                                <img src="{{ asset('front/images/entete.png') }}" alt="{{ pack.level }}"/>
+                                            {% endif %}
+                                        </div>
+                                        <div class="txt-packs">
+                                            <h5 class="title-pack">{{ pack.title }}</h5>
+                                            <p class="text-pack">
+                                                {{ pack.description }}
+                                            </p>
+                                        </div>
+                                        <div class="form-radio">
+                                            <label for="{{ form.pack.vars.id }}{{ '_' ~ pack.id }}" class="{{ form.pack.vars.required ? 'required' }}">{{ pack.label }}</label>
+                                            <input type="radio" id="{{ form.pack.vars.id }}{{ '_' ~pack.id }}" name="{{ form.pack.vars.full_name }}" required="required" value="{{ pack.id }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
             {{ form_widget(form.save) }}
                 {{ form_rest(form) }}
             {{ form_end(form) }}
         </div>
     </main>
+
+    {% include 'Admin/Modal/state_modal.html.twig' %}
 {% endblock %}

@@ -5,8 +5,11 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Annonce;
+use App\Entity\Category;
+use App\Entity\State;
 use App\Form\AnnonceType;
 use App\Manager\AnnonceManager;
+use App\Repository\PackRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +49,7 @@ class AnnonceController extends AbstractController
      *
      * @return Response
      */
-    public function new(Request $request)
+    public function new(Request $request, PackRepository $packRepository)
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -54,7 +57,7 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonce->setOwner($this->getUser());
-            dd($form->getData());
+
             $this->annonceManager->persist($annonce);
 
             $this->addFlash('info', 'Votre annonce vient d\être ajoutée avec succès !');
@@ -62,8 +65,11 @@ class AnnonceController extends AbstractController
         }
 
         return $this->render(
-            'Admin/Annonce/new.html.twig',
-            ['form' => $form->createView()]
+            'Admin/Annonce/new.html.twig', [
+                'form' => $form->createView(),
+                'states' => $this->annonceManager->all(State::class),
+                'packs' => $packRepository->getPacksOrderByPrice()
+            ]
         );
     }
 
