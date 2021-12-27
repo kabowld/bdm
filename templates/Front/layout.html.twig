@@ -265,6 +265,7 @@
                 let url = URL.createObjectURL(file);
                 document.querySelector("#"+id+"-preview div").innerText = file.name;
                 document.querySelector("#"+id+"-preview img").src = url;
+                $("#"+id+"-preview .delete-img").css('display', 'block');
             });
         }
 
@@ -279,7 +280,7 @@
 
         const $rubrique = $('#annonce_rubrique');
         $('#annonce_category').attr('disabled', 'disabled');
-// When sport gets selected ...
+
         $rubrique.change(function() {
             // ... retrieve the corresponding form.
             var $form = $(this).closest('form');
@@ -305,6 +306,15 @@
                     // Position field now displays the appropriate positions.
                 }
             });
+        });
+
+        $('.main-annonce label').on('click', 'span.delete-img', function (e) {
+            e.preventDefault();
+            const id = $(this).data('id');
+            $('#'+id).val('');
+            $("#"+id+"-preview div").html('<span>+</span>');
+            $("#"+id+"-preview img").attr('src', 'https://bit.ly/3ubuq5o');
+            $(this).css('display', 'none')
         });
 
     });

@@ -9,7 +9,6 @@
             {{ form_start(form) }}
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             {{ form_label(form.title) }}
@@ -49,7 +48,6 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
                     <div class="row">
                         <div class="col-md-12 form-group">
                             {{ form_label(form.description) }}
@@ -69,7 +67,6 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Lieu de l'emplacement</h5>
                     <div class="row">
                         <div class="col-md-6 form-group">
                             {{ form_label(form.city) }}
@@ -77,6 +74,7 @@
                             {{ form_errors(form.city) }}
                         </div>
                     </div>
+                    <h5 class="card-title">Lieu précis de l'emplacement</h5>
                     <div class="row">
                         <div class="col-md-12">
                             <div id="box-map-address"></div>
@@ -99,6 +97,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureOneFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                         <div class="col-md-3 form-img-el form-group">
@@ -108,6 +107,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureTwoFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                         <div class="col-md-3 form-img-el form-group">
@@ -117,6 +117,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureThreeFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                         <div class="col-md-3 form-img-el form-group">
@@ -126,6 +127,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureFourFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                     </div>
@@ -137,6 +139,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureFiveFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                         <div class="col-md-3 form-img-el form-group">
@@ -146,6 +149,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureSixFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                         <div class="col-md-3 form-img-el form-group">
@@ -155,6 +159,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureSevenFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                         <div class="col-md-3 form-img-el form-group">
@@ -164,6 +169,7 @@
                                 <div>
                                     <span>+</span>
                                 </div>
+                                <span class="delete-img" data-id="{{ form.pictureHeightFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
                         </div>
                     </div>
@@ -171,16 +177,16 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Packs disponible</h5>
+                    <h5 class="card-title">Packs disponibles</h5>
                     <div class="row">
                         <div class="col-md-12">
                             {% for pack in packs %}
                                 <div class="box-packs">
                                     <div class="infos-packs">
                                         <div class="img-packs">
-                                            {% if pack.level == 'premium' %}
+                                            {% if pack.level == 'vip' %}
                                                 <img src="{{ asset('front/images/premium.png') }}" alt="{{ pack.level }}"/>
-                                            {% elseif pack.level == 'star' %}
+                                            {% elseif pack.level == 'or' %}
                                                 <img src="{{ asset('front/images/star.png') }}" alt="{{ pack.level }}"/>
                                             {% else %}
                                                 <img src="{{ asset('front/images/entete.png') }}" alt="{{ pack.level }}"/>

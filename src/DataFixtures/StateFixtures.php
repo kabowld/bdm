@@ -19,11 +19,11 @@ class StateFixtures extends Fixture implements FixtureGroupInterface
     public function load(ObjectManager $manager): void
     {
         $states = [
-            'Etat satisfaisant' => 'Bien en état de fonctionnement correct, comportant des défauts et signes d’usure manifestes (mentionnés dans l’annonce et visibles sur les photos).',
-            'Etat correct' => 'Bon état',
-            'Bon état' => 'Bien en parfait état de fonctionnement, comportant quelques petits défauts (mentionnés dans l’annonce et visibles sur les photos).',
-            'Très bon état' => 'Bien pas ou peu utilisé, sans aucun défaut ni rayure, complet et en parfait état de fonctionnement.',
-            'Neuf' => 'Bien non-utilisé, complet, avec emballage non ouvert et notice(s) d’utilisation.'
+            'Neuf' => "Bien non-utilisé, non endommagé, complet, avec emballage non ouvert et notice(s)  d’utilisation. L'objet peut être proposé sans son emballage d'origine, ou dans l'emballage  d'origine non scellé",
+            'Très bon état' => "Bien peu utilisé ; il ne présente aucun dommage, aucune éraflure, aucune rayure. Il est complet et en parfait état de fonctionnement.",
+            'Bon état' => "Bien en bon état de fonctionnement, présentant des dommages minimes et comportant  quelques petits défauts (mentionnés dans l’annonce et visibles sur les photos).",
+            'Satisfaisant' => "Bien en état de fonctionnement correct, comportant des défauts et signes d’usure  manifestes (mentionnés dans l’annonce et visibles sur les photos).",
+            'Abîmé' => 'Bien non fonctionnel nécessitant une réparation ou un entretien pour restauration complète  ou récupération de pièces détachées.',
         ];
 
         foreach($states as $title => $description) {
