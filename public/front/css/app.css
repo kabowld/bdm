@@ -622,7 +622,33 @@ a.dropdown-item.signout-head{
     color: #a3a3a3;
 }
 
-.login_form.inner_page .form-control{
+.eye-icon-passwd-register, .eye-icon2-passwd-register{
+    width: 50px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    text-align: center;
+    height: 100%;
+    line-height: 109px;
+}
+
+.eye-icon-passwd-pro-register, .eye-icon2-passwd-pro-register {
+    width: 50px;
+    position: absolute;
+    right: 10px;
+    bottom: 0;
+    cursor: pointer;
+    text-align: center;
+    height: 100%;
+    line-height: 109px;
+}
+
+.login_form.inner_page .form-control,
+#registration_password_first,
+#registration_password_second,
+#registration_particular_password_first,
+#registration_particular_password_second{
     padding-right: 45px;
 }
 .fx-passwd {
@@ -834,6 +860,34 @@ a[data-target="#stateModal"]:hover {
     right: 0;
     transform: translate(50%, 50%);
     z-index: 5;
+}
+
+.rgx-ph img {
+    width: 16px;
+    height: 16px;
+}
+
+.rgx-ph {
+    color: #222 !important;
+    font-size: 13px !important;
+    font-weight: 300 !important;
+}
+
+.rgx-passwd {
+    display: none;
+    background: #f7f7f7;
+    padding: 12px;
+}
+
+
+.actly-passwd {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--main-orange-color);
+    background: #f7f7f7;
+    padding: 0.5em 1em;
+    text-align: center;
+    display: none;
 }
 
 @media (min-width: 992px) {

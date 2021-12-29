@@ -8,6 +8,7 @@ use App\Entity\City;
 use App\Entity\Pack;
 use App\Entity\Rubrique;
 use App\Entity\State;
+use App\Repository\StateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -24,16 +25,12 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use function Doctrine\ORM\QueryBuilder;
 
 class AnnonceType extends AbstractType
 {
-
-    private $em;
-
-    public function __construct(EntityManagerInterface $em)
-    {
-        $this->em = $em;
-    }
+    private const NORMAL_STATE = 'normal';
+    private const FASHION_STATE = 'style';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -104,6 +101,9 @@ class AnnonceType extends AbstractType
             ->add('lng', HiddenType::class)
             ->add('state', EntityType::class, [
                 'class' => State::class,
+                'query_builder' => function (StateRepository $er) {
+                    return $er->getStateByCategoryType(self::NORMAL_STATE);
+                },
                 'placeholder' => 'Sélectionner un état',
                 'label' => 'Etat',
                 'choice_label' => function (State $state) {

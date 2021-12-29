@@ -2,6 +2,7 @@ twig:
     default_path: '%kernel.project_dir%/templates'
     paths:
         '%kernel.project_dir%/public/front/images/email': emails
+        '%kernel.project_dir%/public/front/css/email': bemails
 
 when@test:
     twig:

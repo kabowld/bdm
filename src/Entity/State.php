@@ -16,7 +16,7 @@ class State
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @Assert\NotBlank(message="Le titre doit être définit !")
@@ -30,6 +30,13 @@ class State
      * @ORM\Column(type="text")
      */
     private string $description;
+
+    /**
+     * @Assert\Valid()
+     * @ORM\ManyToOne(targetEntity=CategoryState::class, inversedBy="states", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categoryState;
 
     public function getId(): ?int
     {
@@ -56,6 +63,18 @@ class State
     public function setDescription(string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getCategoryState(): ?CategoryState
+    {
+        return $this->categoryState;
+    }
+
+    public function setCategoryState(?CategoryState $categoryState): self
+    {
+        $this->categoryState = $categoryState;
 
         return $this;
     }

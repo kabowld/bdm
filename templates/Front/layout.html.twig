@@ -158,6 +158,46 @@
             }
         });
 
+        $('.eye-icon-passwd-register').on('click', function (e) {
+            $(this).toggleClass('visible-eye-password');
+            if ($(this).hasClass('visible-eye-password')) {
+                $('#registration_particular_password_first').attr('type', 'text');
+            } else  {
+                $('#registration_particular_password_first').attr('type', 'password');
+
+            }
+        });
+
+        $('.eye-icon2-passwd-register').on('click', function (e) {
+            $(this).toggleClass('visible-eye-password');
+            if ($(this).hasClass('visible-eye-password')) {
+                $('#registration_particular_password_second').attr('type', 'text');
+            } else  {
+                $('#registration_particular_password_second').attr('type', 'password');
+
+            }
+        });
+
+        $('.eye-icon-passwd-pro-register').on('click', function (e) {
+            $(this).toggleClass('visible-eye-password');
+            if ($(this).hasClass('visible-eye-password')) {
+                $('#registration_password_first').attr('type', 'text');
+            } else  {
+                $('#registration_password_first').attr('type', 'password');
+
+            }
+        });
+
+        $('.eye-icon2-passwd-pro-register').on('click', function (e) {
+            $(this).toggleClass('visible-eye-password');
+            if ($(this).hasClass('visible-eye-password')) {
+                $('#registration_password_second').attr('type', 'text');
+            } else  {
+                $('#registration_password_second').attr('type', 'password');
+
+            }
+        });
+
         (function() {
             const inputLocation = document.querySelector('#annonce_location');
 
@@ -257,6 +297,10 @@
 
 
         function previewBeforeUpload(id){
+            let check = document.querySelector('#'+id);
+            if (!check) {
+                return false;
+            }
             document.querySelector('#'+id).addEventListener('change', function(e){
                 if(e.target.files.length === 0){
                     return;
@@ -315,6 +359,37 @@
             $("#"+id+"-preview div").html('<span>+</span>');
             $("#"+id+"-preview img").attr('src', 'https://bit.ly/3ubuq5o');
             $(this).css('display', 'none')
+        });
+
+
+
+
+        $('#registration_particular_password_first').on('keyup', function(e){
+            $('.rgx-passwd').fadeIn('400');
+        });
+
+        $('#registration_password_first').on('keyup', function (e) {
+            $('.rgx-passwd').fadeIn('400');
+        })
+
+        $('#registration_particular_password_second').on('keyup', function (e) {
+            const pass1 = $('#registration_particular_password_first').val();
+            const pass2 = $(this).val();
+            if (pass1 !== pass2) {
+                $('.actly-passwd').fadeIn('400');
+            } else {
+                $('.actly-passwd').fadeOut('400');
+            }
+        });
+
+        $('#registration_password_second').on('keyup', function (e) {
+            const pass1 = $('#registration_password_first').val();
+            const pass2 = $(this).val();
+            if (pass1 !== pass2) {
+                $('.actly-passwd').fadeIn('400');
+            } else {
+                $('.actly-passwd').fadeOut('400');
+            }
         });
 
     });

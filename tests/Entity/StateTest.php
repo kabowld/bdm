@@ -4,6 +4,7 @@
 namespace App\Tests\Entity;
 
 
+use App\Entity\CategoryState;
 use App\Entity\State;
 
 class StateTest extends EntityTestCase
@@ -25,6 +26,7 @@ class StateTest extends EntityTestCase
         $state
             ->setTitle($this->str_random(51))
             ->setDescription('Description état')
+            ->setCategoryState($this->getCategoryState())
         ;
         $this->assertHasErrors($state, 1);
     }
@@ -35,6 +37,7 @@ class StateTest extends EntityTestCase
         $state
             ->setTitle($this->str_random(50))
             ->setDescription('Description état')
+            ->setCategoryState($this->getCategoryState())
         ;
         $this->assertHasErrors($state);
     }
@@ -45,6 +48,7 @@ class StateTest extends EntityTestCase
         $state
             ->setTitle('')
             ->setDescription('')
+            ->setCategoryState($this->getCategoryState())
         ;
         $this->assertHasErrors($state, 2);
     }
@@ -58,9 +62,14 @@ class StateTest extends EntityTestCase
         $state
             ->setTitle($value)
             ->setDescription('description etat')
+            ->setCategoryState($this->getCategoryState())
         ;
         $this->assertHasErrors($state);
     }
 
+    private function getCategoryState(): CategoryState
+    {
+        return (new CategoryState())->setTitle('normal');
+    }
 
 }

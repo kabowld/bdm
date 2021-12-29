@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\State;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method State|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,16 @@ class StateRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getStateByCategoryType(string $type)
+    {
+        $qb = $this->createQueryBuilder('s');
+        return
+            $qb
+                ->innerJoin('s.categoryState', 'cat')
+                ->addSelect('cat')
+                ->where('cat.title = :type')
+                ->setParameter('type', $type)
+            ;
+    }
 }
