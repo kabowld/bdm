@@ -890,6 +890,12 @@ a[data-target="#stateModal"]:hover {
     display: none;
 }
 
+.map__image {
+    background: url('../images/map-bg-home.png') no-repeat center center;
+    background-size: cover;
+    margin-bottom: 20px;
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;

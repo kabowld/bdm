@@ -147,6 +147,7 @@ class AnnonceType extends AbstractType
                         ->orderBy('p.id','ASC');
                 },
                 'label' => false,
+                'required' => false
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
