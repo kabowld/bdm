@@ -399,17 +399,21 @@
             loop:true,
             margin: 10,
             responsiveClass:true,
-            nav:true,
-            dots: false,
             responsive:{
                 0:{
                     items:2,
+                    nav:false,
+                    dots: true
                 },
                 768:{
                     items:3,
+                    nav:true,
+                    dots: false,
                 },
                 992:{
                     items:5,
+                    nav:true,
+                    dots: false
                 }
             },
             autoplay: true,
