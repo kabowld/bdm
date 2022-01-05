@@ -44,7 +44,7 @@ class SendMail
      *
      * @return void
      */
-    public function validAccountUser(string $to, string $subject, string $tplPath, ?array $context = []): void
+    public function createEmail(string $to, string $subject, string $tplPath, ?array $context = []): void
     {
         try {
             $email = (new TemplatedEmail())

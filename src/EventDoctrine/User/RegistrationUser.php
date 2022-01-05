@@ -46,11 +46,11 @@ class RegistrationUser
     private function sendVerifyMail(User $user)
     {
         $url = sprintf('%s/validation/compte/%s', $this->getAppUrl(), $user->getConfirmatoken());
-        $this->sendMail->validAccountUser(
+        $this->sendMail->createEmail(
             $user->getEmail(),
             self::CREATE_ACCOUNT_SUBJECT,
             self::PATH_VERIFY_ACCOUNT,
-            ['url' => $url, 'subject' => self::CREATE_ACCOUNT_SUBJECT]
+            ['url' => $url]
         );
     }
 

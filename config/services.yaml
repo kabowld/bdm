@@ -30,10 +30,6 @@ services:
     # please note that last definitions always *replace* previous ones
 
 
-    App\EventListener\LoginSuccessEventListener:
-        tags:
-            - { name: kernel.event_listener, method: onSecurityLogin, dispatcher: security.event_dispatcher.main }
-
     App\EventListener\AuthenticationSuccessListener:
         tags:
             - { name: kernel.event_listener, method: onAuthenticationSuccessEvent, dispatcher: security.event_dispatcher.main }
