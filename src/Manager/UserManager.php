@@ -5,6 +5,8 @@ namespace App\Manager;
 
 use App\Entity\Groupe;
 use App\Entity\User;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 
@@ -17,6 +19,8 @@ class UserManager extends Manager
     const ADMIN_DASHBOARD_PATH = 'admin_dashboard_bdmk';
     const ERROR_MESS_NOT_FOUND = 'La page que vous recherchez est introuvable !';
     const DURATION_TOKEN_VALIDATE = 3600;
+    const WELCOME_PATH = 'Email/welcome.html.twig';
+    const WELCOME_SUBJECT_MAIL = 'Bienvenue à Bandama Market !';
 
 
     /**
@@ -97,8 +101,16 @@ class UserManager extends Manager
         ;
         $this->em->flush();
 
+        $this->email->createEmail(
+            $user->getEmail(),
+            self::WELCOME_SUBJECT_MAIL,
+            self::WELCOME_PATH,
+            ['url' => sprintf('%s/admin/annonce/ajout', $this->getAppUrl())]
+        );
+
         return ['status' => 'success', 'message' => 'Bravo, votre compte a été activé avec succès !'];
     }
+
 
     /**
      * Check expiration link
