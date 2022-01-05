@@ -20,7 +20,7 @@ class UserManager extends Manager
     const ERROR_MESS_NOT_FOUND = 'La page que vous recherchez est introuvable !';
     const DURATION_TOKEN_VALIDATE = 3600;
     const WELCOME_PATH = 'Email/welcome.html.twig';
-    const WELCOME_SUBJECT_MAIL = 'Bienvenue à Bandama Market !';
+    const WELCOME_SUBJECT_MAIL = 'Bienvenue chez Bandama Market !';
 
 
     /**
