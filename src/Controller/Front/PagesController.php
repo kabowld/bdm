@@ -27,7 +27,7 @@ class PagesController extends AbstractController
     {
         return $this->render('Front/Pages/home.html.twig', [
             'cities' => $cityRepository->getCitiesByOrderTitle(),
-            'rubriques' => $rubriqueRepository->findAll()
+            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories()
         ]);
     }
 
