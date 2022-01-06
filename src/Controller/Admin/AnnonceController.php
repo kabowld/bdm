@@ -81,13 +81,12 @@ class AnnonceController extends AbstractController
      *
      * @return Response
      */
-    public function edit(Annonce $annonce, Request $request): Response
+    public function edit(Annonce $annonce, Request $request, PackRepository $packRepository): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dd($form->getData());
             $this->annonceManager->persist($form->getData(), false);
 
             $this->addFlash('info', 'Votre annonce vient d\être modifiée avec succès !');
@@ -95,8 +94,11 @@ class AnnonceController extends AbstractController
         }
 
         return $this->render(
-            'Admin/Annonce/edit.html.twig',
-            ['form' => $form->createView()]
+            'Admin/Annonce/edit.html.twig', [
+                'form' => $form->createView(),
+                'packs' => $packRepository->getPacksOrderByPrice(),
+                'states' => $this->annonceManager->all(State::class),
+            ]
         );
     }
 }

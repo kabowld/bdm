@@ -60,4 +60,9 @@ class StateRepository extends ServiceEntityRepository
                 ->setParameter('type', $type)
             ;
     }
+
+    public function getStateArrayByCategoryType(string $type): array
+    {
+        return $this->getStateByCategoryType($type)->getQuery()->getResult();
+    }
 }
