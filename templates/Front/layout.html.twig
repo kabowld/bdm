@@ -326,6 +326,7 @@
 
         const $rubrique = $('#annonce_rubrique');
         $('#annonce_category').attr('disabled', 'disabled');
+        $('#annonce_state').attr('disabled', 'disabled');
 
         $rubrique.change(function() {
             // ... retrieve the corresponding form.
@@ -341,6 +342,8 @@
                 beforeSend: function () {
                     $('#annonce_category').attr('disabled', 'disabled');
                     $('#annonce_category').val('');
+                    $('#annonce_state').attr('disabled', 'disabled');
+                    $('#annonce_state').val('');
                 },
                 complete: function(html) {
                     // Replace current position field ...
@@ -353,6 +356,7 @@
                         $(html.responseText).find('#annonce_state')
                     );
                     $('#annonce_category').removeAttr('disabled');
+                    $('#annonce_state').removeAttr('disabled');
                     // Position field now displays the appropriate positions.
                 }
             });
@@ -423,6 +427,11 @@
             autoplay: true,
             autoplayTimeout: 10000,
             navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
+        });
+
+        $('#annonce_price').on('keyup', function () {
+           let $value = $(this).val();
+           $(this).val($value.replace(/\s+/g, ""));
         });
 
     });

@@ -27,12 +27,6 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-6 form-group">
-                            {{ form_label(form.state) }}
-                            {{ form_widget(form.state) }}
-                            {{ form_errors(form.state) }}
-                            <a href="#" data-toggle="modal" data-target="#stateModal">Guides des états</a>
-                        </div>
-                        <div class="col-md-6 form-group">
                             {{ form_label(form.rubrique) }}
                             {{ form_widget(form.rubrique) }}
                             {{ form_errors(form.rubrique) }}
@@ -41,6 +35,12 @@
                             {{ form_label(form.category) }}
                             {{ form_widget(form.category) }}
                             {{ form_errors(form.category) }}
+                        </div>
+                        <div class="col-md-6 form-group">
+                            {{ form_label(form.state) }}
+                            {{ form_widget(form.state) }}
+                            {{ form_errors(form.state) }}
+                            <a href="#" data-toggle="modal" data-target="#stateModal">Guides des états</a>
                         </div>
                     </div>
                 </div>
