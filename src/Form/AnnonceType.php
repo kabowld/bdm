@@ -25,12 +25,18 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use function Doctrine\ORM\QueryBuilder;
 
 class AnnonceType extends AbstractType
 {
     private const NORMAL_STATE = 'normal';
     private const FASHION_STATE = 'style';
+
+    private EntityManagerInterface $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -95,22 +101,14 @@ class AnnonceType extends AbstractType
                 'label' => 'Rubrique',
                 'placeholder' => 'Sélectionner la rubrique',
                 'attr' => ['class' => 'form-control'],
-                'mapped' => false
+                'mapped' => false,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('c')
+                        ->orderBy('c.title', 'ASC');
+                }
             ])
             ->add('lat', HiddenType::class)
             ->add('lng', HiddenType::class)
-            ->add('state', EntityType::class, [
-                'class' => State::class,
-                'query_builder' => function (StateRepository $er) {
-                    return $er->getStateByCategoryType(self::NORMAL_STATE);
-                },
-                'placeholder' => 'Sélectionner un état',
-                'label' => 'Etat',
-                'choice_label' => function (State $state) {
-                    return $state->getTitle();
-                },
-                'attr' => ['class' => 'form-control']
-            ])
             ->add('pictureOneFile', FileType::class, [
                 'required' => false,
             ])
@@ -155,56 +153,103 @@ class AnnonceType extends AbstractType
             ])
         ;
 
-        $formModifier = function (FormInterface $form, Rubrique $rubrique = null) {
-            $categories = null === $rubrique ? [] : $rubrique->getCategories();
-            $placeholder = null === $rubrique ? 'Sélectionner la rubrique': 'Sélectionner la catégorie';
+        $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
+        $builder->addEventListener(FormEvents::POST_SET_DATA,[$this, 'onPostSetData']);
 
-            $form->add('category', EntityType::class, [
-                'class' => Category::class,
-                'choices' => $categories,
-                'choice_label' => 'title',
-                'label' => 'Catégorie',
-                'placeholder' => $placeholder,
-                'attr' => ['class' => 'form-control'],
-            ]);
-        };
-
-        $builder->addEventListener(
-            FormEvents::PRE_SET_DATA,
-            function (FormEvent $event) use ($formModifier) {
-                // this would be your entity, i.e. SportMeetup
-                $data = $event->getData();
-
-                $formModifier($event->getForm(), $data->getCategory());
-            }
-        );
-
-        $builder->get('rubrique')->addEventListener(
-            FormEvents::POST_SUBMIT,
-            function (FormEvent $event) use ($formModifier) {
-                // It's important here to fetch $event->getForm()->getData(), as
-                // $event->getData() will get you the client data (that is, the ID)
-                $rubrique = $event->getForm()->getData();
-
-                // since we've added the listener to the child, we'll have to pass on
-                // the parent to the callback functions!
-                $formModifier($event->getForm()->getParent(), $rubrique);
-            }
-        );
-        $builder->addEventListener(
-            FormEvents::POST_SET_DATA,
-            function (FormEvent $event) {
-                $form = $event->getForm();
-                $data = $event->getData();
-
-                /** @var $data Annonce */
-                if ($category = $data->getCategory()) {
-                    $form->get('category')->setData($category);
-                    $form->get('rubrique')->setData($category->getRubrique());
-                }
-            }
-        );
+        $builder->get('rubrique')->addEventListener(FormEvents::POST_SUBMIT, [$this, 'onPostSubmit']);
     }
+
+
+    /**
+     * @param FormEvent $event
+     *
+     * @return void
+     */
+    public function onPreSetData(FormEvent $event): void
+    {
+        $this->createFormCategory($event->getForm());
+        $this->createFormState($event->getForm());
+    }
+
+    /**
+     * @param FormEvent $event
+     *
+     * @return void
+     */
+    public function onPostSetData(FormEvent $event): void
+    {
+        $form = $event->getForm();
+        $data = $event->getData();
+        $category = $data->getCategory();
+        dump($data->getState());
+        if ($category) {
+            $form->get('category')->setData($category);
+            $form->get('rubrique')->setData($category->getRubrique());
+        }
+
+        $form->get('state')->setData($data->getState());
+    }
+
+    /**
+     * @param FormEvent $event
+     *
+     * @return void
+     */
+    public function onPostSubmit(FormEvent $event): void
+    {
+        $this->createFormCategory($event->getForm()->getParent(), $event->getForm()->getData());
+        $this->createFormState($event->getForm()->getParent(), $event->getForm()->getData());
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Rubrique|null $rubrique
+     *
+     * @return void
+     */
+    private function createFormCategory(FormInterface $form, Rubrique $rubrique = null): void
+    {
+        $categories = null === $rubrique ? [] : $rubrique->getCategories();
+        $placeholder = null === $rubrique ? 'Sélectionner la rubrique': 'Sélectionner la catégorie';
+
+        $form->add('category', EntityType::class, [
+            'class' => Category::class,
+            'choices' => $categories,
+            'choice_label' => 'title',
+            'label' => 'Catégorie',
+            'placeholder' => $placeholder,
+            'attr' => ['class' => 'form-control'],
+        ]);
+    }
+
+    /**
+     * @param FormInterface $form
+     * @param Rubrique|null $rubrique
+     *
+     * @return void
+     */
+    private function createFormState(FormInterface $form, Rubrique $rubrique = null): void
+    {
+        if (!is_null($rubrique) && $rubrique->getTitle() === 'Style et mode') {
+            $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::FASHION_STATE);
+        } elseif ($rubrique === null) {
+            $states = $this->em->getRepository(State::class)->findAll();
+        } else{
+            $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::NORMAL_STATE);
+        }
+
+        $form->add('state', EntityType::class, [
+            'class' => State::class,
+            'choices' => $states,
+            'placeholder' => 'Sélectionner un état',
+            'label' => 'Etat',
+            'choice_label' => function (State $state) {
+                return $state->getTitle();
+            },
+            'attr' => ['class' => 'form-control']
+        ]);
+    }
+
 
     public function configureOptions(OptionsResolver $resolver): void
     {
