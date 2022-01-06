@@ -49,20 +49,18 @@ class StateRepository extends ServiceEntityRepository
     }
     */
 
-    public function getStateByCategoryType(string $type)
+    public function getStateArrayByCategoryType(string $type): array
     {
-        $qb = $this->createQueryBuilder('s');
         return
-            $qb
+            $this->createQueryBuilder('s')
                 ->innerJoin('s.categoryState', 'cat')
                 ->addSelect('cat')
                 ->where('cat.title = :type')
                 ->setParameter('type', $type)
+                ->getQuery()
+                ->getResult()
             ;
     }
 
-    public function getStateArrayByCategoryType(string $type): array
-    {
-        return $this->getStateByCategoryType($type)->getQuery()->getResult();
-    }
+
 }

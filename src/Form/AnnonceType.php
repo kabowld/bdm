@@ -181,7 +181,7 @@ class AnnonceType extends AbstractType
         $form = $event->getForm();
         $data = $event->getData();
         $category = $data->getCategory();
-        dump($data->getState());
+
         if ($category) {
             $form->get('category')->setData($category);
             $form->get('rubrique')->setData($category->getRubrique());
@@ -241,7 +241,7 @@ class AnnonceType extends AbstractType
         $form->add('state', EntityType::class, [
             'class' => State::class,
             'choices' => $states,
-            'placeholder' => 'Sélectionner un état',
+            'placeholder' => $states === null ? 'Selectionner la rubrique' : 'Sélectionner un état',
             'label' => 'Etat',
             'choice_label' => function (State $state) {
                 return $state->getTitle();

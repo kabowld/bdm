@@ -54,7 +54,7 @@ class Annonce
      * @ORM\ManyToOne(targetEntity=State::class)
      * @ORM\JoinColumn(nullable=false)
      */
-    private ?State $state;
+    private ?State $state = null;
 
     /**
      * @ORM\Column(type="datetime_immutable")
