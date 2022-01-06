@@ -57,4 +57,16 @@ class RubriqueRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
+
+    public function getAllRubriqueAndCategories(): array
+    {
+        return
+            $this
+                ->createQueryBuilder('r')
+                ->innerJoin('r.categories', 'cat')
+                ->addSelect('cat')
+                ->getQuery()
+                ->getResult()
+            ;
+    }
 }
