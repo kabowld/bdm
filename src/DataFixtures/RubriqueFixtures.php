@@ -1,34 +1,55 @@
 <?php
 
-
 namespace App\DataFixtures;
 
-
 use App\Entity\Category;
+use App\Entity\FilePicture;
 use App\Entity\Rubrique;
+use App\Service\FileUploaderHelper;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
-use phpDocumentor\Reflection\Types\Self_;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class RubriqueFixtures extends Fixture implements FixtureGroupInterface
 {
+    private $fileUploaderHelper;
+    private $slugger;
 
-    public function load(ObjectManager $manager)
+    /**
+     * @param FileUploaderHelper $fileUploaderHelper
+     * @param SluggerInterface $sluggerInterface
+     */
+    public function __construct(FileUploaderHelper $fileUploaderHelper, SluggerInterface $sluggerInterface)
+    {
+        $this->fileUploaderHelper = $fileUploaderHelper;
+        $this->slugger = $sluggerInterface;
+    }
+
+    /**
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
+    public function load(ObjectManager $manager): void
     {
         $listes = self::getListeRubriques();
         foreach ($listes as $rub => $categories)
         {
-            $rubrique = new Rubrique();
-            $rubrique
-                ->setTitle($rub);
+            // FilePicture
+            $file = $this->getFile($rub);
+            $fileName = $this->fileUploaderHelper->upload($file);
+            $filePicture = $this->getFilePicture($file, $fileName);
+            $manager->persist($filePicture);
+
+            // Rubrique
+            $rubrique = $this->getRubrique($rub, $this->slugger->slug(strtolower($rub)), $filePicture);
             $manager->persist($rubrique);
 
+            // Category
             foreach ($categories as $categorie) {
-                $category = new Category();
-                $category
-                    ->setTitle($categorie)
-                    ->setRubrique($rubrique);
+                $category = $this->getCategory($categorie, $rubrique, $this->slugger->slug(strtolower($categorie)));
                 $manager->persist($category);
             }
         }
@@ -119,6 +140,66 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
                 ],
                 'Divers' => ['Autres']
         ];
+    }
+
+    /**
+     * @param File   $file
+     * @param string $filename
+     *
+     * @return FilePicture
+     */
+    private function getFilePicture(File $file, string $filename): FilePicture
+    {
+        return (new FilePicture())
+            ->setFile($file)
+            ->setFileName($filename)
+        ;
+    }
+
+    /**
+     * @param string      $title
+     * @param string      $slug
+     * @param FilePicture $filePicture
+     *
+     * @return Rubrique
+     */
+    private function getRubrique(string $title, string $slug, FilePicture $filePicture): Rubrique
+    {
+        return (new Rubrique())
+            ->setTitle($title)
+            ->setSlug($slug)
+            ->setImage($filePicture)
+        ;
+    }
+
+    /**
+     * @param string   $title
+     * @param Rubrique $rubrique
+     * @param string   $slug
+     *
+     * @return Category
+     */
+    private function getCategory(string $title, Rubrique $rubrique, string $slug): Category
+    {
+        return (new Category())
+            ->setTitle($title)
+            ->setRubrique($rubrique)
+            ->setSlug($slug)
+        ;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return File
+     */
+    private function getFile(string $title): File
+    {
+        return new File(
+            FileUploaderHelper::relativeRubriquePath().
+            DIRECTORY_SEPARATOR.
+            $this->slugger->slug(strtolower($title)).FileUploaderHelper::EXT_PNG
+        );
     }
 
 }
