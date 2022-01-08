@@ -6,9 +6,12 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CategoryRepository::class)
+ * @UniqueEntity(fields={"title"}, message="Il existe déjà un titre avec cette catégorie!")
  */
 class Category
 {
@@ -17,28 +20,38 @@ class Category
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
+     * @Assert\NotBlank(message="Le titre de la catégorie ne doit pas être vide !")
+     * @Assert\Length(max=50, maxMessage="Le nombre de caractère maximum ne doit pas dépasser {{ limit }}")
      * @ORM\Column(type="string", length=50)
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private string $description;
 
     /**
+     * @Assert\Valid
      * @ORM\ManyToOne(targetEntity=Rubrique::class, inversedBy="categories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $rubrique;
+    private ?Rubrique $rubrique;
 
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="category")
      */
-    private $annonces;
+    private Collection $annonces;
+
+    /**
+     * @Assert\NotBlank(message="Le slug de la catégorie ne doit pas être vide !")
+     * @Assert\Length(max=50, maxMessage="Le nombre de caractère maximum ne doit pas dépasser {{ limit }}")
+     * @ORM\Column(type="string", length=50)
+     */
+    private string $slug;
 
     public function __construct()
     {
@@ -112,6 +125,18 @@ class Category
                 $annonce->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }

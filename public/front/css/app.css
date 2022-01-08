@@ -863,6 +863,10 @@ a[data-target="#stateModal"]:hover {
     z-index: 5;
 }
 
+.precision-location {
+    z-index: 10;
+}
+
 .rgx-ph img {
     width: 16px;
     height: 16px;

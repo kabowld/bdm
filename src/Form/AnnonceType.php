@@ -136,7 +136,7 @@ class AnnonceType extends AbstractType
             ->add('pack', EntityType::class, [
                 'class' => Pack::class,
                 'choice_label' => function (Pack $pack) {
-                    return sprintf('%s Fcfa  %s  %s Jours', $pack->getPrice(), $pack->getPriceByDay(), $pack->getDays());
+                    return sprintf('%s Fcfa  %s', $pack->getPrice(), $pack->getPriceByDay());
                 },
                 'multiple' => false,
                 'expanded' => true,

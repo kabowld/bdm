@@ -6,9 +6,12 @@ use App\Repository\RubriqueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=RubriqueRepository::class)
+ * @UniqueEntity(fields={"title"}, message="Il existe déjà un titre avec cette rubrque!")
  */
 class Rubrique
 {
@@ -17,22 +20,36 @@ class Rubrique
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
+     * @Assert\NotBlank(message="Le titre de la rubrique ne doit pas être vide !")
+     * @Assert\Length(max=50, maxMessage="Le nombre de caractère maximum ne doit pas dépasser {{ limit }}")
      * @ORM\Column(type="string", length=50)
      */
-    private $title;
+    private string $title;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      */
-    private $description;
+    private string $description;
 
     /**
      * @ORM\OneToMany(targetEntity=Category::class, mappedBy="rubrique")
      */
-    private $categories;
+    private Collection $categories;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FilePicture::class, cascade={"persist", "remove"})
+     */
+    private ?FilePicture $image;
+
+    /**
+     * @Assert\NotBlank(message="Le slug de la rubrique ne doit pas être vide !")
+     * @Assert\Length(max=50, maxMessage="Le nombre de caractère maximum ne doit pas dépasser {{ limit }}")
+     * @ORM\Column(type="string", length=50)
+     */
+    private string $slug;
 
     public function __construct()
     {
@@ -97,4 +114,30 @@ class Rubrique
 
         return $this;
     }
+
+    public function getImage(): ?FilePicture
+    {
+        return $this->image;
+    }
+
+    public function setImage(?FilePicture $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+
 }
