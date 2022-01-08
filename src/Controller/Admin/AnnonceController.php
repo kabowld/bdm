@@ -10,7 +10,9 @@ use App\Entity\State;
 use App\Form\AnnonceType;
 use App\Manager\AnnonceManager;
 use App\Repository\PackRepository;
+use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -78,6 +80,7 @@ class AnnonceController extends AbstractController
      *
      * @param Annonce $annonce
      * @param Request $request
+     * @param PackRepository $packRepository
      *
      * @return Response
      */
@@ -99,6 +102,24 @@ class AnnonceController extends AbstractController
                 'packs' => $packRepository->getPacksOrderByPrice(),
                 'states' => $this->annonceManager->all(State::class),
             ]
+        );
+    }
+
+    public function getRubriqueImage(int $id, Request $request, RubriqueRepository $rubriqueRepository)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw $this->createNotFoundException('La page est introuvable !');
+        }
+
+        $rubrique = $rubriqueRepository->find($id);
+        if (!$rubrique) {
+            return new JsonResponse(['message' => 'error'], Response::HTTP_NOT_FOUND);
+        }
+
+        return new JsonResponse(
+            ['message' => 'success', 'finemane' => $rubrique->getImage()->getFileName()],
+        Response::HTTP_OK,
+        ['Content-Type' => 'application/json']
         );
     }
 }
