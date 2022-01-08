@@ -105,19 +105,27 @@ class AnnonceController extends AbstractController
         );
     }
 
-    public function getRubriqueImage(int $id, Request $request, RubriqueRepository $rubriqueRepository)
+    /**
+     * @param Request            $request
+     * @param RubriqueRepository $rubriqueRepository
+     *
+     * @return JsonResponse
+     *
+     * @Route("/rubrique/find/image", name="admin_rubrique_img_bdmk", methods={"POST"}, options={"expose" = true})
+     */
+    public function getRubriqueImage(Request $request, RubriqueRepository $rubriqueRepository)
     {
         if (!$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException('La page est introuvable !');
         }
 
-        $rubrique = $rubriqueRepository->find($id);
+        $rubrique = $rubriqueRepository->find($request->request->get('id'));
         if (!$rubrique) {
             return new JsonResponse(['message' => 'error'], Response::HTTP_NOT_FOUND);
         }
 
         return new JsonResponse(
-            ['message' => 'success', 'finemane' => $rubrique->getImage()->getFileName()],
+            ['message' => 'success', 'filename' => $rubrique->getImage()->getFileName(), 'slug' => $rubrique->getSlug()],
         Response::HTTP_OK,
         ['Content-Type' => 'application/json']
         );

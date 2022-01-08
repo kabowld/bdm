@@ -1006,6 +1006,14 @@ a[data-target="#stateModal"]:hover {
     border: none !important;
 }
 
+.bx-img-rubrique {
+    text-align: center;
+}
+
+.img-rubrique{
+    height: 200px;
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;
