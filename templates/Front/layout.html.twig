@@ -84,6 +84,8 @@
 <script src="https://cdn.jsdelivr.net/leaflet/1/leaflet.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.11.3/af-2.3.7/b-2.1.1/b-colvis-2.1.1/date-1.1.1/datatables.min.js"></script>
 <script src="{{ asset('front/js/owl.carousel.min.js') }}"></script>
+<script src="{{ asset('bundles/fosjsrouting/js/router.min.js') }}"></script>
+<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 <script>
     $(function() {
         const map = $('#map');
@@ -360,6 +362,25 @@
                     // Position field now displays the appropriate positions.
                 }
             });
+
+            if($('#annonce_rubrique').val() !== '') {
+                $.ajax({
+                    url: Routing.generate('admin_rubrique_img_bdmk'),
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {id: parseInt($rubrique.val())}
+                }).done(function (data) {
+                    let $src = '/front/rubfiles/'+ data.filename;
+                    $('.img-rubrique').attr('src', $src);
+                }).fail(function (jqXHR) {
+                    console.log(jqXHR);
+                    $('.img-rubrique').attr('src', $src);
+                    $('.img-rubrique').attr('alt', data.slug);
+                });
+            } else {
+                $('.img-rubrique').attr('src', '');
+                $('.img-rubrique').attr('alt', '');
+            }
         });
 
         $('.main-annonce label').on('click', 'span.delete-img', function (e) {
@@ -433,6 +454,7 @@
            let $value = $(this).val();
            $(this).val($value.replace(/\s+/g, ""));
         });
+
 
     });
 </script>
