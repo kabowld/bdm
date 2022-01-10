@@ -48,13 +48,4 @@ class PackRepository extends ServiceEntityRepository
     }
     */
 
-    public function getPacksOrderByPrice()
-    {
-        return $this
-            ->createQueryBuilder('p')
-            ->orderBy('p.price', 'ASC')
-            ->getQuery()
-            ->getResult()
-            ;
-    }
 }

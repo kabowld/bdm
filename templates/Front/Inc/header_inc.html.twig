@@ -72,8 +72,10 @@
             <li>
                 <a href="{{ path('home_bdmk') }}">Accueil</a>
             </li>
+            {% if is_granted('PUBLIC_ACCESS') %}
             <li><a href="{{ path('login_bdmk') }}"><span class="flaticon-user"></span> Se connecter</a></li>
             <li><a href="{{ path('choice_registration_bdmk') }}"><span class="flaticon-edit"></span> S'inscrire</a></li>
+            {% endif %}
             <li class="cl_btn"><a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn btn-block btn-lg btn-bdmk-mb circle mm-listitem__text"><i class="fa fa-plus"></i> Déposer une annonce</a>
         </ul>
     </nav>

@@ -62,6 +62,66 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
         return ['rubriques'];
     }
 
+    /**
+     * @param File   $file
+     * @param string $filename
+     *
+     * @return FilePicture
+     */
+    private function getFilePicture(File $file, string $filename): FilePicture
+    {
+        return (new FilePicture())
+            ->setFile($file)
+            ->setFileName($filename)
+        ;
+    }
+
+    /**
+     * @param string      $title
+     * @param string      $slug
+     * @param FilePicture $filePicture
+     *
+     * @return Rubrique
+     */
+    private function getRubrique(string $title, string $slug, FilePicture $filePicture): Rubrique
+    {
+        return (new Rubrique())
+            ->setTitle($title)
+            ->setSlug($slug)
+            ->setImage($filePicture)
+        ;
+    }
+
+    /**
+     * @param string   $title
+     * @param Rubrique $rubrique
+     * @param string   $slug
+     *
+     * @return Category
+     */
+    private function getCategory(string $title, Rubrique $rubrique, string $slug): Category
+    {
+        return (new Category())
+            ->setTitle($title)
+            ->setRubrique($rubrique)
+            ->setSlug($slug)
+        ;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return File
+     */
+    private function getFile(string $title): File
+    {
+        return new File(
+            FileUploaderHelper::relativeRubriquePath().
+            DIRECTORY_SEPARATOR.
+            $this->slugger->slug(strtolower($title)).FileUploaderHelper::EXT_PNG
+        );
+    }
+
     private static function getListeRubriques(): array
     {
         return
@@ -139,67 +199,7 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
                     'Covoiturage'
                 ],
                 'Divers' => ['Autres']
-        ];
-    }
-
-    /**
-     * @param File   $file
-     * @param string $filename
-     *
-     * @return FilePicture
-     */
-    private function getFilePicture(File $file, string $filename): FilePicture
-    {
-        return (new FilePicture())
-            ->setFile($file)
-            ->setFileName($filename)
-        ;
-    }
-
-    /**
-     * @param string      $title
-     * @param string      $slug
-     * @param FilePicture $filePicture
-     *
-     * @return Rubrique
-     */
-    private function getRubrique(string $title, string $slug, FilePicture $filePicture): Rubrique
-    {
-        return (new Rubrique())
-            ->setTitle($title)
-            ->setSlug($slug)
-            ->setImage($filePicture)
-        ;
-    }
-
-    /**
-     * @param string   $title
-     * @param Rubrique $rubrique
-     * @param string   $slug
-     *
-     * @return Category
-     */
-    private function getCategory(string $title, Rubrique $rubrique, string $slug): Category
-    {
-        return (new Category())
-            ->setTitle($title)
-            ->setRubrique($rubrique)
-            ->setSlug($slug)
-        ;
-    }
-
-    /**
-     * @param string $title
-     *
-     * @return File
-     */
-    private function getFile(string $title): File
-    {
-        return new File(
-            FileUploaderHelper::relativeRubriquePath().
-            DIRECTORY_SEPARATOR.
-            $this->slugger->slug(strtolower($title)).FileUploaderHelper::EXT_PNG
-        );
+            ];
     }
 
 }

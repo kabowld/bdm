@@ -38,6 +38,16 @@ class State
      */
     private $categoryState;
 
+    /**
+     * @Assert\Range(
+     *      min = 1,
+     *      max = 5,
+     *      notInRangeMessage = "Le nombre d'étoiles doit être entre {{ min }} et {{ max }} !",
+     * )
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $stars;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +85,18 @@ class State
     public function setCategoryState(?CategoryState $categoryState): self
     {
         $this->categoryState = $categoryState;
+
+        return $this;
+    }
+
+    public function getStars(): ?int
+    {
+        return $this->stars;
+    }
+
+    public function setStars(?int $stars): self
+    {
+        $this->stars = $stars;
 
         return $this;
     }

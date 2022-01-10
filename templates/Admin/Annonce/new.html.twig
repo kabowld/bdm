@@ -47,7 +47,7 @@
                             {{ form_widget(form.category) }}
                             {{ form_errors(form.category) }}
                         </div>
-                        <div class="col-md-6 form-group">
+                        <div class="col-md-6 form-group" id="state-add-form">
                             {{ form_label(form.state) }}
                             {{ form_widget(form.state) }}
                             {{ form_errors(form.state) }}
@@ -188,35 +188,7 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Packs disponibles</h5>
-                    <div class="row">
-                        <div class="col-md-12">
-                            {% for pack in packs %}
-                                <div class="box-packs">
-                                    <div class="infos-packs">
-                                        <div class="img-packs">
-                                            {% if pack.level == 'vip' %}
-                                                <img src="{{ asset('front/images/premium.png') }}" alt="{{ pack.level }}"/>
-                                            {% elseif pack.level == 'or' %}
-                                                <img src="{{ asset('front/images/star.png') }}" alt="{{ pack.level }}"/>
-                                            {% else %}
-                                                <img src="{{ asset('front/images/entete.png') }}" alt="{{ pack.level }}"/>
-                                            {% endif %}
-                                        </div>
-                                        <div class="txt-packs">
-                                            <h5 class="title-pack">{{ pack.title }}</h5>
-                                            <p class="text-pack">
-                                                {{ pack.description }}
-                                            </p>
-                                        </div>
-                                        <div class="form-radio">
-                                            <label for="{{ form.pack.vars.id }}{{ '_' ~ pack.id }}" class="{{ form.pack.vars.required ? 'required' }}">{{ pack.label }}</label>
-                                            <input type="radio" id="{{ form.pack.vars.id }}{{ '_' ~pack.id }}" name="{{ form.pack.vars.full_name }}" required="required" value="{{ pack.id }}">
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
+                    {{ form_row(form.pack) }}
                 </div>
             </div>
             {{ form_widget(form.save) }}

@@ -10,6 +10,7 @@
             <div class="modal-body">
                 {% for state in states %}
                     <span class="title-state">{{ state.title }}</span>
+                    {{ starTag(state.stars) }}
                     <p class="description-state">{{ state.description }}</p>
                 {% endfor %}
             </div>

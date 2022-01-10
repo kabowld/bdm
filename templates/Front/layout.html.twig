@@ -327,8 +327,8 @@
         previewBeforeUpload('annonce_pictureHeightFile');
 
         const $rubrique = $('#annonce_rubrique');
-        $('#annonce_category').attr('disabled', 'disabled');
-        $('#annonce_state').attr('disabled', 'disabled');
+        //$('#annonce_category').attr('disabled', 'disabled');
+        $('#state-add-form #annonce_state').attr('disabled', 'disabled');
 
         $rubrique.change(function() {
             // ... retrieve the corresponding form.
@@ -347,7 +347,7 @@
                     $('#annonce_state').attr('disabled', 'disabled');
                     $('#annonce_state').val('');
                 },
-                complete: function(html) {
+                complete: function (html) {
                     // Replace current position field ...
                     $('#annonce_category').replaceWith(
                         // ... with the returned one from the AJAX response.
@@ -363,7 +363,7 @@
                 }
             });
 
-            if($('#annonce_rubrique').val() !== '') {
+            if ($('#annonce_rubrique').val() !== '') {
                 $.ajax({
                     url: Routing.generate('admin_rubrique_img_bdmk'),
                     method: 'POST',
@@ -391,9 +391,6 @@
             $("#"+id+"-preview img").attr('src', 'https://bit.ly/3ubuq5o');
             $(this).css('display', 'none')
         });
-
-
-
 
         $('#registration_particular_password_first').on('keyup', function(e){
             $('.rgx-passwd').fadeIn('400');

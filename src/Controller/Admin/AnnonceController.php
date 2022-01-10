@@ -51,7 +51,7 @@ class AnnonceController extends AbstractController
      *
      * @return Response
      */
-    public function new(Request $request, PackRepository $packRepository)
+    public function new(Request $request)
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -69,8 +69,7 @@ class AnnonceController extends AbstractController
         return $this->render(
             'Admin/Annonce/new.html.twig', [
                 'form' => $form->createView(),
-                'states' => $this->annonceManager->all(State::class),
-                'packs' => $packRepository->getPacksOrderByPrice()
+                'states' => $this->annonceManager->all(State::class)
             ]
         );
     }
@@ -80,11 +79,10 @@ class AnnonceController extends AbstractController
      *
      * @param Annonce $annonce
      * @param Request $request
-     * @param PackRepository $packRepository
      *
      * @return Response
      */
-    public function edit(Annonce $annonce, Request $request, PackRepository $packRepository): Response
+    public function edit(Annonce $annonce, Request $request): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
@@ -99,7 +97,6 @@ class AnnonceController extends AbstractController
         return $this->render(
             'Admin/Annonce/edit.html.twig', [
                 'form' => $form->createView(),
-                'packs' => $packRepository->getPacksOrderByPrice(),
                 'states' => $this->annonceManager->all(State::class),
             ]
         );
