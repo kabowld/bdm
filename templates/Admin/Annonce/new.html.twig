@@ -188,7 +188,22 @@
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">Packs disponibles</h5>
-                    {{ form_row(form.pack) }}
+                    <div class="row">
+                        <div class="col-md-6 form-group">
+                            {{ form_row(form.pack) }}
+                        </div>
+                        <div class="col-md-6 form-group">
+                            <div class="pack-infos-form">
+                                <h5 class="title-pck-infos"></h5>
+                                <div class="bx-img-pack-infos">
+                                    <img class="img-pack-infos" src="" alt="" />
+                                </div>
+                                <div class="desc-pack-infos"></div>
+                                <p class="price-pack-infos"></p>
+                                <p class="priceByDays-pack-infos"></p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             {{ form_widget(form.save) }}

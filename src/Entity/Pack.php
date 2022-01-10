@@ -61,12 +61,13 @@ class Pack
     /**
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="pack")
      */
-    private $annonces;
+    private Collection $annonces;
 
     /**
-     * @ORM\Column(type="string", length=10)
+     * @ORM\OneToOne(targetEntity=FilePicture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
      */
-    private $level;
+    private ?FilePicture $image;
 
     public function __construct()
     {
@@ -199,20 +200,20 @@ class Pack
         return $this;
     }
 
-    public function getLevel(): ?string
-    {
-        return $this->level;
-    }
-
-    public function setLevel(string $level): self
-    {
-        $this->level = $level;
-
-        return $this;
-    }
-
     public function getLabel(): string
     {
         return sprintf('%s Fcfa  %s  %s Jours', $this->getPrice(), $this->getPriceByDay(), $this->getDays());
+    }
+
+    public function getImage(): ?FilePicture
+    {
+        return $this->image;
+    }
+
+    public function setImage(FilePicture $image): self
+    {
+        $this->image = $image;
+
+        return $this;
     }
 }

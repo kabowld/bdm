@@ -62,7 +62,6 @@ class AnnonceController extends AbstractController
 
             $this->annonceManager->persist($annonce);
 
-            $this->addFlash('info', 'Votre annonce vient d\être ajoutée avec succès !');
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');
         }
 
@@ -90,7 +89,6 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->annonceManager->persist($form->getData(), false);
 
-            $this->addFlash('info', 'Votre annonce vient d\être modifiée avec succès !');
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');
         }
 
@@ -103,12 +101,14 @@ class AnnonceController extends AbstractController
     }
 
     /**
+     * Action Controller to get info on Rubrique by Ajax Request
+     *
+     * @Route("/rubrique/find/image", name="admin_rubrique_img_bdmk", methods={"POST"}, options={"expose" = true})
+     *
      * @param Request            $request
      * @param RubriqueRepository $rubriqueRepository
      *
      * @return JsonResponse
-     *
-     * @Route("/rubrique/find/image", name="admin_rubrique_img_bdmk", methods={"POST"}, options={"expose" = true})
      */
     public function getRubriqueImage(Request $request, RubriqueRepository $rubriqueRepository)
     {
@@ -126,5 +126,37 @@ class AnnonceController extends AbstractController
         Response::HTTP_OK,
         ['Content-Type' => 'application/json']
         );
+    }
+
+
+    /**
+     * Action Controller to get info on Pack by Ajax Request
+     *
+     * @Route("/pack/find/info", name="admin_pack_info_bdmk", methods={"POST"}, options={"expose" = true})
+     *
+     * @param Request        $request
+     * @param PackRepository $packRepository
+     *
+     * @return JsonResponse
+     */
+    public function getPackInfo(Request $request, PackRepository $packRepository)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw $this->createNotFoundException('La page est introuvable !');
+        }
+
+        $pack = $packRepository->find($request->request->get('id'));
+        if (!$pack) {
+            return new JsonResponse(['message' => 'error'], Response::HTTP_NOT_FOUND);
+        }
+
+        return new JsonResponse([
+            'message' => 'success',
+            'filename' => $pack->getImage()->getFileName(),
+            'title' => $pack->getTitle(),
+            'description' => $pack->getDescription(),
+            'price' => $pack->getPrice(),
+            'priceByDays' => $pack->getPriceByDay()
+        ], Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 }

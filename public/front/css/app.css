@@ -991,6 +991,36 @@ a[data-target="#stateModal"]:hover {
     }
 }
 
+.img-pack-infos {
+    width: 130px;
+    height: 100px;
+}
+
+.bx-img-pack-infos {
+    text-align: center;
+}
+
+.desc-pack-infos {
+    margin-top: .5em;
+    color: #222;
+    font-size: 13px;
+    font-weight: 300;
+    text-align: center;
+}
+
+.price-pack-infos, .priceByDays-pack-infos {
+    text-align: center;
+    font-size: 13px;
+    color: #222;
+    font-weight: 600;
+}
+
+.title-pck-infos {
+    text-align: center;
+    text-decoration: underline;
+}
+
+
 @media (min-width: 768px) {
 
     .title-home{

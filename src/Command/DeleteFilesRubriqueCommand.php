@@ -38,8 +38,8 @@ class DeleteFilesRubriqueCommand extends Command
     public function execute(InputInterface $input, OutputInterface $output): int
     {
         $output->writeln([
-            '<info>Delete files</info>',
-            '<info>============</info>',
+            '<comment>Delete files</comment>',
+            '<comment>============</comment>',
             '',
         ]);
 

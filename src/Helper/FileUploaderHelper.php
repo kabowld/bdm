@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service;
+namespace App\Helper;
 
 use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\Filesystem\Filesystem;

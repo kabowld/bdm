@@ -5,7 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Category;
 use App\Entity\FilePicture;
 use App\Entity\Rubrique;
-use App\Service\FileUploaderHelper;
+use App\Helper\FileUploaderHelper;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;

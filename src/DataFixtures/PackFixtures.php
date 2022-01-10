@@ -3,36 +3,44 @@
 namespace App\DataFixtures;
 
 use App\Entity\DetailsPack;
+use App\Entity\FilePicture;
 use App\Entity\Pack;
+use App\Entity\State;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\HttpFoundation\File\File;
 
 class PackFixtures extends Fixture implements FixtureGroupInterface
 {
+    private string $packTargetDirectory;
+
+    public function __construct(string $packDirectory)
+    {
+        $this->packTargetDirectory = $packDirectory;
+    }
+
+    /**
+     * @param ObjectManager $manager
+     *
+     * @return void
+     */
     public function load(ObjectManager $manager)
     {
         $packs = $this->getPack();
         $details = $this->getDetails();
-        foreach ($packs as $item => $value) {
-            $pack = new Pack();
-            $pack
-                ->setTitle($value['title'])
-                ->setDescription($value['description'])
-                ->setPrice($value['price'])
-                ->setDays($value['days'])
-                ->setPriceByDay($value['priceByDay'])
-                ->setLevel($value['level'])
-            ;
+        foreach ($packs as $value) {
+            $file = new File($this->packTargetDirectory.DIRECTORY_SEPARATOR.$value['image']);
+            $filePicture = $this->getInstanceFilePicture($file);
+            $manager->persist($filePicture);
+
+            $pack = $this->getPackInstance($value, $filePicture);
+
             $manager->persist($pack);
 
             $n = 0;
             while (true) {
-                $detailsPack = new DetailsPack();
-                $detailsPack
-                    ->setDescription($details[$n])
-                    ->setPack($pack)
-                    ;
+                $detailsPack = $this->getDetailPack($details[$n], $pack);
                 $manager->persist($detailsPack);
                 $n++;
                 if ($n === 3) {
@@ -42,6 +50,54 @@ class PackFixtures extends Fixture implements FixtureGroupInterface
         }
 
         $manager->flush();
+    }
+
+    /**
+     * @param array       $packs
+     * @param FilePicture $filePicture
+     *
+     * @return Pack
+     */
+    private function getPackInstance(array $packs, FilePicture $filePicture): Pack
+    {
+        $pack = new Pack();
+        $pack
+            ->setTitle($packs['title'])
+            ->setDescription($packs['description'])
+            ->setPrice($packs['price'])
+            ->setDays($packs['days'])
+            ->setPriceByDay($packs['priceByDay'])
+            ->setImage($filePicture)
+        ;
+
+        return $pack;
+    }
+
+    /**
+     * @param File $file
+     *
+     * @return FilePicture
+     */
+    private function getInstanceFilePicture(File $file): FilePicture
+    {
+        return (new FilePicture())
+            ->setFile($file)
+            ->setFileName($file->getFilename())
+       ;
+    }
+
+    /**
+     * @param string $detail
+     * @param Pack   $pack
+     *
+     * @return DetailsPack
+     */
+    private function getDetailPack(string $detail, Pack $pack): DetailsPack
+    {
+        return (new DetailsPack())
+            ->setDescription($detail)
+            ->setPack($pack)
+            ;
     }
 
     /**
@@ -56,7 +112,7 @@ class PackFixtures extends Fixture implements FixtureGroupInterface
                 'price' => '1000',
                 'days' => 7,
                 'priceByDay' => '50 F cfa/Jour',
-                'level' => 'argent'
+                'image' => 'argent.png'
             ],
             [
                 'title' => 'Pack Or',
@@ -64,7 +120,7 @@ class PackFixtures extends Fixture implements FixtureGroupInterface
                 'price' => '5000',
                 'days' => 14,
                 'priceByDay' => '100 F cfa/Jour',
-                'level' => 'or'
+                'image' => 'or.png'
             ],
             [
                 'title' => 'Pack VIP',
@@ -72,7 +128,7 @@ class PackFixtures extends Fixture implements FixtureGroupInterface
                 'price' => '10 000',
                 'days' => 14,
                 'priceByDay' => '100 F cfa/Jour',
-                'level' => 'vip'
+                'image' => 'vip.png'
             ]
         ];
     }
@@ -89,8 +145,13 @@ class PackFixtures extends Fixture implements FixtureGroupInterface
         ];
     }
 
+    /**
+     * @return string[]
+     */
     public static function getGroups(): array
     {
         return ['packs'];
     }
+
+
 }
