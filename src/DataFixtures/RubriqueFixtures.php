@@ -14,7 +14,6 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
     use RubriqueFixtureTrait;
 
     public const EXT_PNG = '.png';
-    const NO_IMAGE = 'no-image.jpg';
     private FileUploaderHelper $fileUploaderHelper;
     private SluggerInterface $slugger;
     private string $rubriqueDirectory;
@@ -51,14 +50,9 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
             // FilePicture
             $file = $this->getFile($rub);
             $targetFile = $this->fileUploaderHelper->getTargetFile($file);
-            $upload = $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file, $targetFile));
-            if ($upload) {
-                $filePicture = $this->getFilePicture($file, $targetFile);
-            } else {
-                $noFile = new File($this->imagesDirectory.DIRECTORY_SEPARATOR.self::NO_IMAGE);
-                $filePicture = $this->getFilePicture($noFile, self::NO_IMAGE);
-            }
+            $filePicture = $this->getFilePicture($file, $targetFile);
             $manager->persist($filePicture);
+            $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file, $targetFile));
 
             // Rubrique
             $rubrique = $this->getRubrique($rub, $this->slugger->slug(strtolower($rub)), $filePicture);
