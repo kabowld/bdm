@@ -1,4 +1,5 @@
 $(function () {
+    $('#annonce_type_0').attr('checked', 'checked');
     $('.mm-navbar__title').text('Navigation');
 
     $('.select-field').select2();
@@ -146,58 +147,56 @@ $(function () {
         $(this).val($value.replace(/\s+/g, ""));
     });
 
-    $('#annonce_pack').on('change', function () {
-        if ($('#annonce_pack').val() !== '') {
-            let $id = parseInt($(this).val());
-            $.ajax({
-                url: Routing.generate('admin_pack_info_bdmk'),
-                method: 'POST',
-                dataType: 'json',
-                data: {id: $id}
-            }).done(function (data) {
-                let $src = '/front/pack/'+ data.filename;
-                $('.img-pack-infos').attr('src', $src).attr('alt', data.title);
-                $('.desc-pack-infos').text(data.description);
-                $('.title-pck-infos').text(data.title);
-                $('.price-pack-infos').text(data.price + 'F CFA');
-                $('.priceByDays-pack-infos').text(data.priceByDays);
-            }).fail(function (jqXHR) {
-                console.log(jqXHR);
-            });
-        } else {
-            $('.img-pack-infos').attr('src', '').attr('alt', '');
-            $('.desc-pack-infos').text('');
-            $('.title-pck-infos').text('');
-            $('.price-pack-infos').text('');
-            $('.priceByDays-pack-infos').text('');
-        }
-    });
+    const route_pack_info = 'admin_pack_info_bdmk';
 
-    if ($('#annonce_pack').val() !== '') {
-        let $id = parseInt($('#annonce_pack').val());
-        $.ajax({
-            url: Routing.generate('admin_pack_info_bdmk'),
-            method: 'POST',
-            dataType: 'json',
-            data: {id: $id}
-        }).done(function (data) {
-            let $src = '/front/pack/'+ data.filename;
-            $('.img-pack-infos').attr('src', $src).attr('alt', data.title);
-            $('.desc-pack-infos').text(data.description);
-            $('.title-pck-infos').text(data.title);
-            $('.price-pack-infos').text(data.price + 'F CFA');
-            $('.priceByDays-pack-infos').text(data.priceByDays);
-        }).fail(function (jqXHR) {
-            console.log(jqXHR);
-        });
-    } else {
-        $('.img-pack-infos').attr('src', '').attr('alt', '');
+    function getNoImageInfo() {
+        $('.img-pack-infos').attr('src', '/front/images/no-image.jpg').attr('alt', 'aucune image');
         $('.desc-pack-infos').text('');
         $('.title-pck-infos').text('');
         $('.price-pack-infos').text('');
         $('.priceByDays-pack-infos').text('');
     }
 
+    function getPackInfo(filename, title, description, price, priceByDays) {
+        const src = '/front/pack/'+ filename;
+        $('.img-pack-infos').attr('src', src).attr('alt', title);
+        $('.desc-pack-infos').text(description);
+        $('.title-pck-infos').text(title);
+        $('.price-pack-infos').text(price + 'F CFA');
+        $('.priceByDays-pack-infos').text(priceByDays);
+    }
+
+    $('#annonce_pack').on('change', function () {
+        if ($('#annonce_pack').val() !== '') {
+            let $id = parseInt($(this).val());
+            $.ajax({
+                url: Routing.generate(route_pack_info),
+                method: 'POST',
+                dataType: 'json',
+                data: {id: $id}
+            }).done(function (data) {
+                getPackInfo(data.filename, data.title, data.description, data.price, data.priceByDays);
+            }).fail(function (jqXHR) {
+                getNoImageInfo();
+            });
+        } else {
+            getNoImageInfo();
+        }
+    });
+
+    if ($('#annonce_pack').val() !== undefined && $('#annonce_pack').val() !== '') {
+        let $id = parseInt($('#annonce_pack').val());
+        $.ajax({
+            url: Routing.generate(route_pack_info),
+            method: 'POST',
+            dataType: 'json',
+            data: {id: $id}
+        }).done(function (data) {
+            getPackInfo(data.filename, data.title, data.description, data.price, data.priceByDays);
+        }).fail(function (jqXHR) {
+            getNoImageInfo();
+        });
+    }
 
     owlCarouselHome();
 });

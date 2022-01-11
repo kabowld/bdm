@@ -44,15 +44,27 @@ $(function (){
                 data: {id: parseInt($rubrique.val())}
             }).done(function (data) {
                 let $src = '/front/rubfiles/'+ data.filename;
-                $('.img-rubrique').attr('src', $src);
+                $('.img-rubrique').attr('src', $src).attr('alt', data.slug);
             }).fail(function (jqXHR) {
-                console.log(jqXHR);
-                $('.img-rubrique').attr('src', $src);
-                $('.img-rubrique').attr('alt', data.slug);
+                $('.img-rubrique').attr('src', '/front/images/no-image.jpg').attr('alt', data.slug);
             });
         } else {
-            $('.img-rubrique').attr('src', '');
-            $('.img-rubrique').attr('alt', '');
+            $('.img-rubrique').attr('src','/front/images/no-image.jpg').attr('alt', 'aucune image');
         }
     });
+
+    if ($('#annonce_rubrique').val() !== undefined && $('#annonce_rubrique').val() !== '') {
+        let $id = parseInt($('#annonce_rubrique').val());
+        $.ajax({
+            url: Routing.generate('admin_rubrique_img_bdmk'),
+            method: 'POST',
+            dataType: 'json',
+            data: {id: $id}
+        }).done(function (data) {
+            let $src = '/front/rubfiles/'+ data.filename;
+            $('.img-rubrique').attr('src', $src).attr('alt', data.slug);
+        }).fail(function (jqXHR) {
+            $('.img-rubrique').attr('src', '/front/images/no-image.jpg').attr('alt', data.slug);
+        });
+    }
 });

@@ -9,6 +9,7 @@ parameters:
     app.admin_name: 'Bandama Market'
     rubrique_directory: '%kernel.project_dir%/public/front/rubfiles'
     pack_directory: '%kernel.project_dir%/public/front/pack'
+    images_directory: '%kernel.project_dir%/public/front/images'
 
 
 services:
@@ -21,6 +22,7 @@ services:
             $senderName: '%app.admin_name%'
             $rubriqueDirectory: '%rubrique_directory%'
             $packDirectory: '%pack_directory%'
+            $imagesDirectory: '%images_directory%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

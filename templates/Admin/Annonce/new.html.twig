@@ -26,14 +26,12 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-md-6 form-group">
+                        <div class="offset-md-3 col-md-6 offset-lg-3 col-lg-6 col-sm-12 form-group">
                             {{ form_label(form.rubrique) }}
                             {{ form_widget(form.rubrique) }}
                             {{ form_errors(form.rubrique) }}
-                        </div>
-                        <div class="col-md-6 form-group">
                             <div class="bx-img-rubrique">
-                                <img src="" alt="" class="img-rubrique"/>
+                                <img src="{{ asset('front/images/no-image.jpg') }}" alt="aucune image" class="img-rubrique"/>
                             </div>
                         </div>
                     </div>
@@ -187,16 +185,14 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Packs disponibles</h5>
+                    <h5 class="card-title text-center">Packs disponibles</h5>
                     <div class="row">
-                        <div class="col-md-6 form-group">
+                        <div class="offset-md-3 col-md-6 offset-lg-3 col-lg-6 col-sm-12 form-group">
                             {{ form_row(form.pack) }}
-                        </div>
-                        <div class="col-md-6 form-group">
                             <div class="pack-infos-form">
                                 <h5 class="title-pck-infos"></h5>
                                 <div class="bx-img-pack-infos">
-                                    <img class="img-pack-infos" src="" alt="" />
+                                    <img class="img-pack-infos" src="{{ asset('front/images/no-image.jpg') }}" alt="aucune image" />
                                 </div>
                                 <div class="desc-pack-infos"></div>
                                 <p class="price-pack-infos"></p>
