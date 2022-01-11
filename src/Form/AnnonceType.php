@@ -8,7 +8,6 @@ use App\Entity\City;
 use App\Entity\Pack;
 use App\Entity\Rubrique;
 use App\Entity\State;
-use App\Repository\StateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -135,15 +134,13 @@ class AnnonceType extends AbstractType
             ])
             ->add('pack', EntityType::class, [
                 'class' => Pack::class,
-                'choice_label' => function (Pack $pack) {
-                    return sprintf('%s Fcfa  %s', $pack->getPrice(), $pack->getPriceByDay());
-                },
-                'multiple' => false,
-                'expanded' => true,
-                'query_builder' => function (EntityRepository $er) {
+                'choice_label' => 'title',
+                'placeholder' => 'Sélectionner un pack',
+                'attr' => ['class' => 'form-control'],
+                /*'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('p')
                         ->orderBy('p.id','ASC');
-                },
+                },*/
                 'label' => false,
                 'required' => false
             ])
@@ -183,8 +180,12 @@ class AnnonceType extends AbstractType
         $category = $data->getCategory();
 
         if ($category) {
+            $rubrique = $category->getRubrique();
+
             $form->get('category')->setData($category);
-            $form->get('rubrique')->setData($category->getRubrique());
+            $form->get('rubrique')->setData($rubrique);
+            $this->createFormCategory($event->getForm(), $rubrique);
+            $this->createFormState($event->getForm(), $rubrique);
         }
 
         $form->get('state')->setData($data->getState());
@@ -234,7 +235,7 @@ class AnnonceType extends AbstractType
             $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::FASHION_STATE);
         } elseif ($rubrique === null) {
             $states = $this->em->getRepository(State::class)->findAll();
-        } else{
+        } else {
             $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::NORMAL_STATE);
         }
 

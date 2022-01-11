@@ -1,5 +1,5 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\DataFixtures;
 
@@ -19,7 +19,67 @@ class StateFixtures extends Fixture implements FixtureGroupInterface
      */
     public function load(ObjectManager $manager): void
     {
-        $states = [
+        $states = $this->getStates();
+
+        $stars = 5;
+        foreach ($states as $type => $values) {
+
+            $category = $this->getCategoryState($type);
+            $manager->persist($category);
+
+            foreach ($values as $title => $description) {
+
+                $state = $this->getState($title, $description, $category, $stars, $type);
+                $manager->persist($state);
+
+                $stars--;
+            }
+        }
+
+        $manager->flush();
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return CategoryState
+     */
+    private function getCategoryState(string $title): CategoryState
+    {
+        return (new CategoryState())->setTitle($title);
+    }
+
+    /**
+     * @param string        $title
+     * @param string        $description
+     * @param CategoryState $categoryState
+     * @param int           $stars
+     * @param string        $type
+     *
+     * @return State
+     */
+    private function getState(string $title, string $description, CategoryState $categoryState, int $stars, string $type): State
+    {
+        $state = new State();
+        $state
+            ->setTitle($title)
+            ->setDescription($description)
+            ->setCategoryState($categoryState)
+        ;
+
+        if ($type === 'normal' && !empty($stars)) {
+            $state->setStars($stars);
+        }
+
+        return $state;
+    }
+
+    /**
+     * @return \string[][]
+     */
+    private function getStates(): array
+    {
+        return [
             'normal' => [
                 'Neuf' => "Bien non-utilisé, non endommagé, complet, avec emballage non ouvert et notice(s)  d’utilisation. L'objet peut être proposé sans son emballage d'origine, ou dans l'emballage  d'origine non scellé",
                 'Très bon état' => "Bien peu utilisé ; il ne présente aucun dommage, aucune éraflure, aucune rayure. Il est complet et en parfait état de fonctionnement.",
@@ -35,26 +95,6 @@ pendants ou des boutons manquants. Le vêtement peut présenter des étiquettes 
                 'Occasion' => "Article qui a été utilisé ou porté présentant peut-être quelques petits défauts  ou traces d’usure (mentionnés dans l’annonce et visibles sur les photos)."
             ]
         ];
-
-
-
-
-        foreach($states as $type => $values) {
-            $category = new CategoryState();
-            $category->setTitle($type);
-            $manager->persist($category);
-            foreach ($values as $title => $item) {
-                $state = new State();
-                $state
-                    ->setTitle($title)
-                    ->setDescription($item)
-                    ->setCategoryState($category)
-                ;
-                $manager->persist($state);
-            }
-        }
-
-        $manager->flush();
     }
 
     /**

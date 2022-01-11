@@ -51,7 +51,7 @@ class AnnonceController extends AbstractController
      *
      * @return Response
      */
-    public function new(Request $request, PackRepository $packRepository)
+    public function new(Request $request)
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -62,15 +62,13 @@ class AnnonceController extends AbstractController
 
             $this->annonceManager->persist($annonce);
 
-            $this->addFlash('info', 'Votre annonce vient d\être ajoutée avec succès !');
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');
         }
 
         return $this->render(
             'Admin/Annonce/new.html.twig', [
                 'form' => $form->createView(),
-                'states' => $this->annonceManager->all(State::class),
-                'packs' => $packRepository->getPacksOrderByPrice()
+                'states' => $this->annonceManager->all(State::class)
             ]
         );
     }
@@ -80,11 +78,10 @@ class AnnonceController extends AbstractController
      *
      * @param Annonce $annonce
      * @param Request $request
-     * @param PackRepository $packRepository
      *
      * @return Response
      */
-    public function edit(Annonce $annonce, Request $request, PackRepository $packRepository): Response
+    public function edit(Annonce $annonce, Request $request): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
@@ -92,26 +89,26 @@ class AnnonceController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->annonceManager->persist($form->getData(), false);
 
-            $this->addFlash('info', 'Votre annonce vient d\être modifiée avec succès !');
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');
         }
 
         return $this->render(
             'Admin/Annonce/edit.html.twig', [
                 'form' => $form->createView(),
-                'packs' => $packRepository->getPacksOrderByPrice(),
                 'states' => $this->annonceManager->all(State::class),
             ]
         );
     }
 
     /**
+     * Action Controller to get info on Rubrique by Ajax Request
+     *
+     * @Route("/rubrique/find/image", name="admin_rubrique_img_bdmk", methods={"POST"}, options={"expose" = true})
+     *
      * @param Request            $request
      * @param RubriqueRepository $rubriqueRepository
      *
      * @return JsonResponse
-     *
-     * @Route("/rubrique/find/image", name="admin_rubrique_img_bdmk", methods={"POST"}, options={"expose" = true})
      */
     public function getRubriqueImage(Request $request, RubriqueRepository $rubriqueRepository)
     {
@@ -129,5 +126,37 @@ class AnnonceController extends AbstractController
         Response::HTTP_OK,
         ['Content-Type' => 'application/json']
         );
+    }
+
+
+    /**
+     * Action Controller to get info on Pack by Ajax Request
+     *
+     * @Route("/pack/find/info", name="admin_pack_info_bdmk", methods={"POST"}, options={"expose" = true})
+     *
+     * @param Request        $request
+     * @param PackRepository $packRepository
+     *
+     * @return JsonResponse
+     */
+    public function getPackInfo(Request $request, PackRepository $packRepository)
+    {
+        if (!$request->isXmlHttpRequest()) {
+            throw $this->createNotFoundException('La page est introuvable !');
+        }
+
+        $pack = $packRepository->find($request->request->get('id'));
+        if (!$pack) {
+            return new JsonResponse(['message' => 'error'], Response::HTTP_NOT_FOUND);
+        }
+
+        return new JsonResponse([
+            'message' => 'success',
+            'filename' => $pack->getImage()->getFileName(),
+            'title' => $pack->getTitle(),
+            'description' => $pack->getDescription(),
+            'price' => $pack->getPrice(),
+            'priceByDays' => $pack->getPriceByDay()
+        ], Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 }
