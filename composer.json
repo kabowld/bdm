@@ -1,4 +1,6 @@
 {
+    "name": "guilfred/bandama-market",
+    "description": "A classify project management",
     "type": "project",
     "license": "proprietary",
     "minimum-stability": "stable",

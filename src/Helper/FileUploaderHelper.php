@@ -2,35 +2,46 @@
 
 namespace App\Helper;
 
-use Psr\Log\LoggerAwareTrait;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Filesystem\Exception\FileNotFoundException;
+use Symfony\Component\Filesystem\Exception\IOException;
 use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 final class FileUploaderHelper
 {
-    use LoggerAwareTrait;
-
-    public const EXT_PNG = '.png';
-    private string $rubriqueDirectory;
     private SluggerInterface $slugger;
+    private LoggerInterface $logger;
 
     /**
-     * @return string
+     * @param SluggerInterface $slugger
+     * @param LoggerInterface  $logger
      */
-    public static function relativeRubriquePath(): string
+    public function __construct(SluggerInterface $slugger, LoggerInterface $logger)
     {
-        return dirname(__DIR__).DIRECTORY_SEPARATOR.'DataFixtures'.DIRECTORY_SEPARATOR.'Files';
+        $this->slugger = $slugger;
+        $this->logger = $logger;
     }
 
     /**
-     * @param string $rubriqueDirectory
-     * @param SluggerInterface $slugger
+     * @param string $originFile
+     * @param string $targetFile
+     *
+     * @return bool
      */
-    public function __construct(string $rubriqueDirectory, SluggerInterface $slugger)
+    public function upload(string $originFile, string $targetFile): bool
     {
-        $this->rubriqueDirectory = $rubriqueDirectory;
-        $this->slugger = $slugger;
+        $fileSystem = new Filesystem();
+        try {
+            $fileSystem->copy($originFile, $targetFile);
+
+            return true;
+        } catch (FileNotFoundException|IOException $e) {
+            $this->logger->error(sprintf('Error file to copy : %s', $e->getMessage()));
+        }
+
+        return false;
     }
 
     /**
@@ -38,26 +49,22 @@ final class FileUploaderHelper
      *
      * @return string
      */
-    public function upload(File $file): string
+    public function getTargetFile(File $file): string
     {
-        $originalFilename = pathinfo($file->getFilename(), PATHINFO_FILENAME);
+        $originalFilename = $this->getOriginalFileName($file);
         $safeFilename = $this->slugger->slug($originalFilename);
-        $fileName = $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
 
-        $fileSystem = new Filesystem();
-        $fileSystem->copy(
-            self::relativeRubriquePath().DIRECTORY_SEPARATOR.$originalFilename.self::EXT_PNG,
-            $this->getTargetDirectory().DIRECTORY_SEPARATOR.$fileName
-        );
-
-        return $fileName;
+        return $safeFilename.'-'.uniqid().'.'.$file->guessExtension();
     }
 
     /**
+     * @param File $file
+     *
      * @return string
      */
-    public function getTargetDirectory(): string
+    public function getOriginalFileName(File $file): string
     {
-        return $this->rubriqueDirectory;
+        return pathinfo($file->getFilename(), PATHINFO_FILENAME);
     }
+
 }

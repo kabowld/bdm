@@ -14,17 +14,28 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 
 class RubriqueFixtures extends Fixture implements FixtureGroupInterface
 {
-    private $fileUploaderHelper;
-    private $slugger;
+    public const EXT_PNG = '.png';
+    private FileUploaderHelper $fileUploaderHelper;
+    private SluggerInterface $slugger;
+    private string $rubriqueDirectory;
+    private string $imagesDirectory;
 
     /**
      * @param FileUploaderHelper $fileUploaderHelper
-     * @param SluggerInterface $sluggerInterface
+     * @param SluggerInterface   $sluggerInterface
+     * @param string             $rubriqueDirectory
+     * @param string             $imagesDirectory
      */
-    public function __construct(FileUploaderHelper $fileUploaderHelper, SluggerInterface $sluggerInterface)
+    public function __construct(
+        FileUploaderHelper $fileUploaderHelper,
+        SluggerInterface $sluggerInterface,
+        string $rubriqueDirectory,
+        string $imagesDirectory)
     {
         $this->fileUploaderHelper = $fileUploaderHelper;
         $this->slugger = $sluggerInterface;
+        $this->rubriqueDirectory = $rubriqueDirectory;
+        $this->imagesDirectory = $imagesDirectory;
     }
 
     /**
@@ -39,8 +50,14 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
         {
             // FilePicture
             $file = $this->getFile($rub);
-            $fileName = $this->fileUploaderHelper->upload($file);
-            $filePicture = $this->getFilePicture($file, $fileName);
+            $upload = $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file));
+            if ($upload) {
+
+                $filePicture = $this->getFilePicture($file, $this->getTargetRubriqueFile($file));
+            } else {
+                $noFile = new File($this->imagesDirectory.DIRECTORY_SEPARATOR.'no-image.jpg');
+                $filePicture = $this->getFilePicture($noFile, $this->getTargetRubriqueFile($noFile));
+            }
             $manager->persist($filePicture);
 
             // Rubrique
@@ -57,10 +74,41 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
         $manager->flush();
     }
 
-    public static function getGroups(): array
+
+    /**
+     * Return the original path with file
+     *
+     * @param File $file
+     *
+     * @return string
+     */
+    private function relativePath(File $file): string
     {
-        return ['rubriques'];
+        $originalFilename = $this->fileUploaderHelper->getOriginalFileName($file);
+
+        return $this->directoryRelativePath().DIRECTORY_SEPARATOR.$originalFilename.self::EXT_PNG;
     }
+
+    /**
+     * Return the target path
+     *
+     * @param File $file
+     *
+     * @return string
+     */
+    private function getTargetRubriqueFile(File $file): string
+    {
+        return $this->rubriqueDirectory.DIRECTORY_SEPARATOR.$this->fileUploaderHelper->getTargetFile($file);
+    }
+
+    /**
+     * @return string
+     */
+    private function directoryRelativePath(): string
+    {
+        return dirname(__DIR__).DIRECTORY_SEPARATOR.'DataFixtures'.DIRECTORY_SEPARATOR.'Files';
+    }
+
 
     /**
      * @param File   $file
@@ -74,6 +122,20 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
             ->setFile($file)
             ->setFileName($filename)
         ;
+    }
+
+    /**
+     * @param string $title
+     *
+     * @return File
+     */
+    private function getFile(string $title): File
+    {
+        return new File(
+            $this->directoryRelativePath().
+            DIRECTORY_SEPARATOR.
+            $this->slugger->slug(strtolower($title)).self::EXT_PNG
+        );
     }
 
     /**
@@ -109,19 +171,16 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
     }
 
     /**
-     * @param string $title
-     *
-     * @return File
+     * @return string[]
      */
-    private function getFile(string $title): File
+    public static function getGroups(): array
     {
-        return new File(
-            FileUploaderHelper::relativeRubriquePath().
-            DIRECTORY_SEPARATOR.
-            $this->slugger->slug(strtolower($title)).FileUploaderHelper::EXT_PNG
-        );
+        return ['rubriques'];
     }
 
+    /**
+     * @return \string[][]
+     */
     private static function getListeRubriques(): array
     {
         return
