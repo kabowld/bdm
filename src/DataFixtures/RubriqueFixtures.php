@@ -14,6 +14,7 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
     use RubriqueFixtureTrait;
 
     public const EXT_PNG = '.png';
+    const NO_IMAGE = 'no-image.jpg';
     private FileUploaderHelper $fileUploaderHelper;
     private SluggerInterface $slugger;
     private string $rubriqueDirectory;
@@ -49,12 +50,13 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
         {
             // FilePicture
             $file = $this->getFile($rub);
-            $upload = $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file));
+            $targetFile = $this->fileUploaderHelper->getTargetFile($file);
+            $upload = $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file, $targetFile));
             if ($upload) {
-                $filePicture = $this->getFilePicture($file, $this->fileUploaderHelper->getTargetFile($file));
+                $filePicture = $this->getFilePicture($file, $targetFile);
             } else {
-                $noFile = new File($this->imagesDirectory.DIRECTORY_SEPARATOR.'no-image.jpg');
-                $filePicture = $this->getFilePicture($noFile, $this->fileUploaderHelper->getTargetFile($noFile));
+                $noFile = new File($this->imagesDirectory.DIRECTORY_SEPARATOR.self::NO_IMAGE);
+                $filePicture = $this->getFilePicture($noFile, self::NO_IMAGE);
             }
             $manager->persist($filePicture);
 
@@ -90,13 +92,14 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
     /**
      * Return the target path
      *
-     * @param File $file
+     * @param File   $file
+     * @param string $targetFile
      *
      * @return string
      */
-    private function getTargetRubriqueFile(File $file): string
+    private function getTargetRubriqueFile(File $file, string $targetFile): string
     {
-        return $this->rubriqueDirectory.DIRECTORY_SEPARATOR.$this->fileUploaderHelper->getTargetFile($file);
+        return $this->rubriqueDirectory.DIRECTORY_SEPARATOR.$targetFile;
     }
 
     /**
