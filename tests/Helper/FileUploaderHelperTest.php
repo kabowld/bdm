@@ -24,8 +24,7 @@ class FileUploaderHelperTest extends TestCase
             ->with($message)
         ;
 
-        $upload = $fileUploader->upload($originFile, 'lo.png');
-        $this->assertFalse($upload);
+        $fileUploader->upload($originFile, 'lo.png');
     }
 
     public function testSuccessUploadFile()
@@ -36,7 +35,11 @@ class FileUploaderHelperTest extends TestCase
 
         $originFile = __DIR__.'/Files/logo.png';
 
-        $upload = $fileUploader->upload($originFile,  __DIR__.'/Files/logo'.uniqid().'.png');
-        $this->assertTrue($upload);
+        $loggerInterface
+            ->expects($this->never())
+            ->method('error')
+        ;
+
+        $fileUploader->upload($originFile,  __DIR__.'/Files/logo'.uniqid().'.png');
     }
 }

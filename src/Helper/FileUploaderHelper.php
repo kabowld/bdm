@@ -28,20 +28,16 @@ final class FileUploaderHelper
      * @param string $originFile
      * @param string $targetFile
      *
-     * @return bool
+     * @return void
      */
-    public function upload(string $originFile, string $targetFile): bool
+    public function upload(string $originFile, string $targetFile): void
     {
         $fileSystem = new Filesystem();
         try {
             $fileSystem->copy($originFile, $targetFile);
-
-            return true;
         } catch (FileNotFoundException|IOException $e) {
             $this->logger->error(sprintf('Error file to copy : %s', $e->getMessage()));
         }
-
-        return false;
     }
 
     /**
