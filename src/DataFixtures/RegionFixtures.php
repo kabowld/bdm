@@ -45,21 +45,12 @@ class RegionFixtures extends Fixture implements FixtureGroupInterface
     {
         foreach (self::LIST_REGIONS_CITIES as $item => $values) {
             // Set Regions
-            $region = new Region();
-            $region
-                ->setTitle($item)
-                ->setSlug($this->slugger->slug($item))
-            ;
+            $region = $this->getRegion($item, $this->slugger->slug(strtolower($item)));
             $manager->persist($region);
 
             // Set cities and region linked
             foreach ($values as $value) {
-                $city = new City();
-                $city
-                    ->setTitle($value)
-                    ->setSlug($this->slugger->slug($value))
-                    ->setRegion($region)
-                ;
+                $city = $this->getCity($value, $this->slugger->slug(strtolower($value)), $region);
                 $manager->persist($city);
             }
         }
@@ -70,5 +61,35 @@ class RegionFixtures extends Fixture implements FixtureGroupInterface
     public static function getGroups(): array
     {
         return ['regions'];
+    }
+
+    /**
+     * @param string $title
+     * @param string $slug
+     *
+     * @return Region
+     */
+    private function getRegion(string $title, string $slug): Region
+    {
+        return (new Region())
+            ->setTitle($title)
+            ->setSlug($slug)
+        ;
+    }
+
+    /**
+     * @param string $title
+     * @param string $slug
+     * @param Region $region
+     *
+     * @return City
+     */
+    private function getCity(string $title, string $slug, Region $region): City
+    {
+        return (new City())
+            ->setTitle($title)
+            ->setSlug($slug)
+            ->setRegion($region)
+        ;
     }
 }

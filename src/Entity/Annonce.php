@@ -162,6 +162,11 @@ class Annonce
         return $this->price;
     }
 
+    public function getFormatPrice(): string
+    {
+        return number_format($this->price, 2, ',', ' ');
+    }
+
     public function setPrice(?float $price): self
     {
         $this->price = $price;

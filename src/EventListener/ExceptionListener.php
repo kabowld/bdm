@@ -81,9 +81,9 @@ class ExceptionListener
     /**
      * Return response for exception
      *
-     * @param int    $statusCode
-     * @param string $message
-     * @param array  $headers
+     * @param int         $statusCode
+     * @param string      $message
+     * @param array|null  $headers
      *
      * @return Response
      */

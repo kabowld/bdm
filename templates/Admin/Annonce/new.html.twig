@@ -6,6 +6,11 @@
     <main class="main main-annonce">
         <h1 class="title-admin">Ajouter une annonce</h1>
         <div class="container">
+            <div class="btn-action">
+                <a href="{{ path('admin_annnonce_liste_bdmk') }}" class="btn-bdm">
+                    <i class="fa fa-chevron-right"></i> Retour à la liste
+                </a>
+            </div>
             {{ form_start(form) }}
             <div class="card">
                 <div class="card-body">

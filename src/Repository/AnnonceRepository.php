@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Annonce;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @method Annonce|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,78 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @param UserInterface $user
+     *
+     * @return array
+     */
+    public function getAnnoncesByOwner(UserInterface $user): array
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.owner = :user')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+
+    public function getAnnoncesByCategorySlug(string $slug): array
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->innerJoin('a.category', 'cat')
+            ->addSelect('cat')
+            ->where($qb->expr()->eq('cat.slug', ':slug'))
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('slug', $slug)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+
+    public function getAnnoncesByRubriqueSlug(string $slug): array
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->innerJoin('a.category', 'cat')
+            ->innerJoin('cat.rubrique', 'rub')
+            ->addSelect('cat')
+            ->addSelect('rub')
+            ->where($qb->expr()->eq('rub.slug', ':slug'))
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('slug', $slug)
+            ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getAnnoncesByCitySlug(string $slug): array
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->innerJoin('a.city', 'city')
+            ->addSelect('city')
+            ->where($qb->expr()->eq('city.slug', ':slug'))
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('slug', $slug)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getAnnoncesByRegionSlug(string $slug)
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->innerJoin('a.city', 'city')
+            ->innerJoin('city.region', 'reg')
+            ->addSelect('city')
+            ->addSelect('reg')
+            ->where($qb->expr()->eq('reg.slug', ':slug'))
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('slug', $slug)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
 }

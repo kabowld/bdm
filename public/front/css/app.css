@@ -1,10 +1,3 @@
-/*
-* Prefixed by https://autoprefixer.github.io
-* PostCSS: v8.3.6,
-* Autoprefixer: v10.3.1
-* Browsers: last 4 version,ie > 8
-*/
-
 :root{
     --main-orange-color: #F77F00;
     --main-green-color: #009E60;
@@ -198,13 +191,19 @@ header.header-nav a.navbar_brand{
 }
 
 
-.search-home .home_adv_srch_opt{
+.search-home .home_adv_srch_opt, .annonces-search-liste .home_adv_srch_opt{
     margin-top: 0;
 }
 
 .box-btn-gv-ann {
     margin: 30px 0;
     padding: 30px 0;
+    text-align: center;
+}
+
+
+.box-btn-dsh-ann {
+    margin: 30px 0 40px;
     text-align: center;
 }
 
@@ -226,6 +225,29 @@ header.header-nav a.navbar_brand{
 .btn-gv-ann:hover {
     background: #fff;
     color: var(--main-green-color) !important;
+    -webkit-transition: .3s all ease-in;
+    -o-transition: .3s all ease-in;
+    transition: .3s all ease-in;
+}
+
+.btn-dsh-ann {
+    font-size: 15px;
+    font-family: inherit;
+    font-weight: 600;
+    color: #fff !important;
+    background: var(--main-orange-color);
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    border: 2px solid var(--main-orange-color);
+    -webkit-transition: .3s all ease-in-out;
+    -o-transition: .3s all ease-in-out;
+    transition: .3s all ease-in-out;
+}
+
+
+.btn-dsh-ann:hover {
+    background: #fff;
+    color: var(--main-orange-color) !important;
     -webkit-transition: .3s all ease-in;
     -o-transition: .3s all ease-in;
     transition: .3s all ease-in;
@@ -332,6 +354,10 @@ header.header-nav a.navbar_brand{
     padding-bottom: 60px;
 }
 
+.liste-annonce {
+    padding-bottom: 60px;
+}
+
 .rub-cat-title {
     font-family: inherit;
     font-size: 15px;
@@ -339,7 +365,7 @@ header.header-nav a.navbar_brand{
     color: #222;
 }
 
-.cat-list-by-rub li {
+.cat-list-by-rub li a {
     font-size: 16px;
     color: #22222285;
     font-weight: 600;
@@ -841,7 +867,7 @@ a[data-target="#stateModal"]:hover {
 }
 
 .precision-location {
-    z-index: 10;
+    z-index: 10 !important;
 }
 
 .rgx-ph img {
@@ -993,29 +1019,11 @@ a[data-target="#stateModal"]:hover {
 }
 
 .img-rubrique{
-    height: 150px;
+    height: 300px;
 }
 
 .pack-infos-form {
     margin-top: 2rem;
-}
-
-@media (min-width: 992px) {
-    .menu-dashboard .row:nth-child(2) {
-        margin-top: 1rem;
-    }
-    .box-panel-dash {
-        margin: 0;
-    }
-
-    .box_congratulation {
-        padding: 60px 0;
-    }
-}
-
-.img-pack-infos {
-    width: 130px;
-    height: 100px;
 }
 
 .bx-img-pack-infos {
@@ -1042,6 +1050,124 @@ a[data-target="#stateModal"]:hover {
     text-decoration: underline;
 }
 
+.btn-action {
+    text-align: right;
+    margin-bottom: 2rem;
+}
+
+.btn-bdm, .btn-bdm:focus, .btn-bdm:active, .btn-bdm:hover  {
+    background: var(--main-orange-color);
+    font-size: 13px;
+    color: #fff;
+    font-weight: 600;
+    padding: 0.5em 1em;
+}
+
+.header-admin {
+    padding: 60px 0 10px;
+}
+
+table thead {
+    background:  var(--main-green-color);
+    color: #fff;
+    text-align: center;
+}
+
+#annonce-list_previous a, #annonce-list_next a {
+    background: var(--main-green-color) !important;
+    color: #fff;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+li.paginate_button.page-item a {
+    font-weight: 600;
+    font-size: 13px;
+    background: orange !important;
+    border: 0;
+}
+
+.img-pack-infos {
+    width: 130px;
+    height: 100px;
+}
+
+.btn-search-sbmt {
+    width: 100%;
+    border: 2px solid var(--main-orange-color);
+    background: var(--main-orange-color);
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    height: 43px !important;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: .3s all ease-in;
+}
+
+.btn-search-sbmt:hover, .btn-search-sbmt:focus, .btn-search-sbmt:active {
+    width: 100%;
+    background: #fff;
+    border: 2px solid var(--main-orange-color);
+    color: var(--main-orange-color);
+    transition: .3s all ease-out;
+}
+
+.input-search, .select-category, .select-city {
+    width: 100%;
+}
+
+.header-dashboard {
+    width: 100%;
+    height: 300px;
+    background: url(../images/dashboard/dsh.png) no-repeat center;
+    background-size: contain;
+    margin-bottom: 2rem;
+}
+
+.dsh-sell {
+    text-align: center;
+    font-weight: 600;
+    font-size: 20px;
+    color: #222222bf;
+}
+
+.dsh-tdy {
+    text-align: center;
+    font-weight: 700;
+    font-size: 18px;
+    color: #222;
+}
+
+.orange-title{
+    color: var(--main-orange-color);
+}
+.green-title{
+    color: var(--main-green-color);
+}
+
+.btn-view {
+    background: var(--main-orange-color) !important;
+    color: #fff !important;
+}
+
+.sct-result-annonces {
+    margin-top: 2rem;
+}
+
+
+@media (min-width: 992px) {
+    .menu-dashboard .row:nth-child(2) {
+        margin-top: 1rem;
+    }
+    .box-panel-dash {
+        margin: 0;
+    }
+
+    .box_congratulation {
+        padding: 60px 0;
+    }
+}
 
 @media (min-width: 768px) {
 

@@ -71,4 +71,5 @@ class CategoryRepository extends ServiceEntityRepository
 
         return $exec->fetchAllKeyValue();
     }
+
 }

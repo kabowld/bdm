@@ -1,9 +1,9 @@
 <?php
-
+declare(strict_types=1);
 
 namespace App\Manager;
 
-
+use App\Entity\Pack;
 use App\Service\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
 use Psr\Container\ContainerExceptionInterface;
@@ -26,9 +26,10 @@ abstract class Manager
      * HandlingUser constructor.
      *
      * @param EntityManagerInterface $em
-     * @param Security $security
-     * @param UrlGeneratorInterface $urlGenerator
-     * @param SendMail $email
+     * @param Security               $security
+     * @param UrlGeneratorInterface  $urlGenerator
+     * @param SendMail               $email
+     * @param ContainerBagInterface  $params
      */
     public function __construct(
         EntityManagerInterface $em,
@@ -45,12 +46,34 @@ abstract class Manager
         $this->params = $params;
     }
 
+    /**
+     * @param string $className
+     *
+     * @return array
+     */
     public function all(string $className): array
     {
         return $this->em->getRepository($className)->findAll();
     }
 
-    public function persist(object $object, bool $persist = true)
+    /**
+     * @param string $className
+     * @param mixed  $id
+     *
+     * @return object|null
+     */
+    public function find(string $className, $id): ?object
+    {
+        return $this->em->getRepository($className)->find($id);
+    }
+
+    /**
+     * @param object $object
+     * @param bool   $persist
+     *
+     * @return void
+     */
+    public function persist(object $object, bool $persist = true): void
     {
         if ($persist) {
             $this->em->persist($object);

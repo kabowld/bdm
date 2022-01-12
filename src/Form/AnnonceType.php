@@ -137,10 +137,6 @@ class AnnonceType extends AbstractType
                 'choice_label' => 'title',
                 'placeholder' => 'Sélectionner un pack',
                 'attr' => ['class' => 'form-control'],
-                /*'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('p')
-                        ->orderBy('p.id','ASC');
-                },*/
                 'label' => false,
                 'required' => false
             ])
