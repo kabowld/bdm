@@ -16,4 +16,5 @@ return [
     FOS\JsRoutingBundle\FOSJsRoutingBundle::class => ['all' => true],
     DAMA\DoctrineTestBundle\DAMADoctrineTestBundle::class => ['test' => true],
     Vich\UploaderBundle\VichUploaderBundle::class => ['all' => true],
+    Knp\Bundle\PaginatorBundle\KnpPaginatorBundle::class => ['all' => true],
 ];

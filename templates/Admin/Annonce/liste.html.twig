@@ -3,24 +3,32 @@
 {% block title 'Liste des annonces' %}
 
 {% block content %}
-    <section class="header-box-admin">
+    <section class="header-admin">
         <div class="container">
             <h1 class="title-hbx-admin">
                 Mes annonces
             </h1>
         </div>
     </section>
-    <main class="main-annonce">
+    <main class="liste-annonce">
         <div class="container">
-            <a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Déposer une annonce</a>
+
+            <div class="btn-action">
+                <a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn-bdm">
+                    <i class="fa fa-plus-circle"></i> Déposer une annonce
+                </a>
+            </div>
+
             <div class="table-responsive">
                 <table id="annonce-list" class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Date d'ajout</th>
                             <th>Titre</th>
+                            <th>Type</th>
+                            <th>Catégorie</th>
                             <th>Etat</th>
-                            <th>Prix</th>
+                            <th>Ville</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -28,11 +36,14 @@
                     {% for annonce in annonces %}
                     <tr>
                         <td>{{ annonce.createdAt|date('Y-m-d') }}</td>
-                        <td>{{ annonce.title|slice(0, 15) }}</td>
+                        <td>{{ annonce.title }}</td>
+                        <td>{{ annonce.type }}</td>
+                        <td>{{ annonce.category.title }}</td>
                         <td>{{ annonce.state.title }}</td>
-                        <td>{{ annonce.price }}</td>
+                        <td>{{ annonce.city.title }}</td>
                         <td>
-                            <a href="{{ path('admin_annnonce_edit_bdmk', {id: annonce.id})}}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> </a>
+                            <a href="{{ path('admin_annnonce_show_bdmk', {id: annonce.id})}}" class="btn btn-sm btn-success btn-view"><i class="fa fa-eye"></i> </a>
+                            <a href="{{ path('admin_annnonce_edit_bdmk', {id: annonce.id})}}" class="btn btn-sm btn-info"><i class="fa fa-edit"></i> </a>
                         </td>
                     </tr>
                     {% endfor %}

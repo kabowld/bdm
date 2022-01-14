@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace App\Controller\Front;
 
 
+use App\Entity\AnnonceSearch;
+use App\Form\AnnonceSearchType;
+use App\Manager\AnnonceManager;
 use App\Repository\CityRepository;
 use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,16 +21,24 @@ class PagesController extends AbstractController
      *
      * @Route("/", name="home_bdmk", methods={"GET"})
      *
-     * @param RubriqueRepository $rubriqueRepository
      * @param CityRepository     $cityRepository
+     * @param RubriqueRepository $rubriqueRepository
      *
      * @return Response
      */
     public function index(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
     {
+        $search = new AnnonceSearch();
+        $form = $this->createForm(AnnonceSearchType::class, $search, [
+            'action' => $this->generateUrl('list_search_annonces_bdmk'),
+            'method' => 'POST',
+            'attr' => ['class' => 'home1-advnc-search']
+        ]);
+
         return $this->render('Front/Pages/home.html.twig', [
             'cities' => $cityRepository->getCitiesByOrderTitle(),
-            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories()
+            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories(),
+            'form' => $form->createView()
         ]);
     }
 
@@ -43,17 +54,6 @@ class PagesController extends AbstractController
         return $this->render('Front/Pages/contact.html.twig');
     }
 
-    /**
-     * FAQs Action Controller
-     *
-     * @Route("/faq", name="faq_bdmk", methods={"GET"})
-     *
-     * @return Response
-     */
-    public function faq(): Response
-    {
-        return $this->render('Front/Pages/faq.html.twig');
-    }
 
     /**
      * About Action Controller
@@ -70,11 +70,11 @@ class PagesController extends AbstractController
     /**
      * Condition Action Controller
      *
-     * @Route("/conditions-generales", name="conditions_bdmk", methods={"GET"})
+     * @Route("/conditions-generales", name="cgu_bdmk", methods={"GET"})
      *
      * @return Response
      */
-    public function conditionGenerale(): Response
+    public function cgu(): Response
     {
         return $this->render('Front/Pages/condition-general.html.twig');
     }

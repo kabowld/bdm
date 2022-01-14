@@ -15,6 +15,7 @@
         "doctrine/doctrine-migrations-bundle": "^3.2",
         "doctrine/orm": "^2.10",
         "friendsofsymfony/jsrouting-bundle": "^3.1",
+        "knplabs/knp-paginator-bundle": "^5.8",
         "phpdocumentor/reflection-docblock": "^5.3",
         "sensio/framework-extra-bundle": "^6.1",
         "symfony/apache-pack": "^1.0",
@@ -59,7 +60,8 @@
         "symfony/maker-bundle": "^1.0",
         "symfony/phpunit-bridge": "^5.4",
         "symfony/stopwatch": "5.4.*",
-        "symfony/web-profiler-bundle": "5.4.*"
+        "symfony/web-profiler-bundle": "5.4.*",
+        "ext-json": "*"
     },
     "config": {
         "optimize-autoloader": true,

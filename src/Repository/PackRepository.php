@@ -48,4 +48,15 @@ class PackRepository extends ServiceEntityRepository
     }
     */
 
+    public function getPackAjax($id): array
+    {
+        return $this
+            ->createQueryBuilder('p')
+            ->where('p.id = :identifier')
+            ->setParameter('identifier', $id)
+            ->getQuery()
+            ->getSingleResult()
+            ;
+    }
+
 }

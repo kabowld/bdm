@@ -75,7 +75,7 @@
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                     {% for city in cities %}
-                                        <a class="dropdown-item" href="#">{{ city.title }}</a>
+                                        <a class="dropdown-item" href="{{ path('annonces_request_bdmk') }}/?city={{ city.slug }}">{{ city.title }}</a>
                                     {% endfor %}
                                 </div>
                             </div>

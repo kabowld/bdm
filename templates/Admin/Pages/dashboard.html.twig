@@ -5,12 +5,13 @@
 {% block content %}
     <main class="main-dashboard">
         <div class="container">
-            <div class="jumbotron">
-                <h1 class="display-4">Hello, world!</h1>
-                <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-                <hr class="my-4">
-                <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+            <div class="header-dashboard"></div>
+            <div class="dashboard-content">
+                <p class="dsh-sell">Vous avez quelquechose à vendre ?</p>
+                <p class="dsh-tdy">Déposer vote annonce gratuitement aujourd'hui sur <span class="orange-title">Bandama</span> <span class="green-title">Market</span></p>
+                <div class="box-btn-dsh-ann">
+                    <a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn-dsh-ann"><i class="fa fa-plus-circle"></i> Déposer une annonce</a>
+                </div>
             </div>
             <div class="menu-dashboard">
                 <div class="row">
@@ -22,40 +23,40 @@
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <a href="#" class="box-panel-dash">
-                            <div class="icon-panel-dash"><img src="{{ asset('front/images/icon-dsh.png') }}" /> </div>
-                            <h3 class="title-panel-dash">Lorem ipsum</h3>
-                            <span class="text-panel-dash">loremp ipsum lorem ipsum</span>
+                        <a href="{{ path('edit_profile_admin_bdmk') }}" class="box-panel-dash">
+                            <div class="icon-panel-dash"><img alt="paramètres" src="{{ asset('front/images/parametres.png') }}"/> </div>
+                            <h3 class="title-panel-dash">Paramètres</h3>
+                            <span class="text-panel-dash">Modifier vos informations personnelles</span>
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
-                        <a href="#" class="box-panel-dash">
-                            <div class="icon-panel-dash"><img src="{{ asset('front/images/icon-dsh.png') }}" /> </div>
-                            <h3 class="title-panel-dash">Lorem ipsum</h3>
-                            <span class="text-panel-dash">loremp ipsum lorem ipsum</span>
+                        <a href="{{ path('reset_password_bdmk') }}" class="box-panel-dash">
+                            <div class="icon-panel-dash"><img alt="mot de passe" src="{{ asset('front/images/password.png') }}" /> </div>
+                            <h3 class="title-panel-dash">Mot de passe</h3>
+                            <span class="text-panel-dash">Réinitialiser votre de passe</span>
                         </a>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <a href="#" class="box-panel-dash">
-                            <div class="icon-panel-dash"><img src="{{ asset('front/images/icon-dsh.png') }}" /> </div>
-                            <h3 class="title-panel-dash">Lorem ipsum</h3>
-                            <span class="text-panel-dash">loremp ipsum lorem ipsum</span>
+                            <div class="icon-panel-dash"><img alt="Favoris" src="{{ asset('front/images/favoris.png') }}" /> </div>
+                            <h3 class="title-panel-dash">Favoris</h3>
+                            <span class="text-panel-dash">Mes annonces préférées</span>
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <a href="#" class="box-panel-dash">
-                            <div class="icon-panel-dash"><img src="{{ asset('front/images/icon-dsh.png') }}" /> </div>
-                            <h3 class="title-panel-dash">Lorem ipsum</h3>
-                            <span class="text-panel-dash">loremp ipsum lorem ipsum</span>
+                            <div class="icon-panel-dash"><img alt="messages" src="{{ asset('front/images/messages.png') }}" /> </div>
+                            <h3 class="title-panel-dash">Mes messages</h3>
+                            <span class="text-panel-dash">Consultez vos messages via le Tchat</span>
                         </a>
                     </div>
                     <div class="col-lg-4 col-md-12 col-sm-12">
                         <a href="#" class="box-panel-dash">
-                            <div class="icon-panel-dash"><img src="{{ asset('front/images/icon-dsh.png') }}" /> </div>
-                            <h3 class="title-panel-dash">Lorem ipsum</h3>
-                            <span class="text-panel-dash">loremp ipsum lorem ipsum</span>
+                            <div class="icon-panel-dash"><img alt="transactions" src="{{ asset('front/images/transaction.png') }}" /> </div>
+                            <h3 class="title-panel-dash">Transactions</h3>
+                            <span class="text-panel-dash">Consultez vos transactions</span>
                         </a>
                     </div>
                 </div>

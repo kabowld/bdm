@@ -5,12 +5,9 @@ namespace App\Controller\Admin;
 
 
 use App\Entity\Annonce;
-use App\Entity\Category;
 use App\Entity\State;
 use App\Form\AnnonceType;
 use App\Manager\AnnonceManager;
-use App\Repository\PackRepository;
-use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,6 +41,22 @@ class AnnonceController extends AbstractController
         );
     }
 
+
+    /**
+     * @Route("/show/{id}", name="admin_annnonce_show_bdmk", methods={"GET"})
+     *
+     * @param Annonce $annonce
+     *
+     * @return Response
+     */
+    public function show(Annonce $annonce): Response
+    {
+        return $this->render(
+            'Admin/Annonce/show.html.twig',
+            ['annonces' => $this->annonceManager->getMyAnnonces($this->getUser())]
+        );
+    }
+
     /**
      * @Route("/ajout", name="admin_annnonce_add_bdmk", methods={"GET", "POST"})
      *
@@ -59,7 +72,6 @@ class AnnonceController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonce->setOwner($this->getUser());
-
             $this->annonceManager->persist($annonce);
 
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');
@@ -103,60 +115,47 @@ class AnnonceController extends AbstractController
     /**
      * Action Controller to get info on Rubrique by Ajax Request
      *
-     * @Route("/rubrique/find/image", name="admin_rubrique_img_bdmk", methods={"POST"}, options={"expose" = true})
+     * @Route(
+     *     "/rubrique/image",
+     *     name="admin_rubrique_img_bdmk",
+     *     methods={"POST"},
+     *     options={"expose" = true}
+     * )
      *
-     * @param Request            $request
-     * @param RubriqueRepository $rubriqueRepository
+     * @param Request $request
      *
      * @return JsonResponse
      */
-    public function getRubriqueImage(Request $request, RubriqueRepository $rubriqueRepository)
+    public function getRubriqueImage(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
-            throw $this->createNotFoundException('La page est introuvable !');
+            throw $this->createNotFoundException(AnnonceManager::PAGE_NOT_FOUND);
         }
 
-        $rubrique = $rubriqueRepository->find($request->request->get('id'));
-        if (!$rubrique) {
-            return new JsonResponse(['message' => 'error'], Response::HTTP_NOT_FOUND);
-        }
-
-        return new JsonResponse(
-            ['message' => 'success', 'filename' => $rubrique->getImage()->getFileName(), 'slug' => $rubrique->getSlug()],
-        Response::HTTP_OK,
-        ['Content-Type' => 'application/json']
-        );
+        return $this->annonceManager->getResponseRubriqueInfos($request->request->get('id'));
     }
 
 
     /**
-     * Action Controller to get info on Pack by Ajax Request
+     * Action Controller to get Pack infos by Ajax Request
      *
-     * @Route("/pack/find/info", name="admin_pack_info_bdmk", methods={"POST"}, options={"expose" = true})
+     * @Route(
+     *     "/pack/infos",
+     *     name="admin_pack_info_bdmk",
+     *     methods={"POST"},
+     *     options={"expose" = true}
+     * )
      *
-     * @param Request        $request
-     * @param PackRepository $packRepository
+     * @param Request $request
      *
      * @return JsonResponse
      */
-    public function getPackInfo(Request $request, PackRepository $packRepository)
+    public function getPackInfos(Request $request): JsonResponse
     {
         if (!$request->isXmlHttpRequest()) {
-            throw $this->createNotFoundException('La page est introuvable !');
+            throw $this->createNotFoundException(AnnonceManager::PAGE_NOT_FOUND);
         }
 
-        $pack = $packRepository->find($request->request->get('id'));
-        if (!$pack) {
-            return new JsonResponse(['message' => 'error'], Response::HTTP_NOT_FOUND);
-        }
-
-        return new JsonResponse([
-            'message' => 'success',
-            'filename' => $pack->getImage()->getFileName(),
-            'title' => $pack->getTitle(),
-            'description' => $pack->getDescription(),
-            'price' => $pack->getPrice(),
-            'priceByDays' => $pack->getPriceByDay()
-        ], Response::HTTP_OK, ['Content-Type' => 'application/json']);
+        return $this->annonceManager->getResponsePackInfos($request->request->get('id'));
     }
 }

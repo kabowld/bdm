@@ -3,10 +3,10 @@
         <div class="row">
             {% for rubrique in rubriques %}
                 <div class="col-lg-3 col-md-6 col-sm-6 col-6 rub-box-bdmk">
-                    <p class="rub-cat-title">{{ rubrique.title }}</p>
+                    <p class="rub-cat-title"><a href="{{ path('annonces_request_bdmk') }}/?rubrique={{ rubrique.slug }}">{{ rubrique.title }}</a></p>
                     <ul class="cat-list-by-rub">
                         {% for category in rubrique.categories %}
-                        <li>{{ category.title }}</li>
+                            <li><a href="{{ path('annonces_request_bdmk') }}/?category={{ category.slug }}">{{ category.title }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
