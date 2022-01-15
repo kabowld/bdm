@@ -455,6 +455,7 @@ form input:focus {
 }
 .register-btn {
     margin-top: 1em;
+    padding: .5rem 1.5rem !important;
 }
 
 #registration_civility input, #profil_particular_civility input, #profil_pro_civility input, #annonce_type input {
@@ -1033,14 +1034,14 @@ a[data-target="#stateModal"]:hover {
 .desc-pack-infos {
     margin-top: .5em;
     color: #222;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 300;
     text-align: center;
 }
 
 .price-pack-infos, .priceByDays-pack-infos {
     text-align: center;
-    font-size: 13px;
+    font-size: 14px;
     color: #222;
     font-weight: 600;
 }
@@ -1088,8 +1089,8 @@ li.paginate_button.page-item a {
 }
 
 .img-pack-infos {
-    width: 130px;
-    height: 100px;
+    width: 200px;
+    height: 150px;
 }
 
 .btn-search-sbmt {
@@ -1155,6 +1156,14 @@ li.paginate_button.page-item a {
     margin-top: 2rem;
 }
 
+.btn-submit-annonce {
+    text-align: center;
+}
+
+.rub-cat-title a:hover,
+.cat-list-by-rub li a:hover {
+    color: var(--main-orange-color);
+}
 
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {

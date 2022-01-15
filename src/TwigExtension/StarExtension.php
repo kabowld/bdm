@@ -16,10 +16,15 @@ class StarExtension extends AbstractExtension
         ];
     }
 
-    public function displayStars(?int $stars)
+    /**
+     * @param int|null $stars
+     *
+     * @return void|null
+     */
+    public function displayStars(?int $stars): void
     {
         if (is_null($stars)) {
-            return null;
+            return;
         }
 
         $html = '<span class="starTag">';

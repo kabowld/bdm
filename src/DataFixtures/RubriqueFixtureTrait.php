@@ -24,13 +24,13 @@ trait RubriqueFixtureTrait
     }
 
     /**
-     * @param string      $title
-     * @param string      $slug
-     * @param FilePicture $filePicture
+     * @param string           $title
+     * @param string           $slug
+     * @param FilePicture|null $filePicture
      *
      * @return Rubrique
      */
-    private function getRubrique(string $title, string $slug, FilePicture $filePicture): Rubrique
+    private function getRubrique(string $title, string $slug, ?FilePicture $filePicture): Rubrique
     {
         return (new Rubrique())
             ->setTitle($title)
@@ -53,14 +53,6 @@ trait RubriqueFixtureTrait
             ->setRubrique($rubrique)
             ->setSlug($slug)
             ;
-    }
-
-    /**
-     * @return string[]
-     */
-    public static function getGroups(): array
-    {
-        return ['rubriques'];
     }
 
     /**
