@@ -1165,6 +1165,24 @@ li.paginate_button.page-item a {
     color: var(--main-orange-color);
 }
 
+.currency-field {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    height: 43px;
+    line-height: 43px;
+    width: 50px;
+    text-align: center;
+    color: #fff;
+    font-weight: 600;
+    background: var(--main-orange-color);
+    border-radius: 0 0.25rem 0.25rem 0;
+}
+
+#annonce_price {
+    padding-right: 60px;
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;

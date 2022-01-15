@@ -71,7 +71,7 @@ class AnnonceType extends AbstractType
                     'placeholder' => 'Saisir le prix de l\'annnonce'
                 ],
                 'currency' => false,
-                'label' => 'Définir un prix'
+                'label' => 'Définir un prix (en CFA)'
             ])
             ->add('location', TextType::class, [
                 'attr' => [
