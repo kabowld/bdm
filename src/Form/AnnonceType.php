@@ -59,7 +59,7 @@ class AnnonceType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => [
                     'class' => 'form-control',
-                    'rows' => 8,
+                    'rows' => 15,
                     'cols' => 5,
                     'placeholder' => 'Saisir une description'
                 ],

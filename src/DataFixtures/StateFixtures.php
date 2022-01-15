@@ -21,18 +21,22 @@ class StateFixtures extends Fixture implements FixtureGroupInterface
     {
         $states = $this->getStates();
 
-        $stars = 5;
+        $baseStars = 5;
+        $fashionStars = 4;
         foreach ($states as $type => $values) {
-
             $category = $this->getCategoryState($type);
             $manager->persist($category);
 
             foreach ($values as $title => $description) {
-
-                $state = $this->getState($title, $description, $category, $stars, $type);
+                $state = $this->getState($title, $description, $category, ['normal' => $baseStars, 'style' => $fashionStars], $type);
                 $manager->persist($state);
 
-                $stars--;
+                if ($type === 'normal') {
+                    $baseStars--;
+                    continue;
+                }
+
+                $fashionStars--;
             }
         }
 
@@ -53,12 +57,12 @@ class StateFixtures extends Fixture implements FixtureGroupInterface
      * @param string        $title
      * @param string        $description
      * @param CategoryState $categoryState
-     * @param int           $stars
+     * @param array         $stars
      * @param string        $type
      *
      * @return State
      */
-    private function getState(string $title, string $description, CategoryState $categoryState, int $stars, string $type): State
+    private function getState(string $title, string $description, CategoryState $categoryState, array $stars, string $type): State
     {
         $state = new State();
         $state
@@ -67,8 +71,12 @@ class StateFixtures extends Fixture implements FixtureGroupInterface
             ->setCategoryState($categoryState)
         ;
 
-        if ($type === 'normal' && !empty($stars)) {
-            $state->setStars($stars);
+        if ($type === 'normal' && !empty($stars['normal'])) {
+            $state->setStars($stars['normal']);
+        }
+
+        if ($type === 'style' && !empty($stars['style'])) {
+            $state->setStars($stars['style']);
         }
 
         return $state;

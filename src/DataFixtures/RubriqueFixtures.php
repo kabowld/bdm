@@ -6,6 +6,8 @@ use App\Helper\FileUploaderHelper;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
 use Doctrine\Persistence\ObjectManager;
+use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
@@ -14,27 +16,34 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
     use RubriqueFixtureTrait;
 
     public const EXT_PNG = '.png';
+    private const MESS_FILE_ERROR = 'Error fires creating file object: %s';
+
     private FileUploaderHelper $fileUploaderHelper;
     private SluggerInterface $slugger;
     private string $rubriqueDirectory;
     private string $imagesDirectory;
+    private LoggerInterface $logger;
 
     /**
      * @param FileUploaderHelper $fileUploaderHelper
      * @param SluggerInterface   $sluggerInterface
      * @param string             $rubriqueDirectory
      * @param string             $imagesDirectory
+     * @param LoggerInterface    $logger
      */
     public function __construct(
         FileUploaderHelper $fileUploaderHelper,
         SluggerInterface $sluggerInterface,
         string $rubriqueDirectory,
-        string $imagesDirectory)
+        string $imagesDirectory,
+        LoggerInterface $logger
+    )
     {
         $this->fileUploaderHelper = $fileUploaderHelper;
         $this->slugger = $sluggerInterface;
         $this->rubriqueDirectory = $rubriqueDirectory;
         $this->imagesDirectory = $imagesDirectory;
+        $this->logger = $logger;
     }
 
     /**
@@ -47,12 +56,15 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
         $listes = self::getListeRubriques();
         foreach ($listes as $rub => $categories)
         {
+            $filePicture = null;
             // FilePicture
             $file = $this->getFile($rub);
-            $targetFile = $this->fileUploaderHelper->getTargetFile($file);
-            $filePicture = $this->getFilePicture($file, $targetFile);
-            $manager->persist($filePicture);
-            $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file, $targetFile));
+            if (!is_null($file)) {
+                $targetFile = $this->fileUploaderHelper->getTargetFile($file);
+                $filePicture = $this->getFilePicture($file, $targetFile);
+                $manager->persist($filePicture);
+                $this->fileUploaderHelper->upload($this->relativePath($file), $this->getTargetRubriqueFile($file, $targetFile));
+            }
 
             // Rubrique
             $rubrique = $this->getRubrique($rub, $this->slugger->slug(strtolower($rub)), $filePicture);
@@ -107,14 +119,29 @@ class RubriqueFixtures extends Fixture implements FixtureGroupInterface
     /**
      * @param string $title
      *
-     * @return File
+     * @return File|null
      */
-    private function getFile(string $title): File
+    private function getFile(string $title): ?File
     {
-        return new File(
-            $this->directoryRelativePath().
-            DIRECTORY_SEPARATOR.
-            $this->slugger->slug(strtolower($title)).self::EXT_PNG
-        );
+        try {
+            return new File(
+                $this->directoryRelativePath().
+                DIRECTORY_SEPARATOR.
+                $this->slugger->slug(strtolower($title)).self::EXT_PNG
+            );
+        } catch (FileNotFoundException $e) {
+            $this->logger->warning(sprintf(self::MESS_FILE_ERROR, $e->getMessage()));
+        }
+
+        return null;
     }
+
+    /**
+     * @return string[]
+     */
+    public static function getGroups(): array
+    {
+        return ['rubriques'];
+    }
+
 }

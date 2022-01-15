@@ -67,7 +67,7 @@ class AnnonceManager extends Manager
 
         return new JsonResponse([
             'message' => 'success',
-            'filename' => $rubrique->getImage()->getFileName(),
+            'filename' => $rubrique->getImage() ? $rubrique->getImage()->getFileName(): null,
             'slug' => $rubrique->getSlug()
         ], Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }

@@ -52,14 +52,14 @@ class Annonce
 
     /**
      * @ORM\ManyToOne(targetEntity=State::class)
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?State $state = null;
 
     /**
      * @ORM\Column(type="datetime_immutable")
      */
-    private $createdAt;
+    private \DateTimeImmutable $createdAt;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -69,7 +69,7 @@ class Annonce
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private $updatedAt;
+    private ?\DateTimeImmutable $updatedAt;
 
     /**
      * @Assert\NotBlank(message="La ville ne doit pas être vide !")

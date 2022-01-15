@@ -43,9 +43,9 @@ $(function (){
                 dataType: 'json',
                 data: {id: parseInt($rubrique.val())}
             }).done(function (data) {
-                let $src = '/front/rubfiles/'+ data.filename;
+                let $src = data.filename === null ? '/front/images/no-image.jpg': '/front/rubfiles/'+ data.filename;
                 $('.img-rubrique').attr('src', $src).attr('alt', data.slug);
-            }).fail(function (jqXHR) {
+            }).fail(function () {
                 $('.img-rubrique').attr('src', '/front/images/no-image.jpg').attr('alt', data.slug);
             });
         } else {
@@ -61,9 +61,9 @@ $(function (){
             dataType: 'json',
             data: {id: $id}
         }).done(function (data) {
-            let $src = '/front/rubfiles/'+ data.filename;
+            let $src = data.filename === null ? '/front/images/no-image.jpg': '/front/rubfiles/'+ data.filename;
             $('.img-rubrique').attr('src', $src).attr('alt', data.slug);
-        }).fail(function (jqXHR) {
+        }).fail(function () {
             $('.img-rubrique').attr('src', '/front/images/no-image.jpg').attr('alt', data.slug);
         });
     }

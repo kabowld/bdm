@@ -41,6 +41,7 @@ class Rubrique
 
     /**
      * @ORM\OneToOne(targetEntity=FilePicture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private ?FilePicture $image;
 
