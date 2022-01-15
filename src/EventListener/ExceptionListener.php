@@ -26,6 +26,8 @@ class ExceptionListener
     const NO_RESPONSE_CONTENT = '';
     const KERNEL_ENV = 'kernel.environment';
     const PROD_ENV = 'prod';
+    const CONTAINER_EXCEPTION_MESSAGE = 'Error on entry "%s": %s';
+    const NOTFOUND_EXCEPTION_MESSAGE = 'NotFound entry %s": %s';
 
 
     private HandleFrontError $handleError;
@@ -37,8 +39,8 @@ class ExceptionListener
     /**
      * ExceptionListener constructor.
      *
-     * @param HandleFrontError $handleError
-     * @param LoggerInterface $logger
+     * @param HandleFrontError      $handleError
+     * @param LoggerInterface       $logger
      * @param ContainerBagInterface $params
      */
     public function __construct(HandleFrontError $handleError, LoggerInterface $logger, ContainerBagInterface $params)
@@ -58,19 +60,18 @@ class ExceptionListener
         $exception = $event->getThrowable();
         $message = $exception->getMessage();
 
-        if ($this->params->get(self::KERNEL_ENV) !== self::PROD_ENV) {
+        if ($this->getKernelEnv() !== self::PROD_ENV) {
             return;
         }
 
         if ($exception instanceof HttpExceptionInterface) {
-            $this->logger->info(self::MESSAGE_HTTP_EXCEPTION, ['exception' => $exception]);
+            $this->logger->error(self::MESSAGE_HTTP_EXCEPTION, ['exception' => $exception]);
             $event->setResponse(
                 $this->setResponseException($exception->getStatusCode(), $message, $exception->getHeaders())
             );
 
             return;
         }
-
 
         $this->logger->critical(sprintf(self::MESSAGE_CRITICAL_ERROR, $exception->getMessage()), ['exception' => $exception]);
         $event->setResponse(
@@ -99,7 +100,22 @@ class ExceptionListener
                 ->setStatusCode($statusCode)
                 ->setContent($this->handleError->getErrorTpl($message, $statusCode) ?: self::NO_RESPONSE_CONTENT)
             ;
+    }
 
+    /**
+     * @return string|null
+     */
+    private function getKernelEnv(): ?string
+    {
+        try {
+            return $this->params->get(self::KERNEL_ENV);
+        } catch (NotFoundExceptionInterface $e) {
+            $this->logger->error(sprintf(self::NOTFOUND_EXCEPTION_MESSAGE, self::KERNEL_ENV, $e->getMessage()));
+        } catch (ContainerExceptionInterface $e) {
+            $this->logger->error(sprintf(self::CONTAINER_EXCEPTION_MESSAGE, self::KERNEL_ENV, $e->getMessage()));
+        }
+
+        return null;
     }
 
 }
