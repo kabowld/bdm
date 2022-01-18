@@ -22,6 +22,10 @@ class StateAnnonceRulesValidator extends ConstraintValidator
             throw new UnexpectedTypeException($annonce, Annonce::class);
         }
 
+        if ($annonce->getCategory() === null) {
+            return;
+        }
+
         /**
          * @var Annonce $annonce
          */

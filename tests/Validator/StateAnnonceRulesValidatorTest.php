@@ -9,7 +9,10 @@ use App\Entity\State;
 use App\Validator\StateAnnonceRules;
 use App\Validator\StateAnnonceRulesValidator;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Exception\UnexpectedTypeException;
+use Symfony\Component\Validator\Exception\UnexpectedValueException;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
 class StateAnnonceRulesValidatorTest extends TestCase
@@ -31,6 +34,26 @@ class StateAnnonceRulesValidatorTest extends TestCase
             ['maison-et-equipement'],
             ['divers'],
         ];
+    }
+    /**
+     * Test with UnexpectedType of password value
+     */
+    public function testCatchBadTypeException()
+    {
+        $validator = new StateAnnonceRulesValidator();
+        $this->expectException(UnexpectedTypeException::class);
+        $validator->validate('password', new NotBlank());
+    }
+
+
+    /**
+     * Test with catch password value if value is not string
+     */
+    public function testCatchNotAnnonceValue()
+    {
+        $validator = new StateAnnonceRulesValidator();
+        $this->expectException(UnexpectedTypeException::class);
+        $validator->validate(12345, new StateAnnonceRules());
     }
 
     /**
