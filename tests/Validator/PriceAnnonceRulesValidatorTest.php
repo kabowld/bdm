@@ -6,25 +6,16 @@ use App\Entity\Annonce;
 use App\Entity\Category;
 use App\Entity\Rubrique;
 use App\Entity\State;
-use App\Validator\StateAnnonceRules;
-use App\Validator\StateAnnonceRulesValidator;
+use App\Validator\PriceAnnonceRules;
+use App\Validator\PriceAnnonceRulesValidator;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Symfony\Component\Validator\Exception\UnexpectedTypeException;
 use Symfony\Component\Validator\Violation\ConstraintViolationBuilderInterface;
 
-class StateAnnonceRulesValidatorTest extends TestCase
+class PriceAnnonceRulesValidatorTest extends TestCase
 {
-    public function badSlug(): array
-    {
-        return [
-            ['animaux'],
-            ['education'],
-            ['emploi-et-insertion-sociale']
-        ];
-    }
-
     public function goodSlug(): array
     {
         return [
@@ -34,12 +25,13 @@ class StateAnnonceRulesValidatorTest extends TestCase
             ['divers'],
         ];
     }
+
     /**
      * Test with UnexpectedType of password value
      */
     public function testCatchBadTypeException()
     {
-        $validator = new StateAnnonceRulesValidator();
+        $validator = new PriceAnnonceRulesValidator();
         $this->expectException(UnexpectedTypeException::class);
         $validator->validate('password', new NotBlank());
     }
@@ -50,18 +42,15 @@ class StateAnnonceRulesValidatorTest extends TestCase
      */
     public function testCatchNotAnnonceValue()
     {
-        $validator = new StateAnnonceRulesValidator();
+        $validator = new PriceAnnonceRulesValidator();
         $this->expectException(UnexpectedTypeException::class);
-        $validator->validate(12345, new StateAnnonceRules());
+        $validator->validate(12345, new PriceAnnonceRules());
     }
 
-    /**
-     * @dataProvider badSlug
-     */
-    public function testWithBadSLug(string $slug)
+    public function testWithBadSLug()
     {
-        $annonce = $this->getAnnonce($slug);
-        $this->getValidator(true)->validate($annonce, new StateAnnonceRules());
+        $annonce = $this->getAnnonce('emploi-et-insertion-sociale');
+        $this->getValidator(true)->validate($annonce, new PriceAnnonceRules());
     }
 
     /**
@@ -70,17 +59,17 @@ class StateAnnonceRulesValidatorTest extends TestCase
     public function testWithGoodSLug(string $slug)
     {
         $annonce = $this->getAnnonce($slug);
-        $this->getValidator()->validate($annonce, new StateAnnonceRules());
+        $this->getValidator()->validate($annonce, new PriceAnnonceRules());
     }
 
     /**
-     * Get StateAnnonceRulesValidator
+     * Get PriceAnnonceRulesValidator
      *
      * @param bool $expectedViolation
      *
-     * @return StateAnnonceRulesValidator
+     * @return PriceAnnonceRulesValidator
      */
-    private function getValidator(bool $expectedViolation = false): StateAnnonceRulesValidator
+    private function getValidator(bool $expectedViolation = false): PriceAnnonceRulesValidator
     {
         $context = $this->getMockBuilder(ExecutionContextInterface::class)->getMock();
         if ($expectedViolation) {
@@ -99,7 +88,7 @@ class StateAnnonceRulesValidatorTest extends TestCase
             ;
         }
 
-        $validator = new StateAnnonceRulesValidator();
+        $validator = new PriceAnnonceRulesValidator();
         $validator->initialize($context);
 
         return $validator;
@@ -119,6 +108,7 @@ class StateAnnonceRulesValidatorTest extends TestCase
         $annonce = new Annonce;
         $annonce->setTitle('title')
             ->setState($state)
+            ->setPrice(400)
             ->setDescription('description')
             ->setCategory($category);
 

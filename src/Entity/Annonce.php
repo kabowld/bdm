@@ -12,6 +12,7 @@ use App\Validator as BdmAssert;
 
 /**
  * @BdmAssert\StateAnnonceRules()
+ * @BdmAssert\PriceAnnonceRules()
  * @ORM\Entity(repositoryClass=AnnonceRepository::class)
  */
 class Annonce

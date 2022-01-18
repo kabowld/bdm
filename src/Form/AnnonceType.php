@@ -8,6 +8,7 @@ use App\Entity\City;
 use App\Entity\Pack;
 use App\Entity\Rubrique;
 use App\Entity\State;
+use App\Validator\PriceAnnonceRulesValidator;
 use App\Validator\StateAnnonceRulesValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
@@ -65,14 +66,6 @@ class AnnonceType extends AbstractType
                     'placeholder' => 'Saisir une description'
                 ],
                 'label' => 'Description de l\'annonce'
-            ])
-            ->add('price', MoneyType::class, [
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Saisir le prix de l\'annnonce'
-                ],
-                'currency' => false,
-                'label' => 'Définir un prix (en CFA)'
             ])
             ->add('location', TextType::class, [
                 'attr' => [
@@ -163,6 +156,7 @@ class AnnonceType extends AbstractType
     {
         $this->createFormCategory($event->getForm());
         $this->createFormState($event->getForm());
+        $this->editPriceForm($event->getForm());
     }
 
     /**
@@ -183,6 +177,7 @@ class AnnonceType extends AbstractType
             $form->get('rubrique')->setData($rubrique);
             $this->createFormCategory($event->getForm(), $rubrique);
             $this->createFormState($event->getForm(), $rubrique);
+            $this->editPriceForm($event->getForm(), $rubrique);
         }
 
         $form->get('state')->setData($data->getState());
@@ -197,6 +192,8 @@ class AnnonceType extends AbstractType
     {
         $this->createFormCategory($event->getForm()->getParent(), $event->getForm()->getData());
         $this->createFormState($event->getForm()->getParent(), $event->getForm()->getData());
+        $this->editPriceForm($event->getForm()->getParent(), $event->getForm()->getData());
+
     }
 
     /**
@@ -258,6 +255,35 @@ class AnnonceType extends AbstractType
             'attr' => ['class' => 'form-control'],
             'required' => $required
         ]);
+    }
+    /**
+     * @param FormInterface $form
+     * @param Rubrique|null $rubrique
+     *
+     * @return void
+     */
+    private function editPriceForm(FormInterface $form, Rubrique $rubrique = null): void
+    {
+        if (!is_null($rubrique) && $rubrique->getSlug() === PriceAnnonceRulesValidator::RUBRIQUE_SLUG) {
+            $form->add('price', MoneyType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'disabled' => 'disabled',
+                    'placeholder' => 'Aucun prix à saisir pour le choix de cette rubrique'
+                ],
+                'currency' => false,
+                'label' => 'Aucun prix à saisir pour cette rubrique (en CFA)'
+            ]);
+        } else {
+            $form->add('price', MoneyType::class, [
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Saisir le prix de l\'annnonce'
+                ],
+                'currency' => false,
+                'label' => 'Définir un prix (en CFA)'
+            ]);
+        }
     }
 
 

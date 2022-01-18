@@ -30,6 +30,10 @@ $(function (){
                     // ... with the returned one from the AJAX response.
                     $(html.responseText).find('#annonce_state')
                 );
+                $('#annonce_price').replaceWith(
+                    // ... with the returned one from the AJAX response.
+                    $(html.responseText).find('#annonce_price')
+                );
                 $('#annonce_category').removeAttr('disabled');
                 $('#annonce_state').removeAttr('disabled');
                 // Position field now displays the appropriate positions.
