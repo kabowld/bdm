@@ -8,6 +8,7 @@ use App\Entity\City;
 use App\Entity\Pack;
 use App\Entity\Rubrique;
 use App\Entity\State;
+use App\Validator\StateAnnonceRulesValidator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -227,23 +228,35 @@ class AnnonceType extends AbstractType
      */
     private function createFormState(FormInterface $form, Rubrique $rubrique = null): void
     {
+        $required = true;
+        $placeholder = 'Sélectionner un état';
         if (!is_null($rubrique) && $rubrique->getTitle() === 'Style et mode') {
             $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::FASHION_STATE);
-        } elseif ($rubrique === null) {
+        }
+        elseif (!is_null($rubrique) && in_array($rubrique->getslug(), StateAnnonceRulesValidator::BANNED_RUBRIQUES)) {
+            $states = [];
+            $required = false;
+            $placeholder = 'Aucun état pour cette rubrique';
+        }
+        elseif ($rubrique === null) {
             $states = $this->em->getRepository(State::class)->findAll();
+            $required = false;
+            $placeholder = 'Sélectionner la rubrique';
         } else {
             $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::NORMAL_STATE);
+
         }
 
         $form->add('state', EntityType::class, [
             'class' => State::class,
             'choices' => $states,
-            'placeholder' => $states === null ? 'Selectionner la rubrique' : 'Sélectionner un état',
+            'placeholder' => $placeholder,
             'label' => 'Etat',
             'choice_label' => function (State $state) {
                 return $state->getTitle();
             },
-            'attr' => ['class' => 'form-control']
+            'attr' => ['class' => 'form-control'],
+            'required' => $required
         ]);
     }
 
