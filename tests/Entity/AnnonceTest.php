@@ -113,6 +113,7 @@ class AnnonceTest extends EntityTestCase
             ->setCity($ville)
             ->setType('offre')
             ->setCategory($category)
+            ->setPrice(12)
             ;
     }
 }
