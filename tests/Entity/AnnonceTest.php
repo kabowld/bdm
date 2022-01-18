@@ -5,7 +5,9 @@ namespace App\Tests\Entity;
 
 
 use App\Entity\Annonce;
+use App\Entity\Category;
 use App\Entity\City;
+use App\Entity\Rubrique;
 
 class AnnonceTest extends EntityTestCase
 {
@@ -98,6 +100,11 @@ class AnnonceTest extends EntityTestCase
     private function getAnnonce(): Annonce
     {
         $ville = (new City())->setTitle('Ville')->setSlug('ville');
+        $rubrique = new Rubrique();
+        $rubrique->setSlug('divers')->setTitle('rub title');
+
+        $category = new Category();
+        $category->setTitle('cat title')->setSlug('cat-slug')->setRubrique($rubrique);
 
         return (new Annonce())
             ->setTitle('title annonce')
@@ -105,6 +112,7 @@ class AnnonceTest extends EntityTestCase
             ->setPostalCode('01 BP 10605 ABIDJAN 01')
             ->setCity($ville)
             ->setType('offre')
+            ->setCategory($category)
             ;
     }
 }

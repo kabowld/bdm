@@ -80,7 +80,7 @@ class PasswordRulesValidatorTest extends TestCase {
     /**
      * Test bad password
      *
-     * @dataProvider  badPasswordList
+     * @dataProvider badPasswordList
      *
      * @param string $value
      */
@@ -108,7 +108,7 @@ class PasswordRulesValidatorTest extends TestCase {
      *
      * @return PasswordRulesValidator
      */
-    private function getValidator($expectedViolation = false): PasswordRulesValidator
+    private function getValidator(bool $expectedViolation = false): PasswordRulesValidator
     {
         $context = $this->getMockBuilder(ExecutionContextInterface::class)->getMock();
         if ($expectedViolation) {
