@@ -25,7 +25,7 @@ class Annonce
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id = null;
 
     /**
      * @Assert\Length(min=3, max=150, minMessage="Le titre doit comporter au moins {{ limit }} !", minMessage="Le titre doit comporter {{ limit }} au maximum !")

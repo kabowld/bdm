@@ -726,8 +726,8 @@
     }
 
     /*  One-Grid-Owl-carousel  */
-    if($('.sidebar_feature_property_slider').length){
-        $('.sidebar_feature_property_slider').owlCarousel({
+    if($('.sidebar_feature_property_slider.owl-carousel').length){
+        $('.sidebar_feature_property_slider.owl-carousel').owlCarousel({
             animateIn: 'fadeIn',
             loop:true,
             margin:15,

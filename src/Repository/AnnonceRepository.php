@@ -66,6 +66,18 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
 
+    public function getOneAnnonceByOwner(UserInterface $user, $id)
+    {
+        return $this->createQueryBuilder('a')
+            ->where('a.owner = :user')
+            ->andWhere('a.id = :id')
+            ->setParameters(['user' => $user, 'id' => $id])
+            ->getQuery()
+            ->getOneOrNullResult()
+            ;
+    }
+
+
     public function getAnnoncesByCategorySlug(string $slug): array
     {
         $qb = $this->createQueryBuilder('a');
