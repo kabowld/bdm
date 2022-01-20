@@ -1001,10 +1001,12 @@ a[data-target="#stateModal"]:hover {
 }
 
 .owl-carousel.at-one button.owl-dot.active,
+.owl-carousel.sidebar_feature_property_slider button.owl-dot.active,
 .feature_property_slider.owl-carousel  button.owl-dot.active {
     background: #7e7e7e;
 }
 .owl-carousel.at-one button.owl-dot,
+.owl-carousel.sidebar_feature_property_slider button.owl-dot,
 .feature_property_slider.owl-carousel button.owl-dot {
     background: #a1a1a1;
     padding: 5px !important;
@@ -1013,6 +1015,7 @@ a[data-target="#stateModal"]:hover {
 }
 
 .owl-carousel.at-one .owl-dots,
+.owl-carousel.sidebar_feature_property_slider .owl-dots,
 .feature_property_slider.owl-carousel .owl-dots
 {
     text-align: center;
@@ -1037,6 +1040,17 @@ a[data-target="#stateModal"]:hover {
 
 .bx-img-pack-infos {
     text-align: center;
+}
+
+.annonces-search-liste {
+    background: url(https://creativelayers.net/themes/findhouse-html/images/background/7.jpg);
+    background-size: cover;
+    background-position: center center;
+    height: 500px;
+}
+
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
+    color: #fff;
 }
 
 .desc-pack-infos {
@@ -1189,6 +1203,10 @@ li.paginate_button.page-item a {
 
 #annonce_price {
     padding-right: 60px;
+}
+
+.modern-apertment::before {
+    background-image: url("https://creativelayers.net/themes/findhouse-html/images/background/6.jpg") !important;
 }
 
 @media (min-width: 992px) {
