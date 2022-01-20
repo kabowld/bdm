@@ -31,6 +31,16 @@ class AnnonceManager extends Manager
     }
 
     /**
+     * @param UserInterface $owner
+     * @param $id
+     * @return mixed
+     */
+    public function getOnlyMyAnnonce(UserInterface $owner, $id)
+    {
+        return $this->em->getRepository(Annonce::class)->getOneAnnonceByOwner($owner, $id);
+    }
+
+    /**
      * @param mixed $id
      *
      * @return JsonResponse

@@ -53,7 +53,7 @@ class AnnonceController extends AbstractController
     {
         return $this->render(
             'Admin/Annonce/show.html.twig',
-            ['annonces' => $this->annonceManager->getMyAnnonces($this->getUser())]
+            ['annonce' => $this->annonceManager->getOnlyMyAnnonce($this->getUser(), $annonce->getId())]
         );
     }
 

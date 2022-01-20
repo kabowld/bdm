@@ -2,6 +2,7 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
 use App\Entity\City;
 use App\Entity\Rubrique;
@@ -27,7 +28,7 @@ class AnnonceController extends AbstractController
      *
      * @return Response
      */
-    public function index(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository, Request $request): Response
+    public function index(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
     {
         $search = new AnnonceSearch();
         $form = $this->createForm(AnnonceSearchType::class, $search, [
@@ -47,9 +48,16 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/annonces", name="annonces_request_bdmk")
      */
-    public function requestAnnonces(Request $request, AnnonceRepository $annonceRepository)
+    public function requestAnnonces(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository)
     {
-        $result = [];
+        $search = new AnnonceSearch();
+        $form = $this->createForm(AnnonceSearchType::class, $search, [
+            'action' => $this->generateUrl('list_search_annonces_bdmk'),
+            'method' => 'POST',
+            'attr' => ['class' => 'home1-advnc-search']
+        ]);
+
+       /* $result = $annonceRepository->findAll();
         if ($category = $request->query->get('category')) {
             $result = $annonceRepository->getAnnoncesByCategorySlug($category);
         }
@@ -65,8 +73,24 @@ class AnnonceController extends AbstractController
         if ($region = $request->query->get('region')) {
 
             $result = $annonceRepository->getAnnoncesByRegionSlug($region);
-        }
+        }*/
 
-        return $this->render('Front/Annonce/search_request.html.twig', ['annonces' => $result]);
+
+        return $this->render('Front/Annonce/list.html.twig', [
+            'cities' => $cityRepository->getCitiesByOrderTitle(),
+            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories(),
+            'form' => $form->createView()
+        ]);
+    }
+
+
+    /**
+     * @Route("/show", name="annonce_single_bdmk", methods={"GET"})
+     *
+     * @return Response
+     */
+    public function show(): Response
+    {
+        return $this->render('Front/Annonce/show.html.twig');
     }
 }
