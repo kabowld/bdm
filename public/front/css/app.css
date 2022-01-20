@@ -1039,6 +1039,13 @@ a[data-target="#stateModal"]:hover {
     text-align: center;
 }
 
+.annonces-search-liste {
+    background: url(https://creativelayers.net/themes/findhouse-html/images/background/7.jpg);
+    background-size: cover;
+    background-position: center center;
+    height: 500px;
+}
+
 .desc-pack-infos {
     margin-top: .5em;
     color: #222;
