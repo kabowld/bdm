@@ -152,7 +152,7 @@ class AnnonceRepository extends ServiceEntityRepository
                 ->innerJoin('a.category', 'cat')
                 ->addSelect('cat')
                 ->andWhere('cat.id != :category')
-                ->setParameter('category', $search->getCategory()->getId())
+                ->setParameter('category', $search->getCategory())
             ;
         }
 
@@ -161,7 +161,7 @@ class AnnonceRepository extends ServiceEntityRepository
                 ->innerJoin('a.city', 'city')
                 ->addSelect('city')
                 ->andWhere('city.id != :category')
-                ->setParameter('category', $search->getCity()->getId())
+                ->setParameter('category', $search->getCity())
             ;
         }
 
