@@ -85,7 +85,7 @@ class AnnonceController extends AbstractController
 
 
     /**
-     * @Route("/show", name="annonce_single_bdmk", methods={"GET"})
+     * @Route("/annonce/show", name="annonce_single_bdmk", methods={"GET"})
      *
      * @return Response
      */
