@@ -1119,9 +1119,9 @@ li.paginate_button.page-item a {
 
 .btn-search-sbmt:hover, .btn-search-sbmt:focus, .btn-search-sbmt:active {
     width: 100%;
-    background: #fff;
-    border: 2px solid var(--main-orange-color);
-    color: var(--main-orange-color);
+    background: #fff !important;
+    border: 2px solid var(--main-orange-color) !important;
+    color: var(--main-orange-color) !important;
     transition: .3s all ease-out;
 }
 

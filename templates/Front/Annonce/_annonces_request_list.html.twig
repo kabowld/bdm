@@ -19,10 +19,10 @@
                                 <li class="list-inline-item"><a href="#">Featured</a></li>
                             </ul>
                             {% if annonce.price is not null %}
-                                <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                <a class="fp_price" href="#">{{ annonce.formatPrice }}<small>/mo</small></a>
                             {% endif %}
                         </div>
-                        <p class="text-thm">{{ annonce.category.rubrique.title }}</p>
+                        <p class="text-thm">{{ annonce.city.title }}</p>
                         <h4>{{ annonce.category.title }}</h4>
                         <p><span class="flaticon-placeholder"></span>{{ annonce.title }}</p>
                         <ul class="prop_details mb0">

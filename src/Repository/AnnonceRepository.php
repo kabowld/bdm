@@ -8,6 +8,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
+use function Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Annonce|null find($id, $lockMode = null, $lockVersion = null)
@@ -145,6 +146,32 @@ class AnnonceRepository extends ServiceEntityRepository
     public function findAllAnnonceQuery(AnnonceSearch $search): Query
     {
         $query = $this->createQueryBuilder('a');
+
+        if ($search->getCategory())  {
+            $query = $query
+                ->innerJoin('a.category', 'cat')
+                ->addSelect('cat')
+                ->andWhere('cat.id != :category')
+                ->setParameter('category', $search->getCategory()->getId())
+            ;
+        }
+
+        if ($search->getCity())  {
+            $query = $query
+                ->innerJoin('a.city', 'city')
+                ->addSelect('city')
+                ->andWhere('city.id != :category')
+                ->setParameter('category', $search->getCity()->getId())
+            ;
+        }
+
+        if ($search->getSearch()) {
+            $query = $query
+                ->andWhere($query->expr()->orX(
+                    $query->expr()->like('a.title', $query->expr()->literal('%'.$search->getSearch().'%')),
+                    $query->expr()->like('a.description', $query->expr()->literal('%'.$search->getSearch().'%'))
+                ));
+        }
 
         return $query->getQuery();
     }

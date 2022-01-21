@@ -43,7 +43,6 @@ class AnnonceSearchType extends AbstractType
                 'label' => false,
                 'required' => false
             ])
-            ->add('save', SubmitType::class, ['label' => 'Rechercher' ,'attr' => ['class' => 'btn-search-sbmt']])
         ;
     }
 

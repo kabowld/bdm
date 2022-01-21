@@ -734,8 +734,8 @@
             dots:true,
             nav:true,
             rtl:false,
-            autoplayHoverPause:false,
             autoplay: true,
+            autoplayTimeout: 7000,
             smartSpeed: 2000,
             singleItem: true,
             navText: [
