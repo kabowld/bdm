@@ -300,14 +300,6 @@ header.header-nav a.navbar_brand{
     border-radius: 6px;
 }
 
-.box-info-home {
-    margin: 20px 0;
-    background: #f77f003d;
-    padding: 10px 20px 25px;
-    border-radius: 6px;
-}
-
-
 .tooltip-main {
     width: 15px;
     height: 15px;
@@ -911,10 +903,6 @@ a[data-target="#stateModal"]:hover {
 
 .drp-cities-bdm {
     padding: 20px 0;
-}
-
-.community-home-bdm {
-    padding: 0 0 60px;
 }
 
 .owl-carousel.at-one {
