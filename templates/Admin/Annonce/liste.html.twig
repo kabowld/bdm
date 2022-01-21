@@ -27,7 +27,6 @@
                             <th>Titre</th>
                             <th>Type</th>
                             <th>Catégorie</th>
-                            <th>Etat</th>
                             <th>Ville</th>
                             <th>Action</th>
                         </tr>
@@ -39,7 +38,6 @@
                         <td>{{ annonce.title }}</td>
                         <td>{{ annonce.type }}</td>
                         <td>{{ annonce.category.title }}</td>
-                        <td>{{ annonce.state.title }}</td>
                         <td>{{ annonce.city.title }}</td>
                         <td>
                             <a href="{{ path('admin_annnonce_show_bdmk', {id: annonce.id})}}" class="btn btn-sm btn-success btn-view"><i class="fa fa-eye"></i> </a>

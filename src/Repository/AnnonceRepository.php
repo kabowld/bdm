@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
+use App\Entity\AnnonceSearch;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -134,4 +136,17 @@ class AnnonceRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param AnnonceSearch $search
+     *
+     * @return Query
+     */
+    public function findAllAnnonceQuery(AnnonceSearch $search): Query
+    {
+        $query = $this->createQueryBuilder('a');
+
+        return $query->getQuery();
+    }
+
 }

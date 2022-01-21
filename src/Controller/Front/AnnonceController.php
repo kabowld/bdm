@@ -2,12 +2,9 @@
 
 namespace App\Controller\Front;
 
-use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
-use App\Entity\City;
-use App\Entity\Rubrique;
 use App\Form\AnnonceSearchType;
-use App\Manager\AnnonceManager;
+use Knp\Component\Pager\PaginatorInterface;
 use App\Repository\AnnonceRepository;
 use App\Repository\CityRepository;
 use App\Repository\RubriqueRepository;
@@ -18,35 +15,56 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class AnnonceController extends AbstractController
 {
+    private $cityRepository;
+    private $rubriqueRepository;
+    private $annonceRepository;
+
+    public function __construct(
+        CityRepository $cityRepository,
+        RubriqueRepository $rubriqueRepository,
+        AnnonceRepository $annonceRepository,
+    )
+    {
+        $this->cityRepository = $cityRepository;
+        $this->rubriqueRepository = $rubriqueRepository;
+        $this->annonceRepository = $annonceRepository;
+    }
 
     /**
-     * @Route("/liste/annonces", name="list_search_annonces_bdmk")
+     * @Route("/annonces", name="list_search_annonces_bdmk")
      *
-     * @param CityRepository $cityRepository
-     * @param RubriqueRepository $rubriqueRepository
-     * @param Request $request
+     * @param PaginatorInterface $paginator
+     * @param Request            $request
      *
      * @return Response
      */
-    public function index(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
+    public function index(PaginatorInterface $paginator, Request $request): Response
     {
         $search = new AnnonceSearch();
         $form = $this->createForm(AnnonceSearchType::class, $search, [
             'action' => $this->generateUrl('list_search_annonces_bdmk'),
-            'method' => 'POST',
             'attr' => ['class' => 'home1-advnc-search']
         ]);
 
+        $form->handleRequest($request);
+
+        $annonces = $paginator->paginate(
+            $this->annonceRepository->findAllAnnonceQuery($search),
+            $request->query->getInt('page', 1),
+            10
+        );
+
         return $this->render('Front/Annonce/list.html.twig', [
-            'cities' => $cityRepository->getCitiesByOrderTitle(),
-            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories(),
-            'form' => $form->createView()
+            'annonces' => $annonces,
+            'form' => $form->createView(),
+            'cities' => $this->cityRepository->getCitiesByOrderTitle(),
+            'rubriques' => $this->rubriqueRepository->getAllRubriqueAndCategories()
         ]);
     }
 
 
     /**
-     * @Route("/annonces", name="annonces_request_bdmk")
+     * @Route("/annonces/recherche", name="annonces_request_bdmk")
      */
     public function requestAnnonces(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository)
     {
