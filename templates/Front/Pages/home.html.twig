@@ -16,6 +16,32 @@
                 </div>
             </div>
         </section>
+        <section class="map-tree-bdm">
+            <div class="container">
+                {% include 'Front/Inc/map_inc.html.twig' %}
+            </div>
+        </section>
+        <section class="drp-cities-bdm">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="map__list">
+                            <div class="dropdown carte-select">
+                                <button class="btn btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
+                                    Régions et villes
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    {% for city in cities %}
+                                        <a class="dropdown-item" href="{{ path('annonces_request_bdmk') }}/?city={{ city.slug }}">{{ city.title }}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section class="carousel-bdm">
             <div class="container">
                 <h2 class="cta-at-one">Top catégories</h2>
@@ -59,89 +85,6 @@
                     <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/voiture.jpg') }}');">
                         <div class="overlay-shd"></div>
                         <span class="title-owl-at-one">Voitures</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section class="map-tree-bdm">
-            <div class="container">
-                {% include 'Front/Inc/map_inc.html.twig' %}
-            </div>
-        </section>
-        <section class="drp-cities-bdm">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="map__list">
-                            <div class="dropdown carte-select">
-                                <button class="btn btn-lg dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-expanded="false">
-                                    Régions et villes
-                                </button>
-                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    {% for city in cities %}
-                                        <a class="dropdown-item" href="{{ path('annonces_request_bdmk') }}/?city={{ city.slug }}">{{ city.title }}</a>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="feature-property" class="feature-property">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 offset-lg-3">
-                        <div class="main-title text-center">
-                            <h2>Find Properties in These Cities</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4 col-xl-4">
-                        <div class="properti_city home5">
-                            <div class="thumb"><img class="img-fluid w100" src="https://creativelayers.net/themes/findhouse-html/images/property/pc1.jpg" alt="pc1.jpg"></div>
-                            <div class="overlay">
-                                <div class="details">
-                                    <div class="left"><h4>Miami</h4></div>
-                                    <p>24 Properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-xl-8">
-                        <div class="properti_city home5">
-                            <div class="thumb"><img class="img-fluid w100" src="https://creativelayers.net/themes/findhouse-html/images/property/pc2.jpg" alt="pc2.jpg"></div>
-                            <div class="overlay">
-                                <div class="details">
-                                    <div class="left"><h4>Los Angeles</h4></div>
-                                    <p>18 Properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-8 col-xl-8">
-                        <div class="properti_city home5">
-                            <div class="thumb"><img class="img-fluid w100" src="https://creativelayers.net/themes/findhouse-html/images/property/pc3.jpg" alt="pc3.jpg"></div>
-                            <div class="overlay">
-                                <div class="details">
-                                    <div class="left"><h4>New York</h4></div>
-                                    <p>89 Properties</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4 col-xl-4">
-                        <div class="properti_city home5">
-                            <div class="thumb"><img class="img-fluid w100" src="https://creativelayers.net/themes/findhouse-html/images/property/pc4.jpg" alt="pc4.jpg"></div>
-                            <div class="overlay">
-                                <div class="details">
-                                    <div class="left"><h4>Florida</h4></div>
-                                    <p>47 Properties</p>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -368,17 +311,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        <section class="community-home-bdm">
-            <div class="container">
-                {#<div class="box-info-home">
-                    <span class="title-info-home">Rejoignez la communauté Bandama </span>
-                    <span class="text-info-home">
-                    Des idées, des plaisirs, des passions que vous souhaitez partager ? Faites-nous en part et ensemble participons à la vie de communauté.
-                </span>
-                    <a href="#" class="btn-info-home">Découvrir Bandama Market</a>
-                </div>#}
             </div>
         </section>
     </main>
