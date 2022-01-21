@@ -2,7 +2,7 @@
 <header class="header-nav menu_style_home_one navbar-scrolltofixed stricky main-menu">
     <div class="container">
         <!-- Ace Responsive Menu -->
-        <nav>
+        <nav class="nav-bdm">
             <!-- Menu Toggle btn-->
             <div class="menu-toggle">
                 <img class="nav_logo_img img-fluid" src="{{ asset('front/images/logo.png') }}" alt="logo">
@@ -23,7 +23,7 @@
                     <a href="{{ path('home_bdmk') }}"><span class="title"><i class="fa fa-home"></i> Accueil</span></a>
                 </li>
                 <li>
-                    <a href="#"><span class="title"><i class="fa fa-search"></i> Rechercher </span></a>
+                    <a href="{{ path('list_search_annonces_bdmk') }}"><span class="title"><i class="fa fa-search"></i> Rechercher </span></a>
                 </li>
                 <li>
                     <a href="#"><span class="title"><i class="fa fa-heart-o"></i> Favoris</span></a>

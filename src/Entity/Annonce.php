@@ -51,7 +51,7 @@ class Annonce
     /**
      * @ORM\Column(type="float", nullable=true, scale=2)
      */
-    private ?float $price;
+    private ?float $price = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=State::class)

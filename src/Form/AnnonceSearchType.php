@@ -51,6 +51,12 @@ class AnnonceSearchType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => AnnonceSearch::class,
+            'method'     => 'GET'
         ]);
+    }
+
+    public function getBlockPrefix()
+    {
+        return '';
     }
 }
