@@ -735,7 +735,7 @@
             nav:true,
             rtl:false,
             autoplayHoverPause:false,
-            autoplay: false,
+            autoplay: true,
             smartSpeed: 2000,
             singleItem: true,
             navText: [
