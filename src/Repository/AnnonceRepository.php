@@ -160,8 +160,8 @@ class AnnonceRepository extends ServiceEntityRepository
             $query = $query
                 ->innerJoin('a.city', 'city')
                 ->addSelect('city')
-                ->andWhere('city.id != :category')
-                ->setParameter('category', $search->getCity())
+                ->andWhere('city.id != :city')
+                ->setParameter('city', $search->getCity())
             ;
         }
 
