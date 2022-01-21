@@ -269,7 +269,7 @@ header.header-nav a.navbar_brand{
     color: #222;
     font-weight: 600;
     text-align: center;
-    margin: 2em 0 0;
+    margin: 4em 0;
 }
 
 .title-info-home {
@@ -993,7 +993,8 @@ a[data-target="#stateModal"]:hover {
     font-size: 25px;
     font-weight: 700;
     color: #222;
-    margin-left: 5px;
+    margin: 2em 0;
+    text-align:center;
 }
 
 .carousel-bdm {
