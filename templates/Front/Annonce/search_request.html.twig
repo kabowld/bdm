@@ -1,1 +1,59 @@
-{{ dump(annonces) }}
+{% extends 'Front/layout.html.twig' %}
+
+{% block title 'Recherche annonces' %}
+{% block content %}
+    <main class="main">
+        <section class="annonces-search-liste">
+            <div class="container">
+                <h1 class="title-home">Souriez ! la vie est belle, des petites annonces rien que pour vous.</h1>
+                {% include 'Front/Inc/search_home_inc.html.twig' %}
+            </div>
+        </section>
+        <section class="annonces-liste">
+            <div class="container">
+                <div class="row sct-result-annonces">
+                    <div class="col-md-12 col-lg-8">
+                        {% include 'Front/Annonce/_annonces_request_list.html.twig' %}
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                        <div class="feat_property home7">
+                            <div class="thumb">
+                                <img class="img-whp" src="https://creativelayers.net/themes/findhouse-html/images/property/fp3.jpg" alt="fp3.jpg">
+                                <div class="thmb_cntnt">
+                                    <ul class="tag mb0">
+                                        <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                        <li class="list-inline-item"><a href="#">Featured</a></li>
+                                    </ul>
+                                    <ul class="icon mb0">
+                                        <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                        <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                    </ul>
+                                    <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                </div>
+                            </div>
+                            <div class="details">
+                                <div class="tc_content">
+                                    <p class="text-thm">Single Family Home</p>
+                                    <h4>Luxury Family Home</h4>
+                                    <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                                    <ul class="prop_details mb0">
+                                        <li class="list-inline-item"><a class="text-thm3" href="#">Beds: 4</a></li>
+                                        <li class="list-inline-item"><a class="text-thm3" href="#">Baths: 2</a></li>
+                                        <li class="list-inline-item"><a class="text-thm3" href="#">Sq Ft: 5280</a></li>
+                                    </ul>
+                                </div>
+                                <div class="fp_footer">
+                                    <ul class="fp_meta float-left mb0">
+                                        <li class="list-inline-item"><a href="#"><img src="#" alt="pposter1.png"></a></li>
+                                        <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                                    </ul>
+                                    <div class="fp_pdate float-right">4 years ago</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+{% endblock %}

@@ -137,7 +137,7 @@ $(function () {
                 }
             },
             autoplay: true,
-            autoplayTimeout: 10000,
+            autoplayTimeout: 7000,
             navText: ['<i class="fa fa-chevron-left"></i>', '<i class="fa fa-chevron-right"></i>']
         });
     }

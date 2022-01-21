@@ -4,12 +4,11 @@ namespace App\Entity;
 
 class AnnonceSearch
 {
-    private string $search;
+    private ?string $search = null;
 
-    private Category $category;
+    private ?Category $category = null;
 
-    private City $city;
-
+    private ?City $city = null;
 
     /**
      * @return string|null
