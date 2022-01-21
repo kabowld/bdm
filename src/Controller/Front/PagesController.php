@@ -10,6 +10,7 @@ use App\Manager\AnnonceManager;
 use App\Repository\CityRepository;
 use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -21,19 +22,21 @@ class PagesController extends AbstractController
      *
      * @Route("/", name="home_bdmk", methods={"GET"})
      *
+     * @param Request            $request
      * @param CityRepository     $cityRepository
      * @param RubriqueRepository $rubriqueRepository
      *
      * @return Response
      */
-    public function index(CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
+    public function index(Request $request, CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
     {
         $search = new AnnonceSearch();
         $form = $this->createForm(AnnonceSearchType::class, $search, [
             'action' => $this->generateUrl('list_search_annonces_bdmk'),
-            'method' => 'POST',
             'attr' => ['class' => 'home1-advnc-search']
         ]);
+
+        $form->handleRequest($request);
 
         return $this->render('Front/Pages/home.html.twig', [
             'cities' => $cityRepository->getCitiesByOrderTitle(),
