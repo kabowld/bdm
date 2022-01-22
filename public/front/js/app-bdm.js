@@ -1,11 +1,13 @@
 $(function () {
     $('#annonce_type_0').attr('checked', 'checked');
+    $('#main-search-bdm-ann #type #type_0').attr('checked', 'checked');
     $('.mm-navbar__title').text('Navigation');
 
     $('.select-field').select2();
 
 
     $('[data-toggle="tooltip"]').tooltip();
+    
 
 
     /* ==== recovery password === */

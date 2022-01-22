@@ -10,13 +10,17 @@ use App\Entity\Category;
 use App\Entity\City;
 use App\Entity\Pack;
 use App\Entity\Rubrique;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class AnnonceManager extends Manager
 {
     public const PAGE_NOT_FOUND = 'La page est introuvable !';
+    private const ITEMS_BY_PAGE = 10;
 
     /**
      * Returns annonces by owner
@@ -27,17 +31,18 @@ class AnnonceManager extends Manager
      */
     public function getMyAnnonces(UserInterface $owner): array
     {
-        return $this->em->getRepository(Annonce::class)->getAnnoncesByOwner($owner);
+        return $this->getEntityRepository(Annonce::class)->getAnnoncesByOwner($owner);
     }
 
     /**
      * @param UserInterface $owner
-     * @param $id
+     * @param mixed         $id
+     *
      * @return mixed
      */
     public function getOnlyMyAnnonce(UserInterface $owner, $id)
     {
-        return $this->em->getRepository(Annonce::class)->getOneAnnonceByOwner($owner, $id);
+        return $this->getEntityRepository(Annonce::class)->getOneAnnonceByOwner($owner, $id);
     }
 
     /**
@@ -82,6 +87,86 @@ class AnnonceManager extends Manager
         ], Response::HTTP_OK, ['Content-Type' => 'application/json']);
     }
 
+    /**
+     * @param FormInterface $form
+     *
+     * @return array
+     */
+    public function renderSearchParameters(FormInterface $form): array
+    {
+        return [
+            'form' => $form->createView(),
+            'cities' => $this->getEntityRepository(City::class)->getCitiesByOrderTitle(),
+            'rubriques' => $this->getEntityRepository(Rubrique::class)->getAllRubriqueAndCategories()
+        ];
+    }
+
+
+    /**
+     * @param Request       $request
+     * @param AnnonceSearch $search
+     *
+     * @return PaginationInterface
+     */
+    public function getAnnoncesByQuerySearch(Request $request, AnnonceSearch $search): PaginationInterface
+    {
+        return $this->paginator->paginate(
+            $this->getEntityRepository(Annonce::class)->findAllAnnonceQuery($search),
+            $request->query->getInt('page', 1),
+            self::ITEMS_BY_PAGE
+        );
+    }
+
+    /**
+     * @param Request $request
+     *
+     * @return PaginationInterface
+     */
+    public function getAnnoncesByProperty(Request $request): PaginationInterface
+    {
+        $page = $request->query->getInt('page', 1);
+        $repository = $this->getEntityRepository(Annonce::class);
+
+        $annonces = $this->paginator->paginate(
+            $repository->findAll(),
+            $page,
+            self::ITEMS_BY_PAGE
+        );
+
+        if ($category = $request->query->get('category')) {
+            return $this->paginator->paginate(
+                $repository->getAnnoncesByCategorySlug($category),
+                $page,
+                self::ITEMS_BY_PAGE
+            );
+        }
+
+        if ($rubrique = $request->query->get('rubrique')) {
+            return $this->paginator->paginate(
+                $repository->getAnnoncesByRubriqueSlug($rubrique),
+                $page,
+                self::ITEMS_BY_PAGE
+            );
+        }
+
+        if ($city = $request->query->get('city')) {
+            return $this->paginator->paginate(
+                $repository->getAnnoncesByCitySlug($city),
+                $page,
+                self::ITEMS_BY_PAGE
+            );
+        }
+
+        if ($region = $request->query->get('region')) {
+            return $this->paginator->paginate(
+                $repository->getAnnoncesByRegionSlug($region),
+                $page,
+                self::ITEMS_BY_PAGE
+            );
+        }
+
+        return $annonces;
+    }
 
     /**
      * @return JsonResponse

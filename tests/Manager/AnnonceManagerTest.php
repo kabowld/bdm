@@ -9,7 +9,9 @@ use App\Repository\PackRepository;
 use App\Repository\RubriqueRepository;
 use App\Service\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\Persistence\ObjectRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
@@ -101,7 +103,7 @@ class AnnonceManagerTest extends KernelTestCase
      */
     private function gatAnnonceManager(string $classname, $object): AnnonceManager
     {
-        $entityRepository = $this->createMock(ObjectRepository::class);
+        $entityRepository = $this->createMock(EntityRepository::class);
         $entityRepository->method('find')->willReturn($object);
 
         $em = $this->createMock(EntityManagerInterface::class);
@@ -111,7 +113,8 @@ class AnnonceManagerTest extends KernelTestCase
         $generator = $this->createMock(UrlGeneratorInterface::class);
         $email = $this->createMock(SendMail::class);
         $params = $this->createMock(ContainerBagInterface::class);
+        $paginator = $this->createMock(PaginatorInterface::class);
 
-        return new AnnonceManager($em, $security, $generator, $email, $params);
+        return new AnnonceManager($em, $security, $generator, $email, $params, $paginator);
     }
 }

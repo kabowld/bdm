@@ -147,11 +147,18 @@ class AnnonceRepository extends ServiceEntityRepository
     {
         $query = $this->createQueryBuilder('a');
 
+        if (in_array($search->getType(), AnnonceSearch::TYPE))  {
+            $query = $query
+                ->andWhere('a.type = :type')
+                ->setParameter('type', $search->getType())
+            ;
+        }
+
         if ($search->getCategory())  {
             $query = $query
                 ->innerJoin('a.category', 'cat')
                 ->addSelect('cat')
-                ->andWhere('cat.id = :category')
+                ->andWhere('cat.slug = :category')
                 ->setParameter('category', $search->getCategory())
             ;
         }
@@ -160,12 +167,12 @@ class AnnonceRepository extends ServiceEntityRepository
             $query = $query
                 ->innerJoin('a.city', 'city')
                 ->addSelect('city')
-                ->andWhere('city.id = :city')
+                ->andWhere('city.slug = :city')
                 ->setParameter('city', $search->getCity())
             ;
         }
 
-        if ($search->getSearch()) {
+        if (!empty($search->getSearch())) {
             $query = $query
                 ->andWhere($query->expr()->orX(
                     $query->expr()->like('a.title', $query->expr()->literal('%'.$search->getSearch().'%')),

@@ -196,11 +196,10 @@ header.header-nav a.navbar_brand{
 }
 
 .box-btn-gv-ann {
-    margin: 30px 0;
+    margin: 70px 0 0;
     padding: 30px 0;
     text-align: center;
 }
-
 
 .box-btn-dsh-ann {
     margin: 30px 0 40px;
@@ -1117,16 +1116,36 @@ li.paginate_button.page-item a {
     transition: .3s all ease-in;
 }
 
+.btn-bxbdm {
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+}
+
 .btn-search-sbmt:hover, .btn-search-sbmt:focus, .btn-search-sbmt:active {
     width: 100%;
-    background: #fff !important;
     border: 2px solid var(--main-orange-color) !important;
-    color: var(--main-orange-color) !important;
+    outline: 0 !important;
+    background: var(--main-orange-color) !important;
+    color: #fff !important;
     transition: .3s all ease-out;
 }
 
 .input-search, .select-category, .select-city {
     width: 100%;
+}
+
+#main-search-bdm-ann #type label[for="type_1"]{
+    padding-left: 3px;
+    font-weight: bold;
+}
+
+#main-search-bdm-ann #type label[for="type_0"]{
+    padding-left: 3px;
+    margin-right: 10px;
+    font-weight: bold;
 }
 
 .header-dashboard {

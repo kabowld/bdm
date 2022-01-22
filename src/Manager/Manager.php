@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace App\Manager;
 
-use App\Entity\Pack;
 use App\Service\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityRepository;
+use Knp\Component\Pager\PaginatorInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\NotFoundExceptionInterface;
-use Psr\Log\LoggerAwareTrait;
 use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
@@ -21,6 +21,7 @@ abstract class Manager
     protected UrlGeneratorInterface $urlGenerator;
     protected SendMail $email;
     protected ContainerBagInterface $params;
+    protected PaginatorInterface $paginator;
 
     /**
      * HandlingUser constructor.
@@ -30,13 +31,15 @@ abstract class Manager
      * @param UrlGeneratorInterface  $urlGenerator
      * @param SendMail               $email
      * @param ContainerBagInterface  $params
+     * @param PaginatorInterface     $paginator
      */
     public function __construct(
         EntityManagerInterface $em,
         Security $security,
         UrlGeneratorInterface $urlGenerator,
         SendMail $email,
-        ContainerBagInterface $params
+        ContainerBagInterface $params,
+        PaginatorInterface $paginator
     )
     {
         $this->em = $em;
@@ -44,6 +47,7 @@ abstract class Manager
         $this->urlGenerator = $urlGenerator;
         $this->email = $email;
         $this->params = $params;
+        $this->paginator = $paginator;
     }
 
     /**
@@ -53,7 +57,7 @@ abstract class Manager
      */
     public function all(string $className): array
     {
-        return $this->em->getRepository($className)->findAll();
+        return $this->getEntityRepository($className)->findAll();
     }
 
     /**
@@ -64,7 +68,7 @@ abstract class Manager
      */
     public function find(string $className, $id): ?object
     {
-        return $this->em->getRepository($className)->find($id);
+        return $this->getEntityRepository($className)->find($id);
     }
 
     /**
@@ -79,6 +83,16 @@ abstract class Manager
             $this->em->persist($object);
         }
         $this->em->flush();
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return EntityRepository
+     */
+    protected function getEntityRepository(string $className): EntityRepository
+    {
+        return $this->em->getRepository($className);
     }
 
     /**
