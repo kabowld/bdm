@@ -41,7 +41,8 @@ class AnnonceSearchType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'label' => false,
-                'required' => false
+                'required' => false,
+                'placeholder' => false
             ])
             ->add('city', EntityType::class, [
                 'attr' => ['class' => 'form-control select-field select-city'],
