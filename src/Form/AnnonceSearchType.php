@@ -8,6 +8,7 @@ use App\Entity\City;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -29,6 +30,17 @@ class AnnonceSearchType extends AbstractType
                 'placeholder' => 'Toutes les catégories',
                 'attr' => ['class' => 'form-control select-field select-category'],
                 'label' => false,
+                'required' => false,
+                'choice_value' => 'slug'
+            ])
+            ->add('type', ChoiceType::class, [
+                'choices' => [
+                    'Offre' => 'offre',
+                    'Demande' => 'demande',
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'label' => false,
                 'required' => false
             ])
             ->add('city', EntityType::class, [
@@ -40,8 +52,8 @@ class AnnonceSearchType extends AbstractType
                         ->orderBy('c.title', 'ASC');
                 },
                 'choice_label' => 'title',
-                'label' => false,
-                'required' => false
+                'required' => false,
+                'choice_value' => 'slug'
             ])
         ;
     }

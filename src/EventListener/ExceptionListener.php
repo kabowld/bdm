@@ -60,23 +60,25 @@ class ExceptionListener
         $exception = $event->getThrowable();
         $message = $exception->getMessage();
 
-        if ($this->getKernelEnv() !== self::PROD_ENV) {
-            return;
-        }
-
         if ($exception instanceof HttpExceptionInterface) {
             $this->logger->error(self::MESSAGE_HTTP_EXCEPTION, ['exception' => $exception]);
-            $event->setResponse(
-                $this->setResponseException($exception->getStatusCode(), $message, $exception->getHeaders())
-            );
+
+            if ($this->getKernelEnv() === self::PROD_ENV) {
+                $event->setResponse(
+                    $this->setResponseException($exception->getStatusCode(), $message, $exception->getHeaders())
+                );
+            }
 
             return;
         }
 
         $this->logger->critical(sprintf(self::MESSAGE_CRITICAL_ERROR, $exception->getMessage()), ['exception' => $exception]);
-        $event->setResponse(
-            $this->setResponseException(Response::HTTP_INTERNAL_SERVER_ERROR, self::MESSAGE_INTERNAL_SERVER_ERROR)
-        );
+
+        if ($this->getKernelEnv() === self::PROD_ENV) {
+            $event->setResponse(
+                $this->setResponseException(Response::HTTP_INTERNAL_SERVER_ERROR, self::MESSAGE_INTERNAL_SERVER_ERROR)
+            );
+        }
     }
 
     /**

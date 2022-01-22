@@ -6,7 +6,6 @@ namespace App\Controller\Front;
 
 use App\Entity\AnnonceSearch;
 use App\Form\AnnonceSearchType;
-use App\Manager\AnnonceManager;
 use App\Repository\CityRepository;
 use App\Repository\RubriqueRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,17 +30,13 @@ class PagesController extends AbstractController
     public function index(Request $request, CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
     {
         $search = new AnnonceSearch();
-        $form = $this->createForm(AnnonceSearchType::class, $search, [
-            'action' => $this->generateUrl('list_search_annonces_bdmk'),
-            'attr' => ['class' => 'home1-advnc-search']
-        ]);
-
+        $form = $this->createForm(AnnonceSearchType::class, $search);
         $form->handleRequest($request);
 
         return $this->render('Front/Pages/home.html.twig', [
+            'form' => $form->createView(),
             'cities' => $cityRepository->getCitiesByOrderTitle(),
-            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories(),
-            'form' => $form->createView()
+            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories()
         ]);
     }
 

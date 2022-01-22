@@ -57,9 +57,11 @@ class ExceptionListenerTest extends TestCase
      */
     public function testExceptionListenerOnDevEnvironnement()
     {
+        $message = sprintf('Internal server error, message: %s', self::EXCEPTION_MESSAGE_DISPATCH);
         $this->logger
-            ->expects($this->never())
-            ->method('critical');
+            ->expects($this->once())
+            ->method('critical')
+            ->with($this->equalTo($message), $this->isType('array'));
 
         $this->renderTwigError(
             $this->never(),
@@ -95,8 +97,9 @@ class ExceptionListenerTest extends TestCase
     public function testHttpExceptionListenerOnDevEnvironnement()
     {
         $this->logger
-            ->expects($this->never())
-            ->method('error');
+            ->expects($this->once())
+            ->method('error')
+            ->with($this->equalTo('A HttpException was thrown !'), $this->isType('array'));
 
         $this->renderTwigError(
             $this->never(),
