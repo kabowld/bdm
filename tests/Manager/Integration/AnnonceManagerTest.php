@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests\Manager;
+namespace App\Tests\Manager\Integration;
 
 use App\Entity\Pack;
 use App\Entity\Rubrique;
@@ -10,11 +10,10 @@ use App\Repository\RubriqueRepository;
 use App\Service\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
-use Doctrine\Persistence\ObjectRepository;
 use Knp\Component\Pager\PaginatorInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -112,9 +111,9 @@ class AnnonceManagerTest extends KernelTestCase
         $security = $this->createMock(Security::class);
         $generator = $this->createMock(UrlGeneratorInterface::class);
         $email = $this->createMock(SendMail::class);
-        $params = $this->createMock(ContainerBagInterface::class);
         $paginator = $this->createMock(PaginatorInterface::class);
+        $logger = $this->createMock(LoggerInterface::class);
 
-        return new AnnonceManager($em, $security, $generator, $email, $params, $paginator);
+        return new AnnonceManager($em, $security, $generator, $email, $paginator, $logger, '');
     }
 }

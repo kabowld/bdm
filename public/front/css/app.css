@@ -630,10 +630,11 @@ a.dropdown-item.signout-head{
 }
 
 .libelle_recovery {
-    font-weight: 400;
-    font-size: 15px;
+    font-weight: 700;
+    font-size: 14px;
     margin-bottom: 1.5em;
 }
+
 .img-welcome {
     max-width: 400px;
     margin: 0 auto;
@@ -1215,6 +1216,16 @@ li.paginate_button.page-item a {
 
 .modern-apertment::before {
     background-image: url("https://creativelayers.net/themes/findhouse-html/images/background/6.jpg") !important;
+}
+
+#send-recovery {
+    font-weight: 600;
+}
+
+.error-message-email {
+    font-weight: 600;
+    font-size: 16px;
+    color: #d50000;
 }
 
 @media (min-width: 992px) {

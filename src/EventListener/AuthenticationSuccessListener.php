@@ -6,6 +6,7 @@ namespace App\EventListener;
 
 use App\Entity\User;
 use App\Manager\UserManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Event\AuthenticationSuccessEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
@@ -13,17 +14,18 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class AuthenticationSuccessListener
 {
     private const DEACTIVATED_ACCOUNT_EXCEPTION = 'Votre compte n\'est pas activé !';
-    private UserManager $userManager;
+    private $em;
 
     /**
      * AuthenticationSuccessListener constructor.
      *
-     * @param UserManager $userManager
+     * @param EntityManagerInterface $em
      */
-    public function __construct(UserManager $userManager)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->userManager = $userManager;
+        $this->em = $em;
     }
+
     /**
      * Authentication success only if account activated
      *
@@ -34,7 +36,7 @@ class AuthenticationSuccessListener
         $token = $event->getAuthenticationToken();
         $user = $event->getAuthenticationToken()->getUser();
 
-        if (!$user instanceof User && $token->isAuthenticated()) {
+        if (!$user instanceof User && $token->getUser()) {
             return;
         }
 
@@ -43,6 +45,7 @@ class AuthenticationSuccessListener
             throw new AuthenticationException(self::DEACTIVATED_ACCOUNT_EXCEPTION);
         }
 
-        $this->userManager->updateLastLogin($user);
+        $user->setLastLogin(new \DateTimeImmutable());
+        $this->em->flush();
     }
 }
