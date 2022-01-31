@@ -42,6 +42,12 @@
     width: 100%;
 }
 
+.link-expired , .link-expired:hover{
+    color: var(--main-orange-color);
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: underline;
+}
 
 .carte-select .dropdown-item {
     font-family: inherit;
