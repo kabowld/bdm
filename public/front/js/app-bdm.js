@@ -10,31 +10,6 @@ $(function () {
     
 
 
-    /* ==== recovery password === */
-    $('form#form-recovery-passwd').on('submit', function (e) {
-        e.preventDefault();
-        const email = $('#email-recovery').val();
-        if (email === '') {
-            console.error('saisir email');
-
-            return false;
-        }
-        $.ajax({
-            url: Routing.generate('recovery_password_bdmk'),
-            method: 'POST',
-            data: {email: email},
-            dataType: 'json'
-        }).done(function (data) {
-            if (data.state === "success") {
-                $('#form-recovery-passwd').hide();
-                $('#recovery-box-password').append('<div class="alert alert-success text-center">'+data.message+'</div>');
-            }
-        }).fail(function (jqXHR) {
-            console.log(jqXHR.responseJSON.message);
-            console.error('Erreur email');
-        });
-    });
-
     /*=== Front handle password register page ===**/
     $('.eye-icon-passwd').on('click', function(e) {
         $(this).toggleClass('visible-eye-password');

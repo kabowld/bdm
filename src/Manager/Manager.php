@@ -7,9 +7,7 @@ use App\Service\SendMail;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
-use Symfony\Component\DependencyInjection\ParameterBag\ContainerBagInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Security;
 
@@ -20,8 +18,9 @@ abstract class Manager
     protected Security $security;
     protected UrlGeneratorInterface $urlGenerator;
     protected SendMail $email;
-    protected ContainerBagInterface $params;
     protected PaginatorInterface $paginator;
+    protected LoggerInterface $logger;
+    protected string $localUrl;
 
     /**
      * HandlingUser constructor.
@@ -30,24 +29,27 @@ abstract class Manager
      * @param Security               $security
      * @param UrlGeneratorInterface  $urlGenerator
      * @param SendMail               $email
-     * @param ContainerBagInterface  $params
      * @param PaginatorInterface     $paginator
+     * @param LoggerInterface        $logger
+     * @param string                 $localUrl
      */
     public function __construct(
         EntityManagerInterface $em,
         Security $security,
         UrlGeneratorInterface $urlGenerator,
         SendMail $email,
-        ContainerBagInterface $params,
-        PaginatorInterface $paginator
+        PaginatorInterface $paginator,
+        LoggerInterface $logger,
+        string $localUrl
     )
     {
         $this->em = $em;
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;
         $this->email = $email;
-        $this->params = $params;
         $this->paginator = $paginator;
+        $this->logger = $logger;
+        $this->localUrl = $localUrl;
     }
 
     /**
@@ -71,6 +73,8 @@ abstract class Manager
         return $this->getEntityRepository($className)->find($id);
     }
 
+
+
     /**
      * @param object $object
      * @param bool   $persist
@@ -93,19 +97,5 @@ abstract class Manager
     protected function getEntityRepository(string $className): EntityRepository
     {
         return $this->em->getRepository($className);
-    }
-
-    /**
-     * @return string|null
-     */
-    protected function getAppUrl(): ?string
-    {
-        try {
-            return $this->params->get('app.url_local');
-        } catch (NotFoundExceptionInterface|ContainerExceptionInterface $e) {
-            $this->logger->error($e, ['exception' => $e]);
-        }
-
-        return null;
     }
 }

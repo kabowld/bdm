@@ -5,6 +5,7 @@ namespace App\Controller\Security\Register;
 
 
 use App\Entity\User;
+use App\Exception\UserManagerException;
 use App\Form\RegistrationParticular;
 use App\Form\RegistrationType;
 use App\Repository\UserRepository;
@@ -30,6 +31,7 @@ class RegistrationController extends AbstractController
      * @Route("/creation/compte", name="registration_bdmk", methods={"GET", "POST"})
      *
      * @param Request $request
+     * @throws UserManagerException
      *
      * @return Response
      */
@@ -43,7 +45,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationParticular::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userManager->registration($user, 'ROLE_USER');
+            $this->userManager->registration($user, User::ROLES['user']);
 
             return $this->redirectToRoute('congratulation_bdmk', ['token' => $user->getConfirmatoken()]);
         }
@@ -57,6 +59,7 @@ class RegistrationController extends AbstractController
      * @Route("/creation/compte/pro", name="registration_pro_bdmk", methods={"GET", "POST"})
      *
      * @param Request $request
+     * @throws UserManagerException
      *
      * @return Response
      */
@@ -70,7 +73,7 @@ class RegistrationController extends AbstractController
         $form = $this->createForm(RegistrationType::class, $user);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->userManager->registration($user, 'ROLE_PRO');
+            $this->userManager->registration($user, User::ROLES['pro']);
 
             return $this->redirectToRoute('congratulation_bdmk', ['token' => $user->getConfirmatoken()]);
         }
@@ -83,9 +86,9 @@ class RegistrationController extends AbstractController
      *
      * @Route("/congratulation/{token}", name="congratulation_bdmk", methods={"GET"})
      *
-     * @param string $token
-     *
+     * @param string         $token
      * @param UserRepository $userRepository
+     *
      * @return Response
      */
     public function congratulation(string $token, UserRepository $userRepository): Response

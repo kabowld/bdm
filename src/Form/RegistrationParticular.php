@@ -10,6 +10,12 @@ use Symfony\Component\Form\FormBuilderInterface;
 class RegistrationParticular extends AbstractType
 {
 
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     *
+     * @return void
+     */
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -25,7 +31,10 @@ class RegistrationParticular extends AbstractType
         ;
     }
 
-    public function getParent()
+    /**
+     * @return string
+     */
+    public function getParent(): string
     {
         return RegistrationType::class;
     }
