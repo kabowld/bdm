@@ -1234,6 +1234,49 @@ li.paginate_button.page-item a {
     color: #d50000;
 }
 
+.header-home-slider {
+    background: url('../images/home-bg.jpg') no-repeat center;
+    background-size: cover;
+    height: 100vh;
+    -moz-background-size: cover;
+    -webkit-background-size: cover;
+}
+
+.button-slider {
+    font-size: 12px;
+    color: #222;
+    background: #fff;
+    padding: 0.5em 1em;
+    border-radius: 5px;
+    font-weight: 600;
+}
+.title-slider {
+    color: #fff;
+    font-weight: 600;
+    font-size: 18px;
+}
+.info-slider {
+    color: #FFF;
+    font-size: 13px;
+    font-weight: 300;
+    margin: 1em 0 1.5em;
+}
+
+.block-info-slider {
+    display: none;
+}
+
+@media (min-width: 1200px) {
+    .block-info-slider {
+        display: block;
+        position: absolute;
+        top: 50%;
+        transform: translateY(50%);
+        background: rgb(34 34 34 / 71%);
+        padding: 20px;
+    }
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;
