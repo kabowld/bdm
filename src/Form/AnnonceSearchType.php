@@ -47,7 +47,7 @@ class AnnonceSearchType extends AbstractType
             ->add('city', EntityType::class, [
                 'attr' => ['class' => 'form-control select-field select-city'],
                 'class' => City::class,
-                'placeholder' => 'Toute la  Côte d\'Ivoire',
+                'placeholder' => 'Toute la Côte d\'Ivoire',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.title', 'ASC');

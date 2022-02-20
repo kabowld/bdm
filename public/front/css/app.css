@@ -398,7 +398,9 @@ span.select2.select2-container.select2-container--default{
 
 .title-home {
     margin-bottom: 20px;
-    font-size: 20px;
+    padding: 1rem;
+    color: #222;
+    background: rgba(255, 255, 255, .5);
 }
 
 .login_form.inner_page {
@@ -1038,10 +1040,10 @@ a[data-target="#stateModal"]:hover {
 }
 
 .annonces-search-liste {
-    background: url(https://creativelayers.net/themes/findhouse-html/images/background/7.jpg);
+    background: url('../images/search_page.jpg');
     background-size: cover;
     background-position: center center;
-    height: 500px;
+    height: 450px;
 }
 
 [class^="flaticon-"]:before, [class*=" flaticon-"]:before, [class^="flaticon-"]:after, [class*=" flaticon-"]:after {
