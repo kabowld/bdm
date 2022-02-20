@@ -59,12 +59,14 @@ class AnnonceRepository extends ServiceEntityRepository
      */
     public function getAnnoncesByOwner(UserInterface $user): array
     {
-        return $this->createQueryBuilder('a')
-            ->where('a.owner = :user')
-            ->orderBy('a.createdAt', 'DESC')
-            ->setParameter('user', $user)
-            ->getQuery()
-            ->getResult()
+        return
+            $this
+                ->createQueryBuilder('a')
+                ->where('a.owner = :user')
+                ->orderBy('a.createdAt', 'DESC')
+                ->setParameter('user', $user)
+                ->getQuery()
+                ->getResult()
             ;
     }
 
@@ -158,7 +160,7 @@ class AnnonceRepository extends ServiceEntityRepository
             $query = $query
                 ->innerJoin('a.category', 'cat')
                 ->addSelect('cat')
-                ->andWhere('cat.slug = :category')
+                ->andWhere('cat.id = :category')
                 ->setParameter('category', $search->getCategory())
             ;
         }
@@ -167,7 +169,7 @@ class AnnonceRepository extends ServiceEntityRepository
             $query = $query
                 ->innerJoin('a.city', 'city')
                 ->addSelect('city')
-                ->andWhere('city.slug = :city')
+                ->andWhere('city.id = :city')
                 ->setParameter('city', $search->getCity())
             ;
         }
