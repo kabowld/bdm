@@ -1262,7 +1262,7 @@ li.paginate_button.page-item a {
     margin: 1em 0 1.5em;
 }
 
-.block-info-slider {
+.block-info-slider, .bx-rvc-pss{
     display: none;
 }
 
@@ -1287,6 +1287,10 @@ li.paginate_button.page-item a {
 
     .box_congratulation {
         padding: 60px 0;
+    }
+
+    .bx-rvc-pss{
+        display: block;
     }
 }
 

@@ -25,6 +25,8 @@ class UserManager extends Manager
     const ERROR_MESS_NOT_FOUND = 'La page que vous recherchez est introuvable !';
     const MESS_SUCCESS_ACTIVATION = 'Bravo, votre compte a été activé avec succès !';
     const DURATION_TOKEN_VALIDATE = 3600;
+    const CONFIRM_RESET_EMAIL_SUBJECT = 'Mot de passe modifié avec succès !';
+    const CONFIRM_RESET_EMAIL_PATH = 'Email/confirm_reset.html.twig';
 
     /**
      * Registration user account
@@ -178,6 +180,22 @@ class UserManager extends Manager
     {
         $user->setPassword($passwordHasher->hashPassword($user, $password));
         $this->resetTokenPassword($user, true);
+
+        // Send an email to welcome
+        $this->email->createEmail(
+            $user->getEmail(),
+            self::CONFIRM_RESET_EMAIL_SUBJECT,
+            self::CONFIRM_RESET_EMAIL_PATH
+        );
+    }
+
+    public function updateAdminPassword(User $user, UserPasswordHasherInterface $passwordHasher, array $credentials)
+    {
+        $user
+            ->setPassword($passwordHasher->hashPassword($credentials['user'], $credentials['resetPassword']))
+            ->setUpdatedAt(new \DateTimeImmutable())
+        ;
+        $this->em->flush();
     }
 
     /**
