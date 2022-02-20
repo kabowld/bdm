@@ -36,7 +36,7 @@
                     </div>
                     <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                     <button type="submit" class="btn btn-log btn-block btn-thm2">Se connecter</button>
-                    <div class="divide">
+                    {#<div class="divide">
                         <hr>
                     </div>
                     <div class="row mt40">
@@ -46,12 +46,12 @@
                         <div class="col-lg">
                             <button type="submit" class="btn btn2 btn-block color-white bgc-gogle mb0"><i class="fa fa-google float-left mt5"></i> Google</button>
                         </div>
-                    </div>
+                    </div>#}
                 </form>
             </div>
         </div>
     </section>
 {% endblock %}
 {% block footer %}
-    {% include 'Front/Inc/footer_copyright.html.twig' %}
+    {% include 'Front/Inc/footer_inc.html.twig' %}
 {% endblock %}
