@@ -957,6 +957,7 @@ a[data-target="#stateModal"]:hover {
     margin-bottom: 20px;
     position: relative;
     border-radius: 5px;
+    display: block;
 }
 
 
@@ -981,7 +982,7 @@ a[data-target="#stateModal"]:hover {
     right: 0;
     left: 0;
     width: 100%;
-    background: rgba(34, 34, 34, .40);
+    background: rgba(34, 34, 34, .35);
     border-radius: 5px;
 }
 
@@ -1222,8 +1223,9 @@ li.paginate_button.page-item a {
     padding-right: 60px;
 }
 
-.modern-apertment::before {
-    background-image: url("https://creativelayers.net/themes/findhouse-html/images/background/6.jpg") !important;
+.modern-apertment {
+    background: url(../images/communuty.jpg) no-repeat center;
+    background-size: cover;
 }
 
 #send-recovery {
