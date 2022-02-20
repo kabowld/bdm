@@ -7,6 +7,7 @@ namespace App\Controller\Security\Reset;
 use App\Entity\ResetPassword;
 use App\Entity\User;
 use App\Form\ResetPasswordType;
+use App\Manager\UserManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +27,10 @@ class ResetPasswordController extends AbstractController
      *
      * @param Request                     $request
      * @param UserPasswordHasherInterface $passwordHasher
-     *
+     * @param UserManager                 $userManager
      * @return RedirectResponse|Response
      */
-    public function resetPassword(Request $request, UserPasswordHasherInterface $passwordHasher): Response
+    public function resetPassword(Request $request, UserPasswordHasherInterface $passwordHasher, UserManager $userManager): Response
     {
         $resetPassword = new ResetPassword();
         $form = $this->createForm(ResetPasswordType::class, $resetPassword);
@@ -45,12 +46,11 @@ class ResetPasswordController extends AbstractController
 
             /** @var User $user */
             $user = $this->getUser();
-            $user
-                ->setPassword($passwordHasher->hashPassword($this->getUser(), $resetPassword->getPassword()))
-                ->setUpdatedAt(new \DateTimeImmutable())
-            ;
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $userManager->updateAdminPassword(
+                $user,
+                $passwordHasher,
+                ['user' => $this->getUser(), 'resetPassword' => $resetPassword->getPassword()]
+            );
 
             $this->addFlash('success', 'Votre mot de passe a été modifié avec succès !');
 

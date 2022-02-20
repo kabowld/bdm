@@ -189,6 +189,15 @@ class UserManager extends Manager
         );
     }
 
+    public function updateAdminPassword(User $user, UserPasswordHasherInterface $passwordHasher, array $credentials)
+    {
+        $user
+            ->setPassword($passwordHasher->hashPassword($credentials['user'], $credentials['resetPassword']))
+            ->setUpdatedAt(new \DateTimeImmutable())
+        ;
+        $this->em->flush();
+    }
+
     /**
      * @param ValidatorInterface $validator
      * @param string             $email
