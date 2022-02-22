@@ -6,9 +6,10 @@
         <section class="header-home-slider">
             <div class="container">
                 <div class="col-md-6">
-                    <div class="block-info-slider">
-                        <p class="title-slider">Découvrez Bandama Market, <br>votre site de petites annonces<br> en Côte d’Ivoire</p>
-                        <p class="info-slider">Faites des bonnes affaires sur Bandama market</p>
+                    <div class="modern_apertment mt30">
+                        <h2 class="title">Découvrez Bandama Market</h2>
+                        <h4 class="subtitle">Votre site de petites annonces en Côte d’Ivoire</h4>
+                        <p>Faites des bonnes affaires sur Bandama market</p>
                         <a href="{{ path('admin_annnonce_add_bdmk') }}" class="button-slider"><i class="fa fa-plus-circle"></i> Déposer une annonce</a>
                     </div>
                 </div>
@@ -18,6 +19,53 @@
             <div class="container">
                 <h1 class="title-home">Souriez ! la vie est belle, des petites annonces rien que pour vous.</h1>
                 {% include 'Front/Inc/search_home_inc.html.twig' %}
+            </div>
+        </section>
+        <section class="carousel-bdm">
+            <div class="container">
+                <h2 class="cta-at-one">Top catégories</h2>
+                <div class="owl-carousel at-one">
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/ameublement.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=ameublement">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Ameublement</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/cours.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=cours-particuliers">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Cours particuliers</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/decoration.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=decoration-interieure-exterieure">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Décoration</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/informatique.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=informatique">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Informatique</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/jouets.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=jeux-jouets">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Jeux & Jouets</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/offre.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=offres-d-emploi">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Offres d'emploi</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/vacances.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?rubrique=vacances-et-famille">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Vacances</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/vente_immo.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=ventes-imobilieres">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Vente immobilière</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/vetement.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=vetements">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Vêtements</span>
+                    </a>
+                    <a class="content-at-one" style="background-image: url('{{ asset('front/carousel/voiture.jpg') }}');" href="{{ path('annonces_request_bdmk') }}/?category=voitures">
+                        <div class="overlay-shd"></div>
+                        <span class="title-owl-at-one">Voitures</span>
+                    </a>
+                </div>
                 <div class="box-btn-gv-ann">
                     <a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn-gv-ann"><i class="fa fa-plus-circle"></i> Déposer une annonce</a>
                 </div>
@@ -44,54 +92,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="carousel-bdm">
-            <div class="container">
-                <h2 class="cta-at-one">Top catégories</h2>
-                <div class="owl-carousel at-one">
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/ameublement.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Ameublement</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/cours.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Cours particuliers</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/decoration.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Décoration</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/informatique.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Informatique</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/jouets.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Jeux & Jouets</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/offre.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Offres d'emploi</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/vacances.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Vacances</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/vente_immo.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Vente immobilière</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/vetement.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Vêtements</span>
-                    </div>
-                    <div class="content-at-one" style="background-image: url('{{ asset('front/carousel/voiture.jpg') }}');">
-                        <div class="overlay-shd"></div>
-                        <span class="title-owl-at-one">Voitures</span>
                     </div>
                 </div>
             </div>

@@ -5135,19 +5135,19 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 }
 .modern_apertment{
   border-radius: 3px;
-  background-color: #ffffff;
+  background-color: #00000085;
   padding: 55px 15px 50px 45px;
   position: relative;
 }
 .modern_apertment .title{
   font-family: "Nunito";
-  color: #484848;
+  color: #fff;
   font-weight: bold;
   line-height: 1.2;
 }
 .modern_apertment .subtitle{
   font-family: "Nunito";
-  color: #484848;
+  color: #fff;
   font-weight: bold;
   line-height: 1.2;
   margin-bottom: 15px;
@@ -5155,7 +5155,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .modern_apertment p{
   font-size: 14px;
   font-family: "Nunito";
-  color: #484848;
+  color: #fff;
   line-height: 1.429;
   margin-bottom: 30px;
 }
@@ -6042,16 +6042,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   background-color: rgb(29, 41, 62);
   height: 549px;
 }
-.modern-apertment:before{
-  background-image: url("../images/background/9.jpg");
-  bottom: 0;
-  content: "";
-  left: 0;
-  opacity: 1;
-  position: absolute;
-  right: 0;
-  top: 0;
-}
+
 .our-hot-offer{
   background-image: url("../images/background/11.jpg");
   height: 581px;
