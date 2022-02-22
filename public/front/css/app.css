@@ -202,7 +202,7 @@ header.header-nav a.navbar_brand{
 }
 
 .box-btn-gv-ann {
-    margin: 70px 0 0;
+    margin: 20px 0 0;
     padding: 30px 0;
     text-align: center;
 }
@@ -259,9 +259,8 @@ header.header-nav a.navbar_brand{
 }
 
 .search-home {
-    padding: 60px 0 10px;
+    padding: 20px 0 10px;
 }
-
 
 .show>.btn-secondary.dropdown-toggle:focus {
     -webkit-box-shadow: none;
@@ -397,6 +396,7 @@ span.select2.select2-container.select2-container--default{
 
 
 .title-home {
+    font-size: 22px !important;
     margin-bottom: 20px;
     padding: 1rem;
     color: #222;
@@ -911,6 +911,7 @@ a[data-target="#stateModal"]:hover {
 
 .drp-cities-bdm {
     padding: 20px 0;
+    margin-bottom: 30px
 }
 
 .owl-carousel.at-one {
@@ -1224,7 +1225,7 @@ li.paginate_button.page-item a {
 }
 
 .modern-apertment {
-    background: url(../images/communuty.jpg) no-repeat center;
+    background: url(../images/community.jpg) no-repeat center;
     background-size: cover;
 }
 
@@ -1239,18 +1240,18 @@ li.paginate_button.page-item a {
 }
 
 .header-home-slider {
-    background: url('../images/home-bg.jpg') no-repeat center;
+    background: url('../images/home-bg.jpg') no-repeat top left 68%;
     background-size: cover;
-    height: 100vh;
+    height: auto;
     -moz-background-size: cover;
     -webkit-background-size: cover;
 }
 
 .button-slider {
-    font-size: 12px;
+    font-size: 14px;
     color: #222;
     background: #fff;
-    padding: 0.5em 1em;
+    padding: 0.8em 1em;
     border-radius: 5px;
     font-weight: 600;
 }
@@ -1322,6 +1323,11 @@ li.paginate_button.page-item a {
 
     .map__image svg {
         width: 50%;
+    }
+
+    .header-home-slider {
+        height: 450px;
+        background: url('../images/home-bg.jpg') no-repeat top center;
     }
 
 }
