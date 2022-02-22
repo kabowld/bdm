@@ -7360,9 +7360,8 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 }
 /*== Inner Pages Breadcrumb ==*/
 .inner_page_breadcrumb {
-  background-image: url(../images/background/inner-pagebg.jpg);
   background-repeat: no-repeat;
-  height: 410px;
+  height: 450px;
   position: relative;
 }
 .inner_page_breadcrumb:before{
@@ -7370,7 +7369,7 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   bottom: 0;
   content: "";
   left: 0;
-  opacity: 0.6;
+  opacity: 0.3;
   position: absolute;
   right: 0;
   top: 0;

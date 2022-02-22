@@ -1271,6 +1271,33 @@ li.paginate_button.page-item a {
     display: none;
 }
 
+.contact-bg {
+    background: url(../images/contact.jpg) no-repeat center center;
+    background-size: cover;
+}
+
+.modern-apertment::before {
+    background-color: rgb(29, 41, 62);
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 0.2;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.header-home-slider::before {
+    background-color: rgb(29, 41, 62);
+    bottom: 0;
+    content: "";
+    left: 0;
+    opacity: 0.1;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
 @media (min-width: 1200px) {
     .block-info-slider {
         display: block;
