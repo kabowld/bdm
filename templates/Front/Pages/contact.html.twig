@@ -1,16 +1,16 @@
 {% extends 'Front/layout.html.twig' %}
-
+{% block title 'Contact' %}
 {% block content %}
-    <section class="inner_page_breadcrumb">
+    <section class="inner_page_breadcrumb contact-bg">
         <div class="container">
             <div class="row">
                 <div class="col-xl-6">
                     <div class="breadcrumb_content">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="{{ path('home_bdmk') }}">Accueil</a></li>
                             <li class="breadcrumb-item active" aria-current="page">Contact</li>
                         </ol>
-                        <h4 class="breadcrumb_title">Contact Us</h4>
+                        <h4 class="breadcrumb_title">Contactez-nous</h4>
                     </div>
                 </div>
             </div>
