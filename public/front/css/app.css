@@ -1327,7 +1327,7 @@ li.paginate_button.page-item a {
 
     .header-home-slider {
         height: 450px;
-        background: url('../images/home-bg.jpg') no-repeat top center;
+        background: url('../images/home-bg.jpg') no-repeat top right 37%;
     }
 
 }
