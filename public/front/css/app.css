@@ -1181,6 +1181,17 @@ li.paginate_button.page-item a {
     color: #222;
 }
 
+.btn-contact-send,
+.btn-contact-send:active,
+.btn-contact-send:hover
+{
+    color: #fff;
+    background: var(--main-orange-color) !important;
+    border: none !important;
+    outline: 0 !important;
+    cursor: pointer;
+}
+
 .orange-title{
     color: var(--main-orange-color);
 }
