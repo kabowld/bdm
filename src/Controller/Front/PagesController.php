@@ -5,9 +5,12 @@ namespace App\Controller\Front;
 
 
 use App\Entity\AnnonceSearch;
+use App\Entity\Contact;
 use App\Form\AnnonceSearchType;
+use App\Form\ContactType;
 use App\Repository\CityRepository;
 use App\Repository\RubriqueRepository;
+use App\Service\SendMail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -45,11 +48,30 @@ class PagesController extends AbstractController
      *
      * @Route("/contact", name="contact_bdmk", methods={"GET", "POST"})
      *
+     * @param Request  $request
+     * @param SendMail $sendMail
+     *
      * @return Response
      */
-    public function contact(): Response
+    public function contact(Request $request, SendMail $sendMail): Response
     {
-        return $this->render('Front/Pages/contact.html.twig');
+        $contact = new Contact();
+        $form = $this->createForm(ContactType::class, $contact);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $sendMail->createEmail(
+                'arnaud.azan@gmail.com',
+                $contact->getSubject(),
+                'Email/contact.html.twig',
+                ['info' => $contact]
+            );
+            $this->addFlash(Contact::SUCCESS, Contact::MESSAGE_SUCCESS);
+
+            return $this->redirectToRoute('contact_bdmk');
+        }
+
+        return $this->render('Front/Pages/contact.html.twig', ['form' => $form->createView()]);
     }
 
 

@@ -1,0 +1,31 @@
+{{ form_start(form, {'attr': {'class': 'contact_form', 'id': 'contact_form'}}) }}
+<div class="row">
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form_widget(form.name) }}
+            {{ form_errors(form.name) }}
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            {{ form_widget(form.email) }}
+            {{ form_errors(form.email) }}
+        </div>
+    </div>
+    <div class="col-md-12">
+        <div class="form-group">
+            {{ form_widget(form.subject) }}
+            {{ form_errors(form.subject) }}
+        </div>
+    </div>
+    <div class="col-sm-12">
+        <div class="form-group">
+            {{ form_widget(form.message) }}
+            {{ form_errors(form.message) }}
+        </div>
+        <div class="form-group mb0">
+            {{ form_widget(form.save) }}
+        </div>
+    </div>
+</div>
+{{ form_end(form) }}
