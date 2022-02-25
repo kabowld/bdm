@@ -90,13 +90,13 @@ class PagesController extends AbstractController
     /**
      * Condition Action Controller
      *
-     * @Route("/conditions-generales", name="cgu_bdmk", methods={"GET"})
+     * @Route("/cgu", name="cgu_bdmk", methods={"GET"})
      *
      * @return Response
      */
     public function cgu(): Response
     {
-        return $this->render('Front/Pages/condition-general.html.twig');
+        return $this->render('Front/Pages/cgu.html.twig');
     }
 
 

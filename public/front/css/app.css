@@ -1181,6 +1181,10 @@ li.paginate_button.page-item a {
     color: #222;
 }
 
+.phbet-title {
+    text-decoration: underline;
+}
+
 .btn-contact-send,
 .btn-contact-send:active,
 .btn-contact-send:hover
@@ -1286,6 +1290,12 @@ li.paginate_button.page-item a {
     background: url(../images/contact.jpg) no-repeat center center;
     background-size: cover;
 }
+
+.cgu-bg {
+    background: url(../images/cgu.jpg) no-repeat center center;
+    background-size: cover;
+}
+
 
 .modern-apertment::before {
     background-color: rgb(29, 41, 62);
