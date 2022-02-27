@@ -78,7 +78,7 @@ class PagesController extends AbstractController
     /**
      * About Action Controller
      *
-     * @Route("/qui-sommes-nous", name="about_bdmk", methods={"GET"})
+     * @Route("/a-propos-de-nous", name="about_bdmk", methods={"GET"})
      *
      * @return Response
      */

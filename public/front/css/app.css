@@ -1296,6 +1296,11 @@ li.paginate_button.page-item a {
     background-size: cover;
 }
 
+.wru-bg {
+    background: url(../images/wru.jpg) no-repeat top center;
+    background-size: cover;
+}
+
 
 .modern-apertment::before {
     background-color: rgb(29, 41, 62);
