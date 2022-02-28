@@ -1366,6 +1366,64 @@ a.uk-button.uk-button-primary.uk-button-large:hover {
     }
 }
 
+.input-newsletter {
+    width: 100%;
+}
+
+input.input-newsletter:focus {
+    outline: 0;
+}
+
+.btn-send-newsletter {
+    position: absolute;
+    right: 3px;
+    background: var(--main-orange-color);
+    color: #fff;
+    border-color: transparent;
+    bottom: 3px;
+    border-radius: 50%;
+}
+
+.btn-send-newsletter:hover {
+    cursor: pointer;
+}
+
+.btn-send-newsletter:focus {
+    outline: 0;
+}
+
+#answer-newsletter {
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    margin: 1.5em 0;
+    text-align: center;
+    padding: 0.5em;
+}
+
+.btn-send-newsletter:active {
+    background: var(--main-green-color);
+    border-color: transparent;
+}
+
+.input-newsletter {
+    width: 100%;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 0.5em 40px 0.5em 1em;
+    border-radius: 19px;
+}
+
+.info-newsletter {
+    color: #f7f7f7;
+    font-weight: 300;
+    font-size: 13px;
+    margin-bottom: 1em;
+}
+.adress-ft {
+    color: #fff;
+}
+
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
         margin-top: 1rem;
