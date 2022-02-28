@@ -1,0 +1,29 @@
+<div class="section-hero uk-background-blend-color-burn uk-background-top-center uk-background-cover uk-section-large1 cta" style="background-color: #ff98008c;background-image: url('front/images/help.jpg')" >
+    <nav class="uk-navbar-container uk-margin uk-navbar-transparent uk-light">
+        <div class="uk-container">
+            <div uk-navbar>
+                <div class="uk-navbar-left">
+                    <a class="uk-navbar-item uk-logo uk-text-uppercase" href="index.html"><span class="uk-margin-small-right" uk-icon="icon: lifesaver"></span> Bandama Market</a>
+                </div>
+                <div class="uk-navbar-right">
+                    <ul class="uk-navbar-nav uk-text-uppercase uk-visible@m uk-margin-medium-left">
+                        <li><a href="{{ path('home_bdmk') }}">Accueil</a></li>
+                        <li><a href="{{ path('contact_bdmk') }}">Contact</a></li>
+                    </ul>
+                    <a class="uk-navbar-toggle uk-hidden@m" href="#offcanvas" uk-navbar-toggle-icon uk-toggle></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    {% if app.request.attributes.get('_route') == 'faq_bdmk' %}
+    <div class="uk-container hero">
+        <h1 class="uk-heading-primary uk-text-center uk-margin-large-top uk-light">Besoin d'aide ?</h1>
+        <div class="uk-flex uk-flex-center">
+            <form class="uk-margin-medium-top uk-margin-xlarge-bottom uk-search uk-search-default">
+                <a href="" class="uk-search-icon-flip" uk-search-icon></a>
+                <input id="autocomplete" class="uk-search-input uk-form-large" type="search" autocomplete="off" name="s" placeholder="Trouvez les réponses à toutes vos questions">
+            </form>
+        </div>
+    </div>
+    {% endif %}
+</div>

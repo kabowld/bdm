@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %} | Bandama Market</title>
+    <link href="{{ asset('front/images/favicon.ico') }}"  rel="icon" type="image/x-icon" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600" rel="stylesheet">
+{#    <script src="assets/js/jquery.js"></script>#}
+    <script type="text/javascript" src="{{ asset('front/js/jquery-3.3.1.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('front/css/app.css') }}">
+    <link rel="stylesheet" href="{{ asset('front/faq/main.css') }}" />
+    <script src="{{ asset('front/faq/uikit.js') }}"></script>
+    <script src="{{ asset('front/faq/uikit-icons.js') }}"></script>
+    <script src="{{ asset('front/faq/main.js') }}"></script>
+</head>
+
+<body>
+{% include 'Front/Faq/header_faq_inc.html.twig' %}
+{% block content %} {% endblock %}
+
+
+
+{% include 'Front/Faq/footer_faq_inc.html.twig' %}
+
+</body>
+
+</html>

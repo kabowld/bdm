@@ -1324,6 +1324,37 @@ li.paginate_button.page-item a {
     top: 0;
 }
 
+.section-cta {
+    background-color: rgb(236 236 236 / 81%) !important;
+}
+
+
+a.uk-button.uk-button-primary.uk-button-large {
+    background-color: var(--main-orange-color) !important;
+    color: #fff;
+}
+a.uk-button.uk-button-primary.uk-button-large:hover {
+    background-color: #D57100FF !important;
+    color: #fff;
+}
+
+.uk-container .box {
+    border-color: var(--main-green-color)  !important;
+}
+
+.uk-container .box h3 {
+    color: var(--main-green-color);
+}
+
+.uk-text-lead a, .uk-text-lead a:hover {
+    color: var(--main-green-color);
+    text-decoration: underline;
+}
+.uk-container .box:hover{
+    background-color: var(--main-green-color) !important;
+    color: #fff !important;
+}
+
 @media (min-width: 1200px) {
     .block-info-slider {
         display: block;

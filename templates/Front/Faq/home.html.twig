@@ -1,0 +1,66 @@
+{% extends 'Front/Faq/layout.html.twig' %}
+{% block title %}Aide et FAQ{% endblock %}
+{% block content %}
+
+
+    <div class="uk-section">
+        <div class="uk-container">
+            <div class="uk-child-width-1-3@s uk-grid-match uk-grid-medium uk-text-center" uk-grid>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Quick Setup</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Administration Panel</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Product Options</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Video Tutorials</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Customization</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="#" class="box uk-border-rounded">
+                        <h3>Shipping Methods</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Product Feedback</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Freaqently Asked Questions</h3>
+                    </a>
+                </div>
+                <div>
+                    <a href="{{ path('faq_article_bdmk') }}" class="box uk-border-rounded">
+                        <h3>Release Notes</h3>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="uk-section uk-padding-remove section-cta uk-background-blend-lighten uk-background-center-center uk-background-cover uk-text-center" style="background-image: url('front/images/contact.jpg')" >
+        <div class="uk-background-muted1 uk-border-rounded1 uk-padding-large">
+            <h2>Vous n’avez pas trouvé votre réponse ?</h2>
+            <p class="uk-text-lead"><a href="{{ path('contact_bdmk') }}">Contactez-nous</a> et nous vous répondrons rapidement.</p>
+            <p class="uk-margin-medium-top">
+                <a href="{{ path('contact_bdmk') }}" class="uk-button uk-button-primary uk-button-large">Contactez-nous</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
