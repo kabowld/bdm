@@ -6,7 +6,7 @@ $(function () {
         const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\]) |(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
         if (email === '' || !regex.test(email)) {
-            $('.error-message-email').text('Veuillez saisir une adresse mail valide !');
+            $('.error-message-email').text('Veuillez saisir une adresse e-mail valide !');
 
             return false;
         }

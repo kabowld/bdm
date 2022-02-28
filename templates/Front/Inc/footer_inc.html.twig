@@ -2,47 +2,48 @@
 <section class="footer_one">
     <div class="container">
         <div class="row">
-            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3 pr0 pl0">
-                <div class="footer_about_widget">
-                    <h4>About Site</h4>
-                    <p>We’re reimagining how you buy, sell and rent. It’s now easier to get into a place you love. So let’s do this, together.</p>
-                </div>
-            </div>
             <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <div class="footer_qlink_widget">
-                    <h4>Quick Links</h4>
+                    <h4>Liens utiles</h4>
                     <ul class="list-unstyled">
-                        <li><a href="{{ path('about_bdmk') }}">Qui sommes - nous ?</a></li>
+                        <li><a href="{{ path('about_bdmk') }}">A propos de nous</a></li>
                         <li><a href="{{ path('faq_bdmk') }}">Aide et FAQ</a></li>
-                        <li><a href="{{ path('contact_bdmk') }}">Contact</a></li>
                         <li><a href="{{ path('cgu_bdmk') }}">Conditions générales</a></li>
+                        <li><a href="{{ path('contact_bdmk') }}">Contactez - nous</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <div class="footer_contact_widget">
-                    <h4>Contact Us</h4>
+                    <h4>Contactez-nous</h4>
                     <ul class="list-unstyled">
-                        <li><a href="#">contact@bandama-market.com</a></li>
-                        <li><a href="#">Collins Street West, Victoria</a></li>
-                        <li><a href="#">8007, Australia.</a></li>
-                        <li><a href="#">+1 246-345-0699</a></li>
-                        <li><a href="#">+1 246-345-0695</a></li>
+                        <li><a href="mailto:contact@bandama-market.com">contact@bandama-market.com</a></li>
+                        <li class="adress-ft">Collins Street West, Victoria</li>
+                        <li class="adress-ft">8007, Australia.</li>
+                        <li><a href="tel:+12463450699">+1 246-345-0699</a></li>
+                        <li><a href="tel:+12463450699">+1 246-345-0699</a></li>
                     </ul>
                 </div>
             </div>
             <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
                 <div class="footer_social_widget">
-                    <h4>Follow us</h4>
+                    <h4>Retrouvez-nous sur</h4>
                     <ul class="mb30">
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                        <li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+                        <li class="list-inline-item"><a href="https://facebook.com"><i class="fa fa-facebook"></i></a></li>
+                        <li class="list-inline-item"><a href="https://linkedin.com"><i class="fa fa-linkedin"></i></a></li>
                     </ul>
                 </div>
+            </div>
+            <div class="col-sm-6 col-md-6 col-lg-3 col-xl-3">
+                <div class="footer_social_widget">
+                    <h4>Newsletter</h4>
+                    <p class="info-newsletter">Inscrivez-vous à nos communications pour recevoir nos meilleures offres !</p>
+                    <form method="post" id="form-newsletter">
+                        <input type="email" placeholder="Entrez votre adresse e-mail" id="input-newsletter" class="input-newsletter" />
+                        <button class="btn-send-newsletter"><i class="fa fa-envelope-o"></i></button>
+                    </form>
+                </div>
+                <div id="answer-newsletter" class="answer-newsletter"></div>
             </div>
         </div>
     </div>
