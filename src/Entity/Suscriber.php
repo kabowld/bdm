@@ -47,6 +47,16 @@ class Suscriber
      */
     private $unsubscribedAt;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enable = false;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $confirmToken;
+
     public function __construct(string $ipAddress)
     {
         $this->createdAt = new \DateTime();
@@ -114,6 +124,30 @@ class Suscriber
     public function setUnsubscribedAt(?\DateTimeImmutable $unsubscribedAt): self
     {
         $this->unsubscribedAt = $unsubscribedAt;
+
+        return $this;
+    }
+
+    public function getEnable(): ?bool
+    {
+        return $this->enable;
+    }
+
+    public function setEnable(bool $enable): self
+    {
+        $this->enable = $enable;
+
+        return $this;
+    }
+
+    public function getConfirmToken(): ?string
+    {
+        return $this->confirmToken;
+    }
+
+    public function setConfirmToken(?string $confirmToken): self
+    {
+        $this->confirmToken = $confirmToken;
 
         return $this;
     }

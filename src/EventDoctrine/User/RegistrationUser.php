@@ -20,12 +20,14 @@ class RegistrationUser
     private $sendMail;
     private $passwordHasher;
     private $params;
+    private $localUrl;
 
-    public function __construct(SendMail $sendMail, UserPasswordHasherInterface $passwordHasher, ContainerBagInterface $params)
+    public function __construct(SendMail $sendMail, UserPasswordHasherInterface $passwordHasher, ContainerBagInterface $params, string $localUrl)
     {
         $this->sendMail = $sendMail;
         $this->passwordHasher = $passwordHasher;
         $this->params = $params;
+        $this->localUrl  = $localUrl;
     }
 
     /**
@@ -50,7 +52,7 @@ class RegistrationUser
             $user->getEmail(),
             self::CREATE_ACCOUNT_SUBJECT,
             self::PATH_VERIFY_ACCOUNT,
-            ['url' => $url]
+            ['url' => $url, 'localUrl'=> $this->localUrl]
         );
     }
 

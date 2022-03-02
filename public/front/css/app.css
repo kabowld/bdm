@@ -1376,12 +1376,13 @@ input.input-newsletter:focus {
 
 .btn-send-newsletter {
     position: absolute;
-    right: 3px;
+    right: 0;
     background: var(--main-orange-color);
     color: #fff;
     border-color: transparent;
-    bottom: 3px;
     border-radius: 50%;
+    height: 37px;
+    width: 37px;
 }
 
 .btn-send-newsletter:hover {
@@ -1411,7 +1412,9 @@ input.input-newsletter:focus {
     font-size: 13px;
     font-weight: 600;
     padding: 0.5em 40px 0.5em 1em;
-    border-radius: 19px;
+    border-radius: 24px;
+    height: 37px;
+    border: 0;
 }
 
 .info-newsletter {
@@ -1422,6 +1425,11 @@ input.input-newsletter:focus {
 }
 .adress-ft {
     color: #fff;
+}
+
+#form-newsletter {
+    position: relative;
+    width: 100%;
 }
 
 @media (min-width: 992px) {
