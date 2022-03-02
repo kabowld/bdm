@@ -53,6 +53,6 @@ class NewsletterController  extends AbstractController
         }
         $newsletterManager->confirmSubscription($suscriber);
 
-        return $this->render('Admin/Newsletter/confirm.html.twig');
+        return $this->render('Newsletter/confirm.html.twig');
     }
 }
