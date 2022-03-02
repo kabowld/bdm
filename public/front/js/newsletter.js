@@ -11,8 +11,6 @@ $(function () {
             return false;
         }
 
-
-
         $.ajax({
             url: Routing.generate('send_newsletter_bdmk'),
             method: 'POST',

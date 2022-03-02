@@ -75,7 +75,7 @@ class UserManager extends Manager
             $user->getEmail(),
             self::WELCOME_SUBJECT_MAIL,
             self::WELCOME_PATH,
-            ['url' => sprintf('%s/admin/annonce/ajout', $this->localUrl)]
+            ['url' => sprintf('%s/admin/annonce/ajout', $this->localUrl), 'localUrl'=>$this->localUrl]
         );
 
         return ['status' => self::SUCCESS_STATUS, 'message' => self::MESS_SUCCESS_ACTIVATION];
@@ -103,8 +103,10 @@ class UserManager extends Manager
         $this->email->createEmail(
             $user->getEmail(),
             ResetEmailPassword::RECOVERY_SUBJECT_EMAIL,
-            'Email/recovery_password.html.twig',
-            ['url' => sprintf('%s/reset-password-confirm/%s', $this->localUrl, $user->getResetToken())]
+            'Email/recovery_password.html.twig', [
+                'url' => sprintf('%s/reset-password-confirm/%s', $this->localUrl, $user->getResetToken()),
+                'localUrl' => $this->localUrl
+            ]
         );
 
         return $this->createJsonResponseResetPassword(ResetEmailPassword::SUCCESS_EMAIL);
@@ -185,7 +187,9 @@ class UserManager extends Manager
         $this->email->createEmail(
             $user->getEmail(),
             self::CONFIRM_RESET_EMAIL_SUBJECT,
-            self::CONFIRM_RESET_EMAIL_PATH
+            self::CONFIRM_RESET_EMAIL_PATH, [
+                'localUrl' => $this->localUrl
+            ]
         );
     }
 
