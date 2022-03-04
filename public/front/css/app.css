@@ -429,7 +429,7 @@ span.select2.select2-container.select2-container--default{
     text-decoration: underline;
 }
 
-.main-register {
+.main-register, .main-profil {
     background: #fafafa;
     padding: 60px 0;
 }
@@ -741,6 +741,34 @@ a.dropdown-item.signout-head{
     position: relative;
 }
 
+.form-img-el-particular label {
+    width: 250px;
+    height: 250px;
+    position: relative;
+    transform: translateY(25%);
+}
+
+.form-img-el-particular label:hover
+{
+    cursor: pointer;
+}
+
+.nav-bdm li.nav-item.dropdown{
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: 60px;
+    width: 60px;
+    height: auto;
+}
+
+.icon-iuser {
+    visibility: hidden;
+}
+
+.form-img-el-particular {
+    text-align: center;
+}
+
 .main-annonce label {
     color: #222;
     font-size: 14px;
@@ -761,16 +789,16 @@ a.dropdown-item.signout-head{
     margin: 1em 0;
 }
 
-.form-img-el input {
+.form-img-el input, .form-img-el-particular input {
     display:none;
 }
-.form-img-el img {
+.form-img-el img, .form-img-el-particular img{
     width:100%;
     height:100%;
     -o-object-fit:cover;
     object-fit:cover;
 }
-.form-img-el div {
+.form-img-el div, .form-img-el-particular div {
     position:relative;
     height:40px;
     margin-top:-40px;
@@ -783,6 +811,9 @@ a.dropdown-item.signout-head{
 }
 .form-img-el div span {
     font-size:40px;
+}
+.form-img-el-particular div span {
+    font-size:24px;
 }
 
 .title-state {
@@ -1410,7 +1441,7 @@ input.input-newsletter:focus {
 .input-newsletter {
     width: 100%;
     font-size: 13px;
-    font-weight: 600;
+    font-weight: 400;
     padding: 0.5em 40px 0.5em 1em;
     border-radius: 24px;
     height: 37px;

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Validator as BdmAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,7 +18,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\Table(name="`user`")
  * @UniqueEntity(fields={"email"}, message="Il existe déjà un compte avec cette adresse email!")
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serializable
 {
     const ROLES = [
         'user'        => 'ROLE_USER',
@@ -163,6 +164,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\OneToMany(targetEntity=Annonce::class, mappedBy="owner", orphanRemoval=true)
      */
     private $annonces;
+
+    private $avatarFile = null;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FilePicture::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $avatar = null;
 
     public function __construct()
     {
@@ -599,4 +608,58 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function getAvatarFile()
+    {
+        return $this->avatarFile;
+    }
+
+    /**
+     * @param UploadedFile $file
+     *
+     * @return self
+     */
+    public function setAvatarFile($file): self
+    {
+        $filePicture = new FilePicture();
+        $filePicture->setFile($file);
+        $this->setAvatar($filePicture);
+
+        $this->avatarFile = $file;
+
+        return $this;
+    }
+
+    public function getAvatar(): ?FilePicture
+    {
+        return $this->avatar;
+    }
+
+    public function setAvatar(?FilePicture $avatar): self
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+
+    public function unserialize($serialized)
+    {
+        list (
+            $this->id,
+            $this->email,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
 }

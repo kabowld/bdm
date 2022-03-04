@@ -24,6 +24,7 @@ $(function(){
     previewBeforeUpload('annonce_pictureSixFile');
     previewBeforeUpload('annonce_pictureSevenFile');
     previewBeforeUpload('annonce_pictureHeightFile');
+    previewBeforeUpload('profil_particular_avatarFile');
 
     $('.main-annonce label').on('click', 'span.delete-img', function (e) {
         e.preventDefault();
@@ -33,5 +34,15 @@ $(function(){
         $("#"+id+"-preview img").attr('src', 'https://bit.ly/3ubuq5o');
         $(this).css('display', 'none')
     });
+
+    $('.main-profil label').on('click', 'span.delete-img', function (e) {
+        e.preventDefault();
+        const id = $(this).data('id');
+        $('#'+id).val('');
+        $("#"+id+"-preview div").html('<span><i class="fa fa-upload"></i></span>');
+        $("#"+id+"-preview img").attr('src', '/front/images/avatar.png');
+        $(this).css('display', 'none')
+    });
+
 
 });

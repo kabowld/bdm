@@ -17,7 +17,7 @@ class ResetPasswordType extends AbstractType
         $builder
             ->add('oldPassword', PasswordType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' =>  'Saisir votre mot de passe actuel'],
-                'label'=> 'Votre de passe actuel',
+                'label'=> 'Votre mot de passe actuel',
                 'required' => true
             ])
             ->add('password', RepeatedType::class, [

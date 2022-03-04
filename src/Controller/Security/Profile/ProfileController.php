@@ -6,6 +6,7 @@ namespace App\Controller\Security\Profile;
 use App\Entity\User;
 use App\Form\ProfilParticularType;
 use App\Form\ProfilProType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,10 +23,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class ProfileController extends AbstractController
 {
     private UserPasswordHasherInterface $passwordHasher;
+    private $em;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher)
+    public function __construct(UserPasswordHasherInterface $passwordHasher, EntityManagerInterface $em)
     {
         $this->passwordHasher = $passwordHasher;
+        $this->em = $em;
     }
 
     /**
@@ -47,22 +50,23 @@ class ProfileController extends AbstractController
            if (!$this->passwordHasher->isPasswordValid($user, $form->get('passwordVerify')->getData())) {
                return $this->render(
                    'Security/Profile/particular.html.twig',
-                   ['error' => 'Ce mot de passe n\'est pas le bon !', 'form' => $form->createView()]
+                   ['error' => 'Ce mot de passe n\'est pas le bon !', 'form' => $form->createView(), 'profil' => $this->getUser()]
                );
-
-            }
+           }
 
             /** @var User $user */
             $user->setUpdatedAt(new \DateTimeImmutable());
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $this->em->flush();
 
             $this->addFlash('success', 'Votre profil a été modifié avec succès !');
 
             return $this->redirectToRoute('admin_dashboard_bdmk');
         }
 
-        return $this->render('Security/Profile/particular.html.twig', ['form' => $form->createView()]);
+        return $this->render('Security/Profile/particular.html.twig', [
+            'form' => $form->createView(),
+            'profil' => $this->getUser()
+        ]);
     }
 
     /**
@@ -84,21 +88,20 @@ class ProfileController extends AbstractController
             if (!$this->passwordHasher->isPasswordValid($user, $form->get('passwordVerify')->getData())) {
                 return $this->render(
                     'Security/Profile/pro.html.twig',
-                    ['error' => 'Ce mot de passe n\'est pas le bon !', 'form' => $form->createView()]
+                    ['error' => 'Ce mot de passe n\'est pas le bon !', 'form' => $form->createView(), 'profil' => $this->getUser()]
                 );
 
             }
 
             /** @var User $user */
             $user->setUpdatedAt(new \DateTimeImmutable());
-            $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            $this->em->flush();
 
             $this->addFlash('success', 'Votre profil a été modifié avec succès !');
 
             return $this->redirectToRoute('admin_dashboard_bdmk');
         }
 
-        return $this->render('Security/Profile/pro.html.twig', ['form' => $form->createView()]);
+        return $this->render('Security/Profile/pro.html.twig', ['form' => $form->createView(), 'profil' => $this->getUser()]);
     }
 }
