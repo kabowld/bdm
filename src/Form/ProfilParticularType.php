@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -57,6 +58,10 @@ class ProfilParticularType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
                 'label' => false,
+            ])
+            ->add('avatarFile', FileType::class, [
+                'required' => false,
+                'attr' => ['class' => 'form-control']
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer les modifications',

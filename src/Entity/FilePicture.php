@@ -104,4 +104,5 @@ class FilePicture
 
         return $this;
     }
+
 }

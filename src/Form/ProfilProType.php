@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
@@ -82,6 +83,10 @@ class ProfilProType extends AbstractType
                 'choice_label' => 'slug',
                 'placeholder' => 'Sélectionner votre ville',
                 'attr' => ['class' => 'form-control select-field']
+            ])
+            ->add('avatarFile', FileType::class, [
+                'required' => false,
+                'attr' => ['class' => 'form-control']
             ])
             ->add('save', SubmitType::class, [
                 'label' => 'Enregistrer les modifications',

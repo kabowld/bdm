@@ -5,6 +5,11 @@
 {% block content %}
     <main class="main main-dashboard">
         <div class="container">
+            {% for message in app.flashes('success') %}
+                <div class="text-center alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
             <div class="header-dashboard"></div>
             <div class="dashboard-content">
                 <p class="dsh-sell">Vous avez quelquechose à vendre ?</p>

@@ -298,6 +298,7 @@ class Annonce
         if ($this->filePictures->isEmpty()) {
             return null;
         }
+
         return $this->filePictures->first();
     }
 
