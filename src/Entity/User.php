@@ -165,6 +165,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      */
     private $annonces;
 
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 300,
+     *     minHeight = 60,
+     *     maxHeight = 300
+     *     maxHeightMessage = "La taille maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La taille maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La taille maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La taille maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $avatarFile = null;
 
     /**
@@ -233,7 +247,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     }
 
     /**
-     * @param $role
+     * @param string $role
      *
      * @return bool
      */
@@ -265,7 +279,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     }
 
     /**
-     * @param $role
+     * @param string $role
      *
      * @return $this
      */
