@@ -100,6 +100,18 @@
                     </div>
                 </div>
             </div>
+            {#{% if annonce.filePictures.empty %}
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        {% for picture in annonce.filePictures %}
+                        <img src="{{ vich_uploader_asset(picture.filePicture, 'file') }}" alt="{{ annonce.title }}">
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            {% endif %}#}
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -190,7 +202,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title text-center">Packs disponibles</h5>
+                    <h5 class="card-title text-center">Packs disponibles (Optionnel)</h5>
                     <div class="row">
                         <div class="offset-md-3 col-md-6 offset-lg-3 col-lg-6 col-sm-12 form-group">
                             {{ form_row(form.pack) }}

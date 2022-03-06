@@ -50,7 +50,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('congratulation_bdmk', ['token' => $user->getConfirmatoken()]);
         }
 
-        return $this->render('Security/register.html.twig', ['form' => $form->createView()]);
+        return $this->render('Security/Register/particular.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -78,7 +78,7 @@ class RegistrationController extends AbstractController
             return $this->redirectToRoute('congratulation_bdmk', ['token' => $user->getConfirmatoken()]);
         }
 
-        return $this->render('Security/registerPro.html.twig', ['form' => $form->createView()]);
+        return $this->render('Security/Register/pro.html.twig', ['form' => $form->createView()]);
     }
 
     /**

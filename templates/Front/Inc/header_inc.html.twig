@@ -35,7 +35,11 @@
                 {% endif %}
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {% if app.user.avatar %}
-                        {% set imageUrl = asset('/front/webfiles/' ~ app.user.avatar.fileName) %}
+                        {% if app.user.avatar.fileName is null %}
+                            {% set imageUrl = '/front/images/avatar.png' %}
+                        {% else %}
+                            {% set imageUrl = asset('/front/webfiles/' ~ app.user.avatar.fileName) %}
+                        {% endif %}
                     {% else %}
                         {% set imageUrl = '/front/images/avatar.png' %}
                     {% endif %}
@@ -46,9 +50,8 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <li><a class="dropdown-item" href="{{ path('admin_dashboard_bdmk') }}"><i class="fa fa-dashboard"></i>Tableau de bord</a></li>
-                            <li><a class="dropdown-item" href="#"><i class="fa fa-user-circle"></i> Mon profil</a></li>
                             {% if is_granted('ROLE_USER')  %}
-                            <li><a class="dropdown-item" href="{{ path('edit_profile_admin_bdmk') }}"><i class="fa fa-cog"></i> Paramètres</a></li>
+                            <li><a class="dropdown-item" href="{{ path('edit_profile_admin_bdmk') }}"><i class="fa fa-user-circle"></i> Mon profil</a></li>
                             {% elseif is_granted('ROLE_PRO') %}
                             <li><a class="dropdown-item" href="{{ path('edit_profile_pro_admin_bdmk') }}"><i class="fa fa-cog"></i> Paramètres</a></li>
                             {% endif %}
