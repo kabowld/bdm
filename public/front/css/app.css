@@ -1470,15 +1470,17 @@ input.input-newsletter:focus {
 .api-store a {
     display: block;
     width: 48%;
+    text-align: center;
 }
 
-#app-store img {
-    height: 38px;
+#app-store img, #google-play img {
+    height: 38px !important;
 }
 
 .store-app {
     padding-top: 1rem;
     border-top: 1px solid #F7F7F7;
+    margin-bottom: 30px;
 }
 
 .store-app h4 {
