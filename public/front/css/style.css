@@ -6862,14 +6862,13 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
 .footer_social_widget {
   position: relative;
 }
-.footer_social_widget li{
-  padding-right: 10px;
-}
+
 .footer_social_widget li a{
-  color: #fff;
-  font-size: 16px;
+  color: #222;
+  font-weight: 600;
+  font-size: 14px;
   font-family: "FontAwesome";
-  line-height: 1.2;
+  line-height: 30px;
   -webkit-transition: all 0.3s ease 0s;
   -moz-transition: all 0.3s ease 0s;
   -o-transition: all 0.3s ease 0s;

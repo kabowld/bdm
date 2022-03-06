@@ -1462,6 +1462,51 @@ input.input-newsletter:focus {
     position: relative;
     width: 100%;
 }
+.api-store {
+    display: flex;
+    justify-content: space-between;
+}
+
+.api-store a {
+    display: block;
+    width: 48%;
+}
+
+#app-store img {
+    height: 38px;
+}
+
+.store-app {
+    padding-top: 1rem;
+    border-top: 1px solid #F7F7F7;
+}
+
+.store-app h4 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+
+.footer_social_widget .list-inline-item {
+    background: #fff;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    border-radius: 50%;
+    padding: 0;
+}
+
+.footer_contact_widget ul i {
+    margin-right: 5px;
+    color: #FFF;
+}
+
+.store-app h4 i {
+    margin-right: 3px;
+}
 
 @media (min-width: 992px) {
     .menu-dashboard .row:nth-child(2) {
