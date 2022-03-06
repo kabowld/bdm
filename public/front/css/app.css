@@ -1022,7 +1022,7 @@ a[data-target="#stateModal"]:hover {
     font-size: 25px;
     font-weight: 700;
     color: #222;
-    margin: 2em 0;
+    margin: 3em 0 1.5em;
     text-align:center;
 }
 
@@ -1320,16 +1320,19 @@ li.paginate_button.page-item a {
 .contact-bg {
     background: url(../images/contact.jpg) no-repeat center center;
     background-size: cover;
+    margin-top: 0 !important;
 }
 
 .cgu-bg {
     background: url(../images/cgu.jpg) no-repeat center center;
     background-size: cover;
+    margin-top: 0 !important;
 }
 
 .wru-bg {
     background: url(../images/wru.jpg) no-repeat top center;
     background-size: cover;
+    margin-top: 0 !important;
 }
 
 
@@ -1491,6 +1494,9 @@ input.input-newsletter:focus {
     margin-bottom: 1em;
 }
 
+.footer_social_widget li a:hover {
+    color: #222 !important;
+}
 
 .footer_social_widget .list-inline-item {
     background: #fff;
@@ -1508,6 +1514,34 @@ input.input-newsletter:focus {
 
 .store-app h4 i {
     margin-right: 3px;
+}
+
+.title-hi {
+    text-align: center;
+    display: block;
+    font-weight: 600;
+    font-size: 15px;
+    color: #222;
+    margin: 1em 0;
+}
+
+.info-hi {
+    color: #222;
+    font-size: 15px;
+    display: block;
+}
+
+.add-annonce-hi {
+    color: #fff !important;
+    background: var(--main-green-color);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.5em 1.5em;
+    border-radius: 4px;
+}
+
+.button-hi{
+    margin: 25px 0 80px;
 }
 
 @media (min-width: 992px) {
@@ -1528,7 +1562,9 @@ input.input-newsletter:focus {
 }
 
 @media (min-width: 768px) {
-
+    .button-hi {
+        margin: 25px 0 0;
+    }
     .title-home{
         font-size: 36px !important;
     }
