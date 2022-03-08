@@ -171,10 +171,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      *     maxWidth = 300,
      *     minHeight = 60,
      *     maxHeight = 300,
-     *     maxHeightMessage = "La taille maximum de l'image doit être de {{ max_width }}px",
-     *     maxWidthMessage = "La taille maximum de l'image doit être de {{ max_width }}px",
-     *     minHeightMessage = "La taille maximum de l'image doit être de {{ min_height }}px",
-     *     minWidthMessage = "La taille maximum de l'image doit être de {{ min_width }}px",
+     *     maxsize = 100M,
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
      *     mimeTypes = {"image/png", "image/jpeg"},
      *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
      * )
