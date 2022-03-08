@@ -108,6 +108,7 @@ class AnnonceController extends AbstractController
             'Admin/Annonce/edit.html.twig', [
                 'form' => $form->createView(),
                 'states' => $this->annonceManager->all(State::class),
+                'annonce' => $annonce
             ]
         );
     }
