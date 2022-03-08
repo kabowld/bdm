@@ -168,9 +168,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     /**
      * @Assert\Image(
      *     minWidth = 60,
-     *     maxWidth = 300,
+     *     maxWidth = 800,
      *     minHeight = 60,
-     *     maxHeight = 300,
+     *     maxHeight = 800,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
      *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
