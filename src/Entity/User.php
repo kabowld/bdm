@@ -171,7 +171,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      *     maxWidth = 300,
      *     minHeight = 60,
      *     maxHeight = 300,
-     *     maxsize = "100M",
+     *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
      *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
      *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
