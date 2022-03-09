@@ -92,5 +92,5 @@
             document.querySelector('#annonce_lng').value = '';
             document.querySelector('#annonce_postalCode').value = '';
         });
-
-    }})();
+    }
+})();

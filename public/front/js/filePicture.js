@@ -12,8 +12,6 @@ $(function (){
            if (data.status === 'success') {
                $box.parent().remove()
            }
-       }).fail(function(){
-
-       })
+       });
    });
 });
