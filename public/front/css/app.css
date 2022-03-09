@@ -1552,6 +1552,47 @@ input.input-newsletter:focus {
     display: none;
 }
 
+.img-uploaded-annonce {
+    width: 100%;
+    position: relative;
+    height: 250px;
+    margin: 15px 0;
+    box-shadow: 0 0 10px #cececef2;
+}
+.del-uploaded-img:hover {
+    cursor: pointer;
+}
+.del-uploaded-img {
+    top: 0;
+    color: #fff;
+    width: 20px;
+    height: 20px;
+    background: red;
+    border-radius: 50%;
+    font-size: 13px;
+    font-weight: 300;
+    text-align: center;
+    line-height: 20px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    -webkit-transform: translate(50%, -50%);
+    -ms-transform: translate(50%, -50%);
+    transform: translate(50%, -50%);
+    z-index: 5;
+    display: block;
+}
+
+.img-uploaded-annonce img {
+    width: 100%;
+    height: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
 @media (min-width: 992px) {
 
     .register-img {

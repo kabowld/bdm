@@ -159,4 +159,5 @@ class AnnonceController extends AbstractController
 
         return $this->annonceManager->getResponsePackInfos($request->request->get('id'));
     }
+
 }

@@ -100,18 +100,23 @@
                     </div>
                 </div>
             </div>
-            {#{% if annonce.filePictures.empty %}
+            {% if not annonce.filePictures.empty %}
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title text-center">Images liées à l'annonce</h5>
                     <div class="row">
                         {% for picture in annonce.filePictures %}
-                        <img src="{{ vich_uploader_asset(picture.filePicture, 'file') }}" alt="{{ annonce.title }}">
+                        <div class="col-md-3">
+                            <div class="img-uploaded-annonce">
+                                <img src="{{ vich_uploader_asset(picture, 'file') }}" alt="{{ annonce.title }}">
+                                <span class="del-uploaded-img" data-id="{{ picture.id }}"><i class="fa fa-close"></i></span>
+                            </div>
+                        </div>
                         {% endfor %}
-
                     </div>
                 </div>
             </div>
-            {% endif %}#}
+            {% endif %}
             <div class="card">
                 <div class="card-body">
                     <div class="row">

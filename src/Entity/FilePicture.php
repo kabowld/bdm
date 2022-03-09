@@ -74,7 +74,7 @@ class FilePicture
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
