@@ -89,9 +89,12 @@
                     </div>
                     <h5 class="card-title">Lieu précis de l'emplacement</h5>
                     <div class="row">
+                        <div id="box-map-edit-address" style="height: 199px;width: 100%"></div>
                         <div class="col-md-12">
                             <div id="box-map-address"></div>
                         </div>
+                        <input type="hidden" value="{{ annonce.lat }}" id="lat-info">
+                        <input type="hidden" value="{{ annonce.lng }}" id="lng-info">
                         <div class="col-md-12 form-group">
                             {{ form_label(form.location) }}
                             {{ form_widget(form.location) }}
@@ -100,18 +103,25 @@
                     </div>
                 </div>
             </div>
-            {#{% if annonce.filePictures.empty %}
+            {% if not annonce.filePictures.empty %}
             <div class="card">
                 <div class="card-body">
+                    <h5 class="card-title text-center">Images liées à l'annonce</h5>
                     <div class="row">
                         {% for picture in annonce.filePictures %}
-                        <img src="{{ vich_uploader_asset(picture.filePicture, 'file') }}" alt="{{ annonce.title }}">
+                            {% if picture.id is not null %}
+                                <div class="col-md-3">
+                                    <div class="img-uploaded-annonce">
+                                        <img src="{{ vich_uploader_asset(picture, 'file') }}" alt="{{ annonce.title }}">
+                                        <span class="del-uploaded-img" data-id="{{ picture.id }}"><i class="fa fa-close"></i></span>
+                                    </div>
+                                </div>
+                            {% endif %}
                         {% endfor %}
-
                     </div>
                 </div>
             </div>
-            {% endif %}#}
+            {% endif %}
             <div class="card">
                 <div class="card-body">
                     <div class="row">
@@ -124,6 +134,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureOneFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureOneFile) }}
                         </div>
                         <div class="col-md-3 form-img-el form-group">
                             {{ form_widget(form.pictureTwoFile) }}
@@ -134,6 +145,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureTwoFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureTwoFile) }}
                         </div>
                         <div class="col-md-3 form-img-el form-group">
                             {{ form_widget(form.pictureThreeFile) }}
@@ -144,6 +156,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureThreeFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureThreeFile) }}
                         </div>
                         <div class="col-md-3 form-img-el form-group">
                             {{ form_widget(form.pictureFourFile) }}
@@ -154,6 +167,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureFourFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureFourFile) }}
                         </div>
                     </div>
                     <div class="row">
@@ -166,6 +180,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureFiveFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureFiveFile) }}
                         </div>
                         <div class="col-md-3 form-img-el form-group">
                             {{ form_widget(form.pictureSixFile) }}
@@ -176,6 +191,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureSixFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureSixFile) }}
                         </div>
                         <div class="col-md-3 form-img-el form-group">
                             {{ form_widget(form.pictureSevenFile) }}
@@ -186,6 +202,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureSevenFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureSevenFile) }}
                         </div>
                         <div class="col-md-3 form-img-el form-group">
                             {{ form_widget(form.pictureHeightFile) }}
@@ -196,6 +213,7 @@
                                 </div>
                                 <span class="delete-img" data-id="{{ form.pictureHeightFile.vars.id }}"><i class="fa fa-close"></i></span>
                             </label>
+                            {{ form_errors(form.pictureHeightFile) }}
                         </div>
                     </div>
                 </div>

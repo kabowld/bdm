@@ -104,6 +104,10 @@ class Annonce
     private $category;
 
     /**
+     * @Assert\Count(
+     *      max = 8,
+     *      maxMessage = "Vous pouvez saisir {{ limit }} photos au maximum",
+     * )
      * @ORM\OneToMany(targetEntity=FilePicture::class, mappedBy="annonce", orphanRemoval=true, cascade={"persist", "remove"})
      */
     private $filePictures;

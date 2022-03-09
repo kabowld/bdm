@@ -4,17 +4,153 @@ namespace App\Manager;
 
 use App\Entity\FilePicture;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Validator\Constraints as Assert;
 
 trait AnnonceFilePictureTrait {
 
 
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureOneFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureTwoFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureThreeFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureFourFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureFiveFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureSixFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureSevenFile;
+
+    /**
+     * @Assert\Image(
+     *     minWidth = 60,
+     *     maxWidth = 1000,
+     *     minHeight = 60,
+     *     maxHeight = 1000,
+     *     maxSize = "100M",
+     *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
+     *     maxHeightMessage = "La hauteur maximum de l'image doit être de {{ max_width }}px",
+     *     maxWidthMessage = "La largeur maximum de l'image doit être de {{ max_width }}px",
+     *     minHeightMessage = "La hauteur maximum de l'image doit être de {{ min_height }}px",
+     *     minWidthMessage = "La largeur maximum de l'image doit être de {{ min_width }}px",
+     *     mimeTypes = {"image/png", "image/jpeg"},
+     *     mimeTypesMessage = "Téléverser des images de type jpeg ou png !"
+     * )
+     */
     private $pictureHeightFile;
 
     /**
