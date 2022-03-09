@@ -38,7 +38,8 @@ class NewsletterController  extends AbstractController
     /**
      * Action to validate Account
      *
-!     *
+     * @Route("/confirm/newsletter/{token}", name="validation_newsletter_bdmk", methods={"GET"})
+     *
      * @param string              $token
      * @param SuscriberRepository $suscriberRepository
      * @param NewsletterManager   $newsletterManager
