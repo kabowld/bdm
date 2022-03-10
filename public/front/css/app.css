@@ -1558,6 +1558,7 @@ input.input-newsletter:focus {
     height: 250px;
     margin: 15px 0;
     box-shadow: 0 0 10px #cececef2;
+    overflow: hidden;
 }
 .del-uploaded-img:hover {
     cursor: pointer;
@@ -1565,20 +1566,16 @@ input.input-newsletter:focus {
 .del-uploaded-img {
     top: 0;
     color: #fff;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     background: red;
-    border-radius: 50%;
     font-size: 13px;
     font-weight: 300;
     text-align: center;
-    line-height: 20px;
+    line-height: 25px;
     position: absolute;
     bottom: 0;
     right: 0;
-    -webkit-transform: translate(50%, -50%);
-    -ms-transform: translate(50%, -50%);
-    transform: translate(50%, -50%);
     z-index: 5;
     display: block;
 }

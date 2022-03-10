@@ -73,7 +73,8 @@ class AnnonceType extends AbstractType
                     'placeholder' => 'Saisir un emplacement'
                 ],
                 'mapped' => false,
-                'label' => 'Adresse',
+                'required' => false,
+                'label' => 'Adresse (Optionnel)',
                 'help' => 'Lieu de l\'emplacement où vous retrouver'
             ])
             ->add('postalCode', HiddenType::class)
