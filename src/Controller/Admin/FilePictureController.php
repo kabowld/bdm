@@ -19,7 +19,7 @@ class FilePictureController extends AbstractController
      */
     public function deleteFilePicture(Request $request, EntityManagerInterface $em, FilePictureRepository $filePictureRepository)
     {
-        if ($request->isXmlHttpRequest()) {
+        if (!$request->isXmlHttpRequest()) {
             throw $this->createNotFoundException(AnnonceManager::PAGE_NOT_FOUND);
         }
         $id = $request->request->get('id');
