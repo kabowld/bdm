@@ -8,6 +8,16 @@ $(function(){
             if(e.target.files.length === 0){
                 return;
             }
+            const allowed_ext = ['jpg','png'];
+            let file_extension = e.target.value.split('.').pop().toLowerCase();
+            const found = allowed_ext.find(el => el === file_extension);
+            if (found === undefined) {
+                alert('Veuillez télécharger des fichiers de type .jpg ou .png')
+                e.target.value = '';
+
+                return false;
+            }
+
             let file = e.target.files[0];
             let url = URL.createObjectURL(file);
             document.querySelector("#"+id+"-preview div").innerText = file.name;
