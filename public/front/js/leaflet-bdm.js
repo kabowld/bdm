@@ -34,7 +34,7 @@
         let osmLayer = new L.TileLayer(
             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 minZoom: 1,
-                maxZoom: 16,
+                maxZoom: 18,
                 touchZoom: true,
                 attribution: 'Map data © <a href="https://openstreetmap.org">OpenStreetMap</a> contributors'
             }

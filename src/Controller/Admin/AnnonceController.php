@@ -8,6 +8,7 @@ use App\Entity\Annonce;
 use App\Entity\State;
 use App\Form\AnnonceType;
 use App\Manager\AnnonceManager;
+use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -49,11 +50,13 @@ class AnnonceController extends AbstractController
      *
      * @return Response
      */
-    public function show(Annonce $annonce): Response
+    public function show(Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
         return $this->render(
-            'Admin/Annonce/show.html.twig',
-            ['annonce' => $this->annonceManager->getOnlyMyAnnonce($this->getUser(), $annonce->getId())]
+            'Admin/Annonce/show.html.twig', [
+                'annonce' => $this->annonceManager->getOnlyMyAnnonce($this->getUser(), $annonce->getId()),
+                'annonces' => $annonceRepository->getAnnoncesBySameCategory($annonce->getCategory())
+            ]
         );
     }
 

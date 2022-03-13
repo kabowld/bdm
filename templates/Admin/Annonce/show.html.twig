@@ -9,15 +9,17 @@
             <div class="row mb30">
                 <div class="col-lg-7 col-xl-8">
                     <div class="single_property_title mt30-767">
-                        <h2>Luxury Family Home</h2>
-                        <p>1421 San Pedro St, Los Angeles, CA 90015</p>
+                        <h2>{{ annonce.title }}</h2>
+                        <p>{{ annonce.location }}</p>
                     </div>
                 </div>
                 <div class="col-lg-5 col-xl-4">
                     <div class="single_property_social_share">
-                        <div class="price float-left fn-400">
-                            <h2>$13,000<small>/mo</small></h2>
-                        </div>
+                        {% if annonce.price %}
+                            <div class="price float-left fn-400">
+                                <h2>{{ annonce.formatPrice }} F cfa</h2>
+                            </div>
+                        {% endif %}
                         <div class="spss style2 mt20 text-right tal-400">
                             <ul class="mb0">
                                 <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
@@ -30,52 +32,45 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-7 col-lg-8">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="spls_style_two mb30-520">
-                                <a class="popup-img" href="{{ asset('front/images/property/1.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/1.jpg') }}" alt="1.jpg"></a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-5 col-lg-4">
-                    <div class="row">
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="spls_style_two mb30">
-                                <a class="popup-img" href="{{ asset('front/images/property/2.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/2.jpg') }}" alt="2.jpg"></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="spls_style_two mb30">
-                                <a class="popup-img" href="{{ asset('front/images/property/3.jpg') }}"<img class="img-fluid w100" src="{{ asset('front/images/property/3.jpg') }}"alt="3.jpg"></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="spls_style_two mb30">
-                                <a class="popup-img" href="{{ asset('front/images/property/4.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/1.jpg') }}" alt="4.jpg"></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="spls_style_two mb30">
-                                <a class="popup-img" href="{{ asset('front/images/property/5.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/5.jpg') }}" alt="5.jpg"></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="spls_style_two mb30">
-                                <a class="popup-img" href="{{ asset('front/images/property/6.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/6.jpg') }}" alt="6.jpg"></a>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-lg-6">
-                            <div class="spls_style_two mb30">
-                                <a class="popup-img" href="{{ asset('front/images/property/7.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/7.jpg') }}" alt="7.jpg"></a>
-                                <div class="overlay popup-img">
-                                    <h3 class="title">+20</h3>
+                {% if not annonce.filePictures.empty %}
+                    <div class="col-sm-7 col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="spls_style_two mb30-520">
+                                    <a class="popup-img" href="{{ vich_uploader_asset(annonce.filePicture, 'file') }}">
+                                        <img class="img-fluid w100" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                    <div class="col-sm-5 col-lg-4">
+
+                        <div class="row">
+                            {% for picture in annonce.filePictures %}
+                                {% if picture.id is not null %}
+                                    <div class="col-sm-6 col-lg-6">
+                                        <div class="spls_style_two mb30">
+                                            <a class="popup-img" href="{{ vich_uploader_asset(picture, 'file') }}"><img class="img-fluid w100" src="{{ vich_uploader_asset(picture, 'file') }}" alt="{{ picture.fileName }}"></a>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                {% else %}
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="spls_style_two mb30-520">
+                                    <a class="popup-img" href="{{ asset('front/images/empty.jpg') }}"><img class="img-fluid w100" src="{{ asset('front/images/property/1.jpg') }}" alt="aucune image"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         </div>
     </section>
@@ -89,17 +84,10 @@
                         <div class="col-lg-12">
                             <div class="listing_single_description">
                                 <h4 class="mb30">Description</h4>
-                                <p class="mb25">Evans Tower very high demand corner junior one bedroom plus a large balcony boasting full open NYC views. You need to see the views to believe them. Mint condition with new hardwood floors. Lots of closets plus washer and dryer.</p>
-                                <p class="gpara second_para white_goverlay mt10 mb10">Fully furnished. Elegantly appointed condominium unit situated on premier location. PS6. The wide entry hall leads to a large living room with dining area. This expansive 2 bedroom and 2 renovated marble bathroom apartment has great windows. Despite the interior views, the apartments Southern and Eastern exposures allow for lovely natural light to fill every room. The master suite is surrounded by handcrafted milkwork and features incredible walk-in closet and storage space.</p>
-                                <div class="collapse" id="collapseExample">
-                                    <div class="card card-body">
-                                        <p class="mt10 mb10">Fully furnished. Elegantly appointed condominium unit situated on premier location. PS6. The wide entry hall leads to a large living room with dining area. This expansive 2 bedroom and 2 renovated marble bathroom apartment has great windows. Despite the interior views, the apartments Southern and Eastern exposures allow for lovely natural light to fill every room. The master suite is surrounded by handcrafted milkwork and features incredible walk-in closet and storage space.</p>
-                                        <p class="mt10 mb10">Fully furnished. Elegantly appointed condominium unit situated on premier location. PS6. The wide entry hall leads to a large living room with dining area. This expansive 2 bedroom and 2 renovated marble bathroom apartment has great windows. Despite the interior views, the apartments Southern and Eastern exposures allow for lovely natural light to fill every room. The master suite is surrounded by handcrafted milkwork and features incredible walk-in closet and storage space.</p>
-                                    </div>
-                                </div>
+                                <p class="mb25">{{ annonce.description }}</p>
                                 <p class="overlay_close">
                                     <a class="text-thm fz14" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                        Show More <span class="flaticon-download-1 fz12"></span>
+                                        Voir plus <span class="flaticon-download-1 fz12"></span>
                                     </a>
                                 </p>
                             </div>
@@ -108,44 +96,28 @@
                             <div class="additional_details">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h4 class="mb15">Property Details</h4>
+                                        <h4 class="mb15">Détails</h4>
                                     </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li><p>Property ID :</p></li>
-                                            <li><p>Price :</p></li>
-                                            <li><p>Property Size :</p></li>
-                                            <li><p>Year Built :</p></li>
+                                            <li><p>Type :</p></li>
+                                            <li><p>Catégorie :</p></li>
+                                            <li><p>Ajouté le :</p></li>
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li><p><span>HZ27</span></p></li>
-                                            <li><p><span>$130,000</span></p></li>
-                                            <li><p><span>1560 Sq Ft</span></p></li>
-                                            <li><p><span>2016-01-09</span></p></li>
+                                            <li><p><span>{{ annonce.type }}</span></p></li>
+                                            <li><p><span>{{ annonce.category.title }}</span></p></li>
+                                            <li><p><span>{{ annonce.createdAt|date('d-m-Y') }}</span></p></li>
                                         </ul>
                                     </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li><p>Bedrooms :</p></li>
-                                            <li><p>Bathrooms :</p></li>
-                                            <li><p>Garage :</p></li>
-                                            <li><p>Garage Size :</p></li>
+                                            {% if annonce.price %}<li><p>Prix :</p></li>{% endif %}
+                                            {% if annonce.state %}<li><p>L'état :</p></li>{% endif %}
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li><p><span>8</span></p></li>
-                                            <li><p><span>4</span></p></li>
-                                            <li><p><span>2</span></p></li>
-                                            <li><p><span>200 SqFt</span></p></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-md-6 col-lg-6 col-xl-4">
-                                        <ul class="list-inline-item">
-                                            <li><p>Property Type :</p></li>
-                                            <li><p>Property Status :</p></li>
-                                        </ul>
-                                        <ul class="list-inline-item">
-                                            <li><p><span>Apartment</span></p></li>
-                                            <li><p><span>For Sale</span></p></li>
+                                            {% if annonce.price %}<li><p><span>{{ annonce.formatPrice }}F cfa</span></p></li> {% endif %}
+                                            {% if annonce.state %}<li><p><span>{{ annonce.state.title }}</span></p></li> {% endif %}
                                         </ul>
                                     </div>
                                 </div>
@@ -155,30 +127,22 @@
                             <div class="additional_details">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <h4 class="mb15">Additional details</h4>
+                                        <h4 class="mb15">Détails suplémentaires</h4>
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li><p>Deposit :</p></li>
-                                            <li><p>Pool Size :</p></li>
-                                            <li><p>Additional Rooms :</p></li>
+                                            <li><p>Ville :</p></li>
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li><p><span>20%</span></p></li>
-                                            <li><p><span>300 Sqft</span></p></li>
-                                            <li><p><span>Guest Bath</span></p></li>
+                                            <li><p><span>{{ annonce.city.title }}</span></p></li>
                                         </ul>
                                     </div>
                                     <div class="col-md-6 col-lg-6">
                                         <ul class="list-inline-item">
-                                            <li><p>Last remodel year :</p></li>
-                                            <li><p>Amenities :</p></li>
-                                            <li><p>Equipment :</p></li>
+                                            {% if annonce.postalCode %}<li><p>Code postal :</p></li>{% endif %}
                                         </ul>
                                         <ul class="list-inline-item">
-                                            <li><p><span>1987</span></p></li>
-                                            <li><p><span>Clubhouse</span></p></li>
-                                            <li><p><span>Grill - Gas</span></p></li>
+                                            {% if annonce.postalCode %}<li><p><span>{{ annonce.postalCode }}</span></p></li>{% endif %}
                                         </ul>
                                     </div>
                                 </div>
@@ -186,150 +150,22 @@
                         </div>
                         <div class="col-lg-12">
                             <div class="application_statics mt30">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <h4 class="mb10">Features</h4>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4">
-                                        <ul class="order_list list-inline-item">
-                                            <li><a href="#"><span class="flaticon-tick"></span>Air Conditioning</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Barbeque</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Dryer</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Gym</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Laundry</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4">
-                                        <ul class="order_list list-inline-item">
-                                            <li><a href="#"><span class="flaticon-tick"></span>Lawn</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Microwave</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Outdoor Shower</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Refrigerator</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Sauna</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="col-sm-6 col-md-6 col-lg-4">
-                                        <ul class="order_list list-inline-item">
-                                            <li><a href="#"><span class="flaticon-tick"></span>Swimming Pool</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>TV Cable</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Washer</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>WiFi</a></li>
-                                            <li><a href="#"><span class="flaticon-tick"></span>Window Coverings</a></li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                <h4 class="mb30">Emplacement <small class="float-right">{{ annonce.location }}</small></h4>
+                                <div id="map-show" style="width: 100%; height: 400px" data-lat="{{ annonce.lat }}" data-lng="{{ annonce.lng }}"></div>
                             </div>
                         </div>
                         <div class="col-lg-12">
-                            <div class="application_statics mt30">
-                                <h4 class="mb30">Location <small class="float-right">1421 San Pedro St, Los Angeles, CA 90015</small></h4>
-                                <div class="property_video p0">
-                                    <div class="thumb">
-                                        <div class="h400" id="map-canvas"></div>
-                                        <div class="overlay_icon">
-                                            <a href="#"><img class="map_img_icon" src="{{ asset('front/images/header-logo.png') }}" alt="header-logo.png"></a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h4 class="mt30 mb30">Annonces similaires</h4>
                         </div>
-                        <div class="col-lg-12">
-                            <div class="product_single_content">
-                                <div class="mbp_pagination_comments mt30">
-                                    <ul class="total_reivew_view">
-                                        <li class="list-inline-item sub_titles">896 Reviews</li>
-                                        <li class="list-inline-item">
-                                            <ul class="star_list">
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                            </ul>
-                                        </li>
-                                        <li class="list-inline-item avrg_review">( 4.5 out of 5 )</li>
-                                        <li class="list-inline-item write_review">Write a Review</li>
-                                    </ul>
-
-                                    <div class="mbp_first media">
-                                        <img src="{{ asset('front/images/testimonial/1.png') }}" class="mr-3" alt="1.png">
-                                        <div class="media-body">
-                                            <h4 class="sub_title mt-0">Diana Cooper
-                                                <div class="sspd_review dif">
-                                                    <ul class="ml10">
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"></li>
-                                                    </ul>
-                                                </div>
-                                            </h4>
-                                            <a class="sspd_postdate fz14" href="#">December 28, 2020</a>
-                                            <p class="mt10">Beautiful home, very picturesque and close to everything in jtree! A little warm for a hot weekend, but would love to come back during the cooler seasons!</p>
-                                        </div>
-                                    </div>
-                                    <div class="custom_hr"></div>
-                                    <div class="mbp_first media">
-                                        <img src="{{ asset('front/images/testimonial/2.png') }}" class="mr-3" alt="2.png">
-                                        <div class="media-body">
-                                            <h4 class="sub_title mt-0">Ali Tufan
-                                                <div class="sspd_review dif">
-                                                    <ul class="ml10">
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                        <li class="list-inline-item"></li>
-                                                    </ul>
-                                                </div>
-                                            </h4>
-                                            <a class="sspd_postdate fz14" href="#">December 28, 2020</a>
-                                            <p class="mt10">Beautiful home, very picturesque and close to everything in jtree! A little warm for a hot weekend, but would love to come back during the cooler seasons!</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <div class="product_single_content">
-                                <div class="mbp_pagination_comments mt30">
-                                    <div class="mbp_comment_form style2">
-                                        <h4>Write a Review</h4>
-                                        <ul class="sspd_review">
-                                            <li class="list-inline-item">
-                                                <ul class="mb0">
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
-                                                </ul>
-                                            </li>
-                                            <li class="list-inline-item review_rating_para">Your Rating & Review</li>
-                                        </ul>
-                                        <form class="comments_form">
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="exampleInputName1" aria-describedby="textHelp" placeholder="Review Title">
-                                            </div>
-                                            <div class="form-group">
-                                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="12" placeholder="Your Review"></textarea>
-                                            </div>
-                                            <button type="submit" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-12">
-                            <h4 class="mt30 mb30">Similar Properties</h4>
-                        </div>
+                        {% for annonce in annonces %}
                         <div class="col-lg-6">
-                            <div class="feat_property">
+                            <div class="feat_property home7">
                                 <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('front/images/property/fp1.jpg') }}" alt="fp1.jpg">
+                                    {% if not annonce.filePictures.empty %}
+                                        <img class="img-whp" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                                    {% else %}
+                                        <img class="img-whp" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
+                                    {% endif %}
                                     <div class="thmb_cntnt">
                                         <ul class="tag mb0">
                                             <li class="list-inline-item"><a href="#">For Rent</a></li>
@@ -339,19 +175,16 @@
                                             <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
                                             <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
                                         </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                                        {% if annonce.price is not null %}
+                                            <a class="fp_price" href="#">{{ annonce.formatPrice }}<small>/mo</small></a>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <div class="details">
                                     <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
+                                        <p class="text-thm">{{ annonce.city.title }}</p>
+                                        <h4>{{ annonce.category.title }}</h4>
+                                        <p><span class="flaticon-placeholder"></span>{{ annonce.title|slice(0, 20) }}</p>
                                     </div>
                                     <div class="fp_footer">
                                         <ul class="fp_meta float-left mb0">
@@ -363,129 +196,36 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('front/images/property/fp2.jpg') }}" alt="fp2.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="{{ asset('front/images/property/pposter1.png') }}" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('front/images/property/fp3.jpg') }}" alt="fp3.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Sale</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="{{ asset('front/images/property/pposter1.png') }}" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="feat_property">
-                                <div class="thumb">
-                                    <img class="img-whp" src="{{ asset('front/images/property/fp1.jpg') }}" alt="fp1.jpg">
-                                    <div class="thmb_cntnt">
-                                        <ul class="tag mb0">
-                                            <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                            <li class="list-inline-item"><a href="#">Featured</a></li>
-                                        </ul>
-                                        <ul class="icon mb0">
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                        </ul>
-                                        <a class="fp_price" href="#">$13,000<small>/mo</small></a>
-                                    </div>
-                                </div>
-                                <div class="details">
-                                    <div class="tc_content">
-                                        <p class="text-thm">Apartment</p>
-                                        <h4>Renovated Apartment</h4>
-                                        <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                        <ul class="prop_details mb0">
-                                            <li class="list-inline-item"><a href="#">Beds: 4</a></li>
-                                            <li class="list-inline-item"><a href="#">Baths: 2</a></li>
-                                            <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="fp_footer">
-                                        <ul class="fp_meta float-left mb0">
-                                            <li class="list-inline-item"><a href="#"><img src="{{ asset('front/images/property/pposter1.png') }}" alt="pposter1.png"></a></li>
-                                            <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                        </ul>
-                                        <div class="fp_pdate float-right">4 years ago</div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-lg-4 col-xl-4">
                     <div class="sidebar_listing_list">
                         <div class="sidebar_advanced_search_widget">
                             <div class="sl_creator">
-                                <h4 class="mb25">Listed By</h4>
                                 <div class="media">
-                                    <img class="mr-3" src="{{ asset('front/images/team/lc1.png') }}" alt="lc1.png">
+                                    {% if app.user.avatar %}
+                                        {% if app.user.avatar.fileName is null %}
+                                            {% set imageUrl = '/front/images/avatar.png' %}
+                                        {% else %}
+                                            {% set imageUrl = asset('/front/webfiles/' ~ app.user.avatar.fileName) %}
+                                        {% endif %}
+                                    {% else %}
+                                        {% set imageUrl = '/front/images/avatar.png' %}
+                                    {% endif %}
+                                    <img class="mr-3" style="width: 90px; height: auto" src="{{ imageUrl }}" alt="avatar">
                                     <div class="media-body">
-                                        <h5 class="mt-0 mb0">Samul Williams</h5>
-                                        <p class="mb0">(123)456-7890</p>
-                                        <p class="mb0">info@findhouse.com</p>
-                                        <a class="text-thm" href="#">View My Listing</a>
+                                        {% if app.user.name or app.user.firstname %}
+                                            <h5 class="mt-0 mb0">
+                                                {% if app.user.name %}{{ app.user.name }}{% endif %}
+                                                {% if app.user.firstname %}{{ app.user.firstname }}{% endif %}
+                                            </h5>
+                                        {% endif %}
+                                        {% if app.user.tel %}
+                                            <p class="mb0">{{ app.user.tel }}</p>
+                                        {% endif %}
+                                        <p class="mb0">{{ app.user.email }}</p>
+                                        <a class="text-thm" href="#">Voir profil</a>
                                     </div>
                                 </div>
                             </div>
@@ -516,57 +256,6 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
-                    </div>
-                    <div class="terms_condition_widget">
-                        <h4 class="title">Categories Property</h4>
-                        <div class="widget_list">
-                            <ul class="list_details">
-                                <li><a href="#"><i class="fa fa-caret-right mr10"></i>Apartment <span class="float-right">6 properties</span></a></li>
-                                <li><a href="#"><i class="fa fa-caret-right mr10"></i>Condo <span class="float-right">12 properties</span></a></li>
-                                <li><a href="#"><i class="fa fa-caret-right mr10"></i>Family House <span class="float-right">8 properties</span></a></li>
-                                <li><a href="#"><i class="fa fa-caret-right mr10"></i>Modern Villa <span class="float-right">26 properties</span></a></li>
-                                <li><a href="#"><i class="fa fa-caret-right mr10"></i>Town House <span class="float-right">89 properties</span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="sidebar_feature_listing">
-                        <h4 class="title">Recently Viewed</h4>
-                        <div class="media">
-                            <img class="align-self-start mr-3" src="{{ asset('front/images/blog/fls1.jpg') }}" alt="fls1.jpg">
-                            <div class="media-body">
-                                <h5 class="mt-0 post_title">Nice Room With View</h5>
-                                <a href="#">$13,000/<small>/mo</small></a>
-                                <ul class="mb0">
-                                    <li class="list-inline-item">Beds: 4</li>
-                                    <li class="list-inline-item">Baths: 2</li>
-                                    <li class="list-inline-item">Sq Ft: 5280</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <img class="align-self-start mr-3" src="{{ asset('front/images/blog/fls2.jpg') }}" alt="fls2.jpg">
-                            <div class="media-body">
-                                <h5 class="mt-0 post_title">Villa called Archangel</h5>
-                                <a href="#">$13,000<small>/mo</small></a>
-                                <ul class="mb0">
-                                    <li class="list-inline-item">Beds: 4</li>
-                                    <li class="list-inline-item">Baths: 2</li>
-                                    <li class="list-inline-item">Sq Ft: 5280</li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="media">
-                            <img class="align-self-start mr-3" src="{{ asset('front/images/blog/fls3.jpg') }}" alt="fls3.jpg">
-                            <div class="media-body">
-                                <h5 class="mt-0 post_title">Sunset Studio</h5>
-                                <a href="#">$13,000<small>/mo</small></a>
-                                <ul class="mb0">
-                                    <li class="list-inline-item">Beds: 4</li>
-                                    <li class="list-inline-item">Baths: 2</li>
-                                    <li class="list-inline-item">Sq Ft: 5280</li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

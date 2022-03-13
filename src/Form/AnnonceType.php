@@ -72,10 +72,8 @@ class AnnonceType extends AbstractType
                     'class' => 'form-control',
                     'placeholder' => 'Saisir un emplacement'
                 ],
-                'mapped' => false,
                 'required' => false,
-                'label' => 'Adresse (Optionnel)',
-                'help' => 'Lieu de l\'emplacement où vous retrouver'
+                'label' => 'Adresse précise',
             ])
             ->add('postalCode', HiddenType::class)
             ->add('city', EntityType::class, [
