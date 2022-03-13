@@ -117,6 +117,11 @@ class Annonce
      */
     private $pack;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $location;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
@@ -337,6 +342,18 @@ class Annonce
     public function setPack(?Pack $pack): self
     {
         $this->pack = $pack;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

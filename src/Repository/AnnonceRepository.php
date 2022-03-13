@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
+use App\Entity\Category;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -91,6 +92,19 @@ class AnnonceRepository extends ServiceEntityRepository
             ->where($qb->expr()->eq('cat.slug', ':slug'))
             ->orderBy('a.createdAt', 'DESC')
             ->setParameter('slug', $slug)
+        ;
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function getAnnoncesBySameCategory(Category $catEntity): array
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->innerJoin('a.category', 'cat')
+            ->addSelect('cat')
+            ->where('cat.id = :cate')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('cate', $catEntity->getId())
         ;
 
         return $qb->getQuery()->getResult();

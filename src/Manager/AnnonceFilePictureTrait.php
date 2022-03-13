@@ -11,9 +11,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -29,9 +29,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -47,9 +47,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -65,9 +65,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -83,9 +83,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -101,9 +101,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -119,9 +119,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
@@ -137,9 +137,9 @@ trait AnnonceFilePictureTrait {
 
     /**
      * @Assert\Image(
-     *     minWidth = 60,
+     *     minWidth = 360,
      *     maxWidth = 1000,
-     *     minHeight = 60,
+     *     minHeight = 250,
      *     maxHeight = 1000,
      *     maxSize = "100M",
      *     maxSizeMessage = "La taille maximum de l'image doit être de {{ size }} {{ suffix }}",
