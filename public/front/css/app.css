@@ -1560,8 +1560,18 @@ input.input-newsletter:focus {
     box-shadow: 0 0 10px #cececef2;
     overflow: hidden;
 }
+
+.spls_style_two:not(:first-child) {
+    height: 160px !important;
+    overflow: hidden;
+}
+
 .del-uploaded-img:hover {
     cursor: pointer;
+}
+
+.leaflet-top, .leaflet-bottom {
+    z-index: 800 !important;
 }
 .del-uploaded-img {
     top: 0;

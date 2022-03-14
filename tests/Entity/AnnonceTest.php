@@ -114,6 +114,7 @@ class AnnonceTest extends EntityTestCase
             ->setType('offre')
             ->setCategory($category)
             ->setPrice(12)
+            ->setLocation('Rue de la Cannebière')
             ;
     }
 }
