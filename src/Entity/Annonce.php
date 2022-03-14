@@ -118,6 +118,7 @@ class Annonce
     private $pack;
 
     /**
+     * @Assert\NotBlank(message="L'emplacement doit être précisé !")
      * @ORM\Column(type="string", length=255)
      */
     private $location;
