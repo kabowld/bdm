@@ -15,6 +15,7 @@
                     <div class="col-md-12 col-lg-8">
                         {% include 'Front/Annonce/_annonces_request_list.html.twig' %}
                     </div>
+                    {% for annonce in annonces %}
                     <div class="col-md-12 col-lg-4">
                         <div class="feat_property home7">
                             <div class="thumb">
@@ -33,14 +34,9 @@
                             </div>
                             <div class="details">
                                 <div class="tc_content">
-                                    <p class="text-thm">Single Family Home</p>
-                                    <h4>Luxury Family Home</h4>
-                                    <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
-                                    <ul class="prop_details mb0">
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Beds: 4</a></li>
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Baths: 2</a></li>
-                                        <li class="list-inline-item"><a class="text-thm3" href="#">Sq Ft: 5280</a></li>
-                                    </ul>
+                                    <p class="text-thm">{{ annonce.city.title }}</p>
+                                    <h4>{{ annonce.category.title }}</h4>
+                                    <p><span class="flaticon-placeholder"></span>{{ annonce.title|slice(0, 20) }}</p>
                                 </div>
                                 <div class="fp_footer">
                                     <ul class="fp_meta float-left mb0">
@@ -52,6 +48,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endfor %}
                 </div>
             </div>
         </section>

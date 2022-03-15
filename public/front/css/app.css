@@ -1600,6 +1600,15 @@ input.input-newsletter:focus {
     margin-bottom: auto;
 }
 
+.img-validation img {
+    width: 350px;
+    height: 350px;
+}
+
+.img-validation {
+    text-align: center;
+}
+
 @media (min-width: 992px) {
 
     .register-img {

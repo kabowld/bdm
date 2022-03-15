@@ -99,5 +99,28 @@ class PagesController extends AbstractController
         return $this->render('Front/Pages/cgu.html.twig');
     }
 
+    /**
+     * @Route("/sendgrid")
+     */
+    public function sendgrid()
+    {
+        $email = new \SendGrid\Mail\Mail();
+        $email->setFrom("contact@kabowd-digital.fr", "Example User");
+        $email->setSubject("Sending with SendGrid is Fun");
+        $email->addTo("guilfred.assezo@outlook.com", "Test Email");
+        $email->addContent("text/plain", "Arnaud tu es connecté bon test sendgrid");
+        $email->addContent(
+            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
+        );
+        $sendgrid = new \SendGrid('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');
+        try {
+            $response = $sendgrid->send($email);
+             return new Response('ok');
+        } catch (\Exception $e) {
+           return new Response('Caught exception: '. $e->getMessage() ."\n");
+        }
+
+
+    }
 
 }

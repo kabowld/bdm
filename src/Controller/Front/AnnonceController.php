@@ -5,6 +5,7 @@ namespace App\Controller\Front;
 use App\Entity\AnnonceSearch;
 use App\Form\AnnonceSearchType;
 use App\Manager\AnnonceManager;
+use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -65,12 +66,20 @@ class AnnonceController extends AbstractController
     }
 
     /**
-     * @Route("/annonce/show", name="annonce_single_bdmk", methods={"GET"})
+     * @Route("/annonce/{slug}", name="annonce_single_bdmk", methods={"GET"})
+     *
+     * @param string            $slug
+     * @param AnnonceRepository $annonceRepository
      *
      * @return Response
      */
-    public function show(): Response
+    public function show(string $slug, AnnonceRepository $annonceRepository): Response
     {
-        return $this->render('Front/Annonce/show.html.twig');
+        $annonce = $annonceRepository->findOneBy(['slug' => $slug]);
+        if (!$annonce) {
+            throw $this->createNotFoundException(AnnonceManager::PAGE_NOT_FOUND);
+        }
+
+        return $this->render('Front/Annonce/show.html.twig', compact('annonce'));
     }
 }

@@ -46,7 +46,8 @@ class AnnonceController extends AbstractController
     /**
      * @Route("/show/{id}", name="admin_annnonce_show_bdmk", methods={"GET"})
      *
-     * @param Annonce $annonce
+     * @param Annonce           $annonce
+     * @param AnnonceRepository $annonceRepository
      *
      * @return Response
      */
@@ -74,7 +75,10 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $annonce->setOwner($this->getUser());
+            $annonce
+                ->setSlug($form->get('title')->getData())
+                ->setOwner($this->getUser())
+            ;
             $this->annonceManager->persist($annonce);
 
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');
@@ -102,6 +106,7 @@ class AnnonceController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setSlug($form->get('title')->getData());
             $this->annonceManager->persist($form->getData(), false);
 
             return $this->redirectToRoute('admin_annnonce_liste_bdmk');

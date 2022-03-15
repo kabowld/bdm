@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Manager\AnnonceFilePictureTrait;
 use App\Repository\AnnonceRepository;
+use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -121,7 +122,13 @@ class Annonce
      * @Assert\NotBlank(message="L'emplacement doit être précisé !")
      * @ORM\Column(type="string", length=255)
      */
-    private $location;
+    private string $location;
+
+    /**
+     * @Assert\NotBlank(message="Le slug ne doit pas être vide !")
+     * @ORM\Column(type="string", length=255)
+     */
+    private string $slug;
 
     public function __construct()
     {
@@ -355,6 +362,18 @@ class Annonce
     public function setLocation(string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = (new Slugify())->slugify($slug);
 
         return $this;
     }

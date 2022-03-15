@@ -20,6 +20,14 @@ class AnnonceTest extends EntityTestCase
         $this->assertHasErrors($annonce, 2);
     }
 
+    public function testBlankSlug()
+    {
+        $annonce = $this->getAnnonce();
+        $annonce->setSlug('');
+
+        $this->assertHasErrors($annonce, 1);
+    }
+
     public function testWithBadLengthTitle()
     {
         $annonce = $this->getAnnonce();
@@ -108,6 +116,7 @@ class AnnonceTest extends EntityTestCase
 
         return (new Annonce())
             ->setTitle('title annonce')
+            ->setSlug('title-annonce')
             ->setDescription('description')
             ->setPostalCode('01 BP 10605 ABIDJAN 01')
             ->setCity($ville)
