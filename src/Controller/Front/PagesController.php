@@ -8,6 +8,7 @@ use App\Entity\AnnonceSearch;
 use App\Entity\Contact;
 use App\Form\AnnonceSearchType;
 use App\Form\ContactType;
+use App\Repository\AnnonceRepository;
 use App\Repository\CityRepository;
 use App\Repository\RubriqueRepository;
 use App\Service\SendMail;
@@ -30,7 +31,7 @@ class PagesController extends AbstractController
      *
      * @return Response
      */
-    public function index(Request $request, CityRepository $cityRepository, RubriqueRepository $rubriqueRepository): Response
+    public function index(Request $request, CityRepository $cityRepository, RubriqueRepository $rubriqueRepository, AnnonceRepository $annonceRepository): Response
     {
         $search = new AnnonceSearch();
         $form = $this->createForm(AnnonceSearchType::class, $search);
@@ -39,7 +40,8 @@ class PagesController extends AbstractController
         return $this->render('Front/Pages/home.html.twig', [
             'form' => $form->createView(),
             'cities' => $cityRepository->getCitiesByOrderTitle(),
-            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories()
+            'rubriques' => $rubriqueRepository->getAllRubriqueAndCategories(),
+            'annonces' => $annonceRepository->getLastFiveAnnonces(5)
         ]);
     }
 
@@ -97,30 +99,6 @@ class PagesController extends AbstractController
     public function cgu(): Response
     {
         return $this->render('Front/Pages/cgu.html.twig');
-    }
-
-    /**
-     * @Route("/sendgrid")
-     */
-    public function sendgrid()
-    {
-        $email = new \SendGrid\Mail\Mail();
-        $email->setFrom("contact@kabowd-digital.fr", "Example User");
-        $email->setSubject("Sending with SendGrid is Fun");
-        $email->addTo("guilfred.assezo@outlook.com", "Test Email");
-        $email->addContent("text/plain", "Arnaud tu es connecté bon test sendgrid");
-        $email->addContent(
-            "text/html", "<strong>and easy to do anywhere, even with PHP</strong>"
-        );
-        $sendgrid = new \SendGrid('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');
-        try {
-            $response = $sendgrid->send($email);
-             return new Response('ok');
-        } catch (\Exception $e) {
-           return new Response('Caught exception: '. $e->getMessage() ."\n");
-        }
-
-
     }
 
 }
