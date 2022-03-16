@@ -339,10 +339,10 @@
             loop:true,
             margin:30,
             dots:true,
-            nav:false,
+            nav:true,
             rtl:false,
             autoplayHoverPause:false,
-            autoplay: false,
+            autoplay: true,
             singleItem: true,
             smartSpeed: 1200,
             navText: [

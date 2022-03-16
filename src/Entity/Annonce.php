@@ -115,6 +115,7 @@ class Annonce
 
     /**
      * @ORM\ManyToOne(targetEntity=Pack::class, inversedBy="annonces")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $pack;
 
@@ -128,7 +129,7 @@ class Annonce
      * @Assert\NotBlank(message="Le slug ne doit pas être vide !")
      * @ORM\Column(type="string", length=255)
      */
-    private string $slug;
+    private string $slug = 'slug';
 
     public function __construct()
     {

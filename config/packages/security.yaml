@@ -27,6 +27,7 @@ security:
                 default_target_path: admin_dashboard_bdmk
             logout:
                 path: app_logout
+                target: login_bdmk
             remember_me:
                 secret:   '%kernel.secret%'
                 lifetime: 43200 # 1 day

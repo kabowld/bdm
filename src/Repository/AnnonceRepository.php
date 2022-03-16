@@ -161,7 +161,10 @@ class AnnonceRepository extends ServiceEntityRepository
      */
     public function findAllAnnonceQuery(AnnonceSearch $search): Query
     {
-        $query = $this->createQueryBuilder('a');
+        $query = $this
+            ->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+        ;
 
         if (in_array($search->getType(), AnnonceSearch::TYPE))  {
             $query = $query
@@ -197,6 +200,29 @@ class AnnonceRepository extends ServiceEntityRepository
         }
 
         return $query->getQuery();
+    }
+
+    public function getLastFiveAnnonces(int $limit): array
+    {
+        return
+            $this
+                ->createQueryBuilder('a')
+                ->orderBy('a.createdAt', 'DESC')
+                ->setMaxResults($limit)
+                ->getQuery()
+                ->getResult()
+        ;
+    }
+
+    public function findAllAnnonces()
+    {
+        return
+            $this
+                ->createQueryBuilder('a')
+                ->orderBy('a.createdAt', 'DESC')
+                ->getQuery()
+                ->getResult()
+            ;
     }
 
 }

@@ -1605,10 +1605,58 @@ input.input-newsletter:focus {
     height: 350px;
 }
 
+.mgm-img {
+    height: 230px;
+    overflow: hidden;
+}
+
 .img-validation {
     text-align: center;
 }
 
+.golden-ann {
+    background: var(--main-orange-color);
+}
+
+.silver-ann {
+    background: var(--main-green-color);
+}
+
+.golden-ann p, .golden-ann h4,.golden-ann a ,.golden-ann div {
+    color: #fff !important;
+}
+
+.gr-bg{
+    background: var(--main-green-color) !important;
+}
+
+.or-bg{
+    background: var(--main-orange-color) !important;
+}
+.tx-hdh{
+    font-weight: bold;
+}
+.mbp_pagination span {
+    background: var(--main-green-color);
+    margin-right: 10px;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.mbp_pagination span a, .mbp_pagination span {
+    color: #fff !important;
+}
+
+.mbp_pagination span.current, .mbp_pagination span.next, .mbp_pagination span.previous  {
+    background: var(--main-orange-color);
+}
+
+.mbp_pagination .pagination {
+    display: flex !important;
+    opacity: 1 !important;
+}
 @media (min-width: 992px) {
 
     .register-img {

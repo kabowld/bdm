@@ -80,6 +80,9 @@ class AnnonceController extends AbstractController
             throw $this->createNotFoundException(AnnonceManager::PAGE_NOT_FOUND);
         }
 
-        return $this->render('Front/Annonce/show.html.twig', compact('annonce'));
+        return $this->render('Front/Annonce/show.html.twig', [
+            'annonces' => $annonceRepository->getAnnoncesBySameCategory($annonce->getCategory()),
+            'annonce' => $annonce
+        ]);
     }
 }

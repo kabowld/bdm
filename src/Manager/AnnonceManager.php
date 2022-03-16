@@ -128,7 +128,7 @@ class AnnonceManager extends Manager
         $repository = $this->getEntityRepository(Annonce::class);
 
         $annonces = $this->paginator->paginate(
-            $repository->findAll(),
+            $repository->findAllAnnonces(),
             $page,
             self::ITEMS_BY_PAGE
         );
