@@ -183,12 +183,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      */
     private $avatar = null;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Annonce::class, inversedBy="usersFavoris")
+     * @ORM\JoinTable(name="user_favoris")
+     */
+    private $favoris;
+
     public function __construct()
     {
         $this->enabled = false;
         $this->createdAt = new \DateTimeImmutable();
         $this->isVerified = false;
         $this->annonces = new ArrayCollection();
+        $this->favoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -659,5 +666,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized);
+    }
+
+    /**
+     * @return Collection<int, Annonce>
+     */
+    public function getFavoris(): Collection
+    {
+        return $this->favoris;
+    }
+
+    public function addFavori(Annonce $favori): self
+    {
+        if (!$this->favoris->contains($favori)) {
+            $this->favoris[] = $favori;
+        }
+
+        return $this;
+    }
+
+    public function removeFavori(Annonce $favori): self
+    {
+        $this->favoris->removeElement($favori);
+
+        return $this;
     }
 }

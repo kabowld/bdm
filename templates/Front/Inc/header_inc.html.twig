@@ -27,7 +27,7 @@
                 </li>
                 {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
                 <li>
-                    <a href="#"><span class="title"><i class="fa fa-heart"></i> Favoris</span></a>
+                    <a href="{{ path('login_bdmk') }}"><span class="title"><i class="fa fa-heart"></i> Favoris</span></a>
                 </li>
                 {% endif %}
                 <li>
