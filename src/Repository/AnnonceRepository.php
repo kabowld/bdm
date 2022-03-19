@@ -221,7 +221,9 @@ class AnnonceRepository extends ServiceEntityRepository
         return
             $this
                 ->createQueryBuilder('a')
-                ->orderBy('a.createdAt', 'DESC')
+                ->leftJoin('a.pack', 'pack')
+                ->addOrderBy('pack.id', 'DESC')
+                ->addOrderBy('a.createdAt', 'DESC')
                 ->getQuery()
                 ->getResult()
             ;
