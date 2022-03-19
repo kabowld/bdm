@@ -1657,6 +1657,10 @@ input.input-newsletter:focus {
     display: flex !important;
     opacity: 1 !important;
 }
+.opc{
+    opacity: .9 !important;
+}
+
 @media (min-width: 992px) {
 
     .register-img {

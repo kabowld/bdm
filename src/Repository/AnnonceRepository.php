@@ -163,7 +163,9 @@ class AnnonceRepository extends ServiceEntityRepository
     {
         $query = $this
             ->createQueryBuilder('a')
-            ->orderBy('a.createdAt', 'DESC')
+            ->leftJoin('a.pack', 'pack')
+            ->addOrderBy('pack.id', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
         ;
 
         if (in_array($search->getType(), AnnonceSearch::TYPE))  {
