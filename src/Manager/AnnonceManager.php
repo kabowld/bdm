@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class AnnonceManager extends Manager
 {
     public const PAGE_NOT_FOUND = 'La page est introuvable !';
-    private const ITEMS_BY_PAGE = 30;
+    private const ITEMS_BY_PAGE = 5 ;
 
     /**
      * Returns annonces by owner

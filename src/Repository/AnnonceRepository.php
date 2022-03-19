@@ -24,35 +24,6 @@ class AnnonceRepository extends ServiceEntityRepository
         parent::__construct($registry, Annonce::class);
     }
 
-    // /**
-    //  * @return Annonce[] Returns an array of Annonce objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('a.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Annonce
-    {
-        return $this->createQueryBuilder('a')
-            ->andWhere('a.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
     /**
      * @param UserInterface $user
      *
@@ -84,19 +55,36 @@ class AnnonceRepository extends ServiceEntityRepository
     }
 
 
+    /**
+     * Get annonces By Category
+     *
+     * @param string $slug
+     *
+     * @return array
+     */
     public function getAnnoncesByCategorySlug(string $slug): array
     {
         $qb = $this->createQueryBuilder('a');
         $qb->innerJoin('a.category', 'cat')
             ->addSelect('cat')
             ->where($qb->expr()->eq('cat.slug', ':slug'))
-            ->orderBy('a.createdAt', 'DESC')
+            ->leftJoin('a.pack', 'pack')
+            ->addSelect('pack')
+            ->addOrderBy('pack.id', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
             ->setParameter('slug', $slug)
         ;
 
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * Get Annonces with same category
+     *
+     * @param Category $catEntity
+     *
+     * @return array
+     */
     public function getAnnoncesBySameCategory(Category $catEntity): array
     {
         $qb = $this->createQueryBuilder('a');
@@ -105,12 +93,19 @@ class AnnonceRepository extends ServiceEntityRepository
             ->where('cat.id = :cate')
             ->orderBy('a.createdAt', 'DESC')
             ->setParameter('cate', $catEntity->getId())
+            ->setMaxResults(4)
         ;
 
         return $qb->getQuery()->getResult();
     }
 
-
+    /**
+     * Get Annonce By Rubrique
+     *
+     * @param string $slug
+     *
+     * @return array
+     */
     public function getAnnoncesByRubriqueSlug(string $slug): array
     {
         $qb = $this->createQueryBuilder('a');
@@ -119,26 +114,46 @@ class AnnonceRepository extends ServiceEntityRepository
             ->addSelect('cat')
             ->addSelect('rub')
             ->where($qb->expr()->eq('rub.slug', ':slug'))
-            ->orderBy('a.createdAt', 'DESC')
+            ->leftJoin('a.pack', 'pack')
+            ->addSelect('pack')
+            ->addOrderBy('pack.id', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
             ->setParameter('slug', $slug)
             ;
 
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * Get Annonce By city
+     *
+     * @param string $slug
+     *
+     * @return array
+     */
     public function getAnnoncesByCitySlug(string $slug): array
     {
         $qb = $this->createQueryBuilder('a');
         $qb->innerJoin('a.city', 'city')
             ->addSelect('city')
             ->where($qb->expr()->eq('city.slug', ':slug'))
-            ->orderBy('a.createdAt', 'DESC')
+            ->leftJoin('a.pack', 'pack')
+            ->addSelect('pack')
+            ->addOrderBy('pack.id', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
             ->setParameter('slug', $slug)
         ;
 
         return $qb->getQuery()->getResult();
     }
 
+    /**
+     * Get Annonce By Region
+     *
+     * @param string $slug
+     *
+     * @return int|mixed|string
+     */
     public function getAnnoncesByRegionSlug(string $slug)
     {
         $qb = $this->createQueryBuilder('a');
@@ -147,7 +162,10 @@ class AnnonceRepository extends ServiceEntityRepository
             ->addSelect('city')
             ->addSelect('reg')
             ->where($qb->expr()->eq('reg.slug', ':slug'))
-            ->orderBy('a.createdAt', 'DESC')
+            ->leftJoin('a.pack', 'pack')
+            ->addSelect('pack')
+            ->addOrderBy('pack.id', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
             ->setParameter('slug', $slug)
         ;
 
@@ -164,6 +182,7 @@ class AnnonceRepository extends ServiceEntityRepository
         $query = $this
             ->createQueryBuilder('a')
             ->leftJoin('a.pack', 'pack')
+            ->addSelect('pack')
             ->addOrderBy('pack.id', 'DESC')
             ->addOrderBy('a.createdAt', 'DESC')
         ;
@@ -204,6 +223,13 @@ class AnnonceRepository extends ServiceEntityRepository
         return $query->getQuery();
     }
 
+    /**
+     * Get last five annonces
+     *
+     * @param int $limit
+     *
+     * @return array
+     */
     public function getLastFiveAnnonces(int $limit): array
     {
         return
@@ -216,12 +242,16 @@ class AnnonceRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findAllAnnonces()
+    /**
+     * @return Annonce[]
+     */
+    public function findAllAnnonces(): array
     {
         return
             $this
                 ->createQueryBuilder('a')
                 ->leftJoin('a.pack', 'pack')
+                ->addSelect('pack')
                 ->addOrderBy('pack.id', 'DESC')
                 ->addOrderBy('a.createdAt', 'DESC')
                 ->getQuery()

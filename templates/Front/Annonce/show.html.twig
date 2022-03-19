@@ -162,36 +162,40 @@
                                 <div class="feat_property home7">
                                     <div class="thumb">
                                         {% if not annonce.filePictures.empty %}
-                                            <img class="img-whp" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                                            <img class="img-whp opcx" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
                                         {% else %}
-                                            <img class="img-whp" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
+                                            <img class="img-whp opcx" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                                         {% endif %}
                                         <div class="thmb_cntnt">
-                                            <ul class="tag mb0">
-                                                <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                                <li class="list-inline-item"><a href="#">Featured</a></li>
-                                            </ul>
-                                            <ul class="icon mb0">
-                                                <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                                <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                            </ul>
-                                            {% if annonce.price is not null %}
-                                                <a class="fp_price" href="#">{{ annonce.formatPrice }}<small>/mo</small></a>
+                                            {% if annonce.pack %}
+                                                <ul class="tag mb0">
+                                                    {% if annonce.pack.title == 'Pack VIP' %}
+                                                        <li class="list-inline-item gr-bg"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" style="font-weight: bold">A la une</a></li>
+                                                        <li class="list-inline-item or-bg"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" style="font-weight: bold">VIP</a></li>
+                                                    {% endif %}
+                                                    {% if annonce.pack.title == 'Pack Or' %}
+                                                        <li class="list-inline-item or-bg"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" style="font-weight: bold">Or</a></li>
+                                                    {% endif %}
+                                                </ul>
                                             {% endif %}
+                                            {% if not annonce.filePictures.empty %}
+                                                <ul class="icon mb0">
+                                                    <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.filePictures|length }}</a></li>
+                                                </ul>
+                                            {% endif %}
+                                            <a class="fp_price" href="#">{{ annonce.formatPrice }}<small> F cfa</small></a>
                                         </div>
                                     </div>
                                     <div class="details">
                                         <div class="tc_content">
-                                            <p class="text-thm">{{ annonce.city.title }}</p>
-                                            <h4>{{ annonce.category.title }}</h4>
-                                            <p><span class="flaticon-placeholder"></span>{{ annonce.title|slice(0, 20) }}</p>
+                                            <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
+                                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title|slice(0, 20) }}</a></h4>
+                                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></p>
+                                            <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                                         </div>
                                         <div class="fp_footer">
-                                            <ul class="fp_meta float-left mb0">
-                                                <li class="list-inline-item"><a href="#"><img src="{{ asset('front/images/property/pposter1.png') }}" alt="pposter1.png"></a></li>
-                                                <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
-                                            </ul>
-                                            <div class="fp_pdate float-right">4 years ago</div>
+                                            <div class="fp_pdate float-left"><a href="#"><i class="black-heart fa fa-heart-o"></i></a></div>
+                                            <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -204,27 +208,27 @@
                         <div class="sidebar_advanced_search_widget">
                             <div class="sl_creator">
                                 <div class="media">
-                                    {% if app.user.avatar %}
-                                        {% if app.user.avatar.fileName is null %}
+                                    {% if annonce.owner.avatar %}
+                                        {% if annonce.owner.avatar.fileName is null %}
                                             {% set imageUrl = '/front/images/avatar.png' %}
                                         {% else %}
-                                            {% set imageUrl = asset('/front/webfiles/' ~ app.user.avatar.fileName) %}
+                                            {% set imageUrl = asset('/front/webfiles/' ~ annonce.owner.avatar.fileName) %}
                                         {% endif %}
                                     {% else %}
                                         {% set imageUrl = '/front/images/avatar.png' %}
                                     {% endif %}
                                     <img class="mr-3" style="width: 90px; height: auto" src="{{ imageUrl }}" alt="avatar">
                                     <div class="media-body">
-                                        {% if app.user.name or app.user.firstname %}
+                                        {% if annonce.owner.name or annonce.owner.firstname %}
                                             <h5 class="mt-0 mb0">
-                                                {% if app.user.name %}{{ app.user.name }}{% endif %}
-                                                {% if app.user.firstname %}{{ app.user.firstname }}{% endif %}
+                                                {% if annonce.owner.name %}{{ annonce.owner.name }}{% endif %}
+                                                {% if annonce.owner.firstname %}{{ annonce.owner.firstname }}{% endif %}
                                             </h5>
                                         {% endif %}
-                                        {% if app.user.tel %}
-                                            <p class="mb0">{{ app.user.tel }}</p>
+                                        {% if annonce.owner.tel %}
+                                            <p class="mb0">{{ annonce.owner.tel }}</p>
                                         {% endif %}
-                                        <p class="mb0">{{ app.user.email }}</p>
+                                        <p class="mb0">{{ annonce.owner.email }}</p>
                                         <a class="text-thm" href="#">Voir profil</a>
                                     </div>
                                 </div>
