@@ -15,7 +15,13 @@
                     <div class="col-md-12 col-lg-8">
                         {% include 'Front/Annonce/_annonces_request_list.html.twig' %}
                     </div>
-                    <div class="col-md-12 col-lg-4 vip-box">
+                    {% set vip_box = '' %}
+                    {% for annonce in annonces %}
+                        {% if annonce.pack and annonce.pack.title == 'Pack VIP' %}
+                            {% set vip_box = 'vip-box' %}
+                        {% endif %}
+                    {% endfor %}
+                    <div class="col-md-12 col-lg-4 {{ vip_box }}">
                         {% for annonce in annonces|filter(annonce => annonce.pack and annonce.pack.title == 'Pack VIP') %}
                             <div class="feat_property home7">
                                     <div class="thumb">
@@ -45,8 +51,8 @@
                                             <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                                         </div>
                                         <div class="fp_footer">
-                                            <div class="fp_pdate float-left"><a href="#"><i class="black-heart fa fa-heart-o"></i></a></div>
-                                            <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
+                                            <div class="float-left"><a href="#"><i class="black-heart fa fa-heart-o"></i></a></div>
+                                            <div class="float-right">{{ duration(annonce.createdAt) }}</div>
                                         </div>
                                     </div>
                                 </div>

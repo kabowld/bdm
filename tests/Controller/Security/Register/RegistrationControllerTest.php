@@ -33,7 +33,6 @@ class RegistrationControllerTest extends WebTestCase
 
         $form->setValues([
             'registration[tel]' => '0678943678',
-            'registration[siret]' => 'DGDYYGDE7733KKK',
             'registration[adresse]' => 'blabla',
             'registration[name]' => 'alfred',
             'registration[firstname]' => 'test',
