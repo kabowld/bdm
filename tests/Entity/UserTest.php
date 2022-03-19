@@ -68,7 +68,6 @@ class UserTest extends EntityTestCase
             ->setEmail('miss@test.mail')
             ->setCivility($this->str_random(16))
             ->setTel($this->str_random(16))
-            ->setSiret($this->str_random(60))
         ;
 
         $this->assertHasErrors($user, 4);
