@@ -1,13 +1,12 @@
 <div class="row">
     <div class="col-lg-12">
-        {% for annonce in annonces %}
-            {% if annonce.pack and annonce.pack.title == 'Pack Or' %}
+        {% for annonce in annonces|filter(annonce => annonce.pack and annonce.pack.title == 'Pack Or')  %}
                 <div class="feat_property list golden-ann">
                     <div class="thumb mgm-img">
                         {% if not annonce.filePictures.empty %}
-                            <img class="img-whp" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                            <img class="img-whp opc" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
                         {% else %}
-                            <img class="img-whp" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
+                            <img class="img-whp opc" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                         {% endif %}
                         <div class="thmb_cntnt">
                             <ul class="icon mb0">
@@ -26,54 +25,61 @@
                                     <a class="fp_price" href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.formatPrice }}<small> F cfa</small></a>
                                 {% endif %}
                             </div>
-                            <p class="text-thm">{{ annonce.city.title }}</p>
-                            <h4>{{ annonce.category.title }}</h4>
-                            <p>{{ annonce.title }}</p>
+                            <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
+                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></h4>
+                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></p>
+                            <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                         </div>
                         <div class="fp_footer">
+                            <div class="fp_pdate float-left"><a href="#"><span class="flaticon-heart"></span></a></div>
                             <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
                         </div>
                     </div>
                 </div>
-            {% endif %}
-            {% if annonce.pack and annonce.pack.title == 'Pack argent' %}
-                <div class="feat_property list">
-                    <div class="thumb mgm-img">
-                        {% if not annonce.filePictures.empty %}
-                            <img class="img-whp" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
-                        {% else %}
-                            <img class="img-whp" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
-                        {% endif %}
-                        <div class="thmb_cntnt">
-                            <ul class="icon mb0">
-                                <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}"><span class="flaticon-transfer-1"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="details">
-                        <div class="tc_content">
-                            <div class="dtls_headr">
-                                {% if annonce.price is not null %}
-                                    <a class="fp_price" href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.formatPrice }}<small> F cfa</small></a>
-                                {% endif %}
-                            </div>
-                            <p class="text-thm">{{ annonce.city.title }}</p>
-                            <h4>{{ annonce.category.title }}</h4>
-                            <p>{{ annonce.title }}</p>
-                        </div>
-                        <div class="fp_footer">
-                            <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
-                        </div>
+
+        {% endfor %}
+        {% for annonce in annonces|filter(annonce => annonce.pack and annonce.pack.title == 'Pack argent')  %}
+            <div class="feat_property list">
+                <div class="thumb mgm-img">
+                    {% if not annonce.filePictures.empty %}
+                        <img class="img-whp opc" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                    {% else %}
+                        <img class="img-whp opc" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
+                    {% endif %}
+                    <div class="thmb_cntnt">
+                        <ul class="icon mb0">
+                            <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}"><span class="flaticon-transfer-1"></span></a></li>
+                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                        </ul>
                     </div>
                 </div>
-            {% endif %}
+                <div class="details">
+                    <div class="tc_content">
+                        <div class="dtls_headr">
+                            {% if annonce.price is not null %}
+                                <a class="fp_price" href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.formatPrice }}<small> F cfa</small></a>
+                            {% endif %}
+                        </div>
+                        <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
+                        <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></h4>
+                        <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></p>
+                        <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
+                    </div>
+                    <div class="fp_footer">
+                        <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        {% for annonce in annonces %}
             {% if not annonce.pack %}
                 <div class="feat_property list">
                     <div class="thumb mgm-img">
                         {% if not annonce.filePictures.empty %}
-                            <img class="img-whp" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                            <img class="img-whp opc" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
                         {% else %}
-                            <img class="img-whp" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
+                            <img class="img-whp opc" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                         {% endif %}
                         <div class="thmb_cntnt">
                             <ul class="icon mb0">
@@ -89,13 +95,14 @@
                                     <a class="fp_price" href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.formatPrice }}<small> F cfa</small></a>
                                 {% endif %}
                             </div>
-                            <p class="text-thm">{{ annonce.city.title }}</p>
-                            <h4>{{ annonce.category.title }}</h4>
-                            <p>{{ annonce.title }}</p>
+                            <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
+                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></h4>
+                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></p>
+                            <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                         </div>
-                        <div class="fp_footer">
-                            <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
-                        </div>
+                            <div class="fp_footer">
+                                <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
+                            </div>
                     </div>
                 </div>
             {% endif %}

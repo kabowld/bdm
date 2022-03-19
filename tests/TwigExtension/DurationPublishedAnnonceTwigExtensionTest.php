@@ -7,8 +7,6 @@ use PHPUnit\Framework\TestCase;
 
 class DurationPublishedAnnonceTwigExtensionTest extends TestCase
 {
-
-
     public function testDuration()
     {
         $date = new \DateTimeImmutable('2 days ago');
