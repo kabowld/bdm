@@ -62,10 +62,6 @@ class ProfilProType extends AbstractType
                 'multiple' => false,
                 'label' => false,
             ])
-            ->add('siret', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Saisir le numéro de sécurité social'],
-                'label' => 'Numéro de sécurité social'
-            ])
             ->add('societyName', TextType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Saisir le nom de votre société',],
                 'label' => 'Nom de société'

@@ -1660,6 +1660,24 @@ input.input-newsletter:focus {
 .opc{
     opacity: .9 !important;
 }
+.opcx{
+    opacity: .7 !important;
+}
+.location-ann {
+    font-size: 12px;
+}
+
+.fp_pdate.float-left a span {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.vip-box{
+    background: var(--main-orange-color);
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
 
 @media (min-width: 992px) {
 

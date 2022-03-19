@@ -8,12 +8,13 @@
                         {% else %}
                             <img class="img-whp opc" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                         {% endif %}
+                        {% if not annonce.filePictures.empty %}
                         <div class="thmb_cntnt">
                             <ul class="icon mb0">
-                                <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}"><span class="flaticon-transfer-1"></span></a></li>
-                                <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.filePictures|length }}</a></li>
                             </ul>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="details">
                         <div class="tc_content">
@@ -26,12 +27,12 @@
                                 {% endif %}
                             </div>
                             <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
-                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></h4>
-                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></p>
+                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></h4>
+                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></p>
                             <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                         </div>
                         <div class="fp_footer">
-                            <div class="fp_pdate float-left"><a href="#"><span class="flaticon-heart"></span></a></div>
+                            <div class="fp_pdate float-left"><a href="#"><i class="fa fa-heart-o"></i></a></div>
                             <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
                         </div>
                     </div>
@@ -46,12 +47,13 @@
                     {% else %}
                         <img class="img-whp opc" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                     {% endif %}
+                    {% if not annonce.filePictures.empty %}
                     <div class="thmb_cntnt">
                         <ul class="icon mb0">
-                            <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}"><span class="flaticon-transfer-1"></span></a></li>
-                            <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                            <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.filePictures|length }}</a></li>
                         </ul>
                     </div>
+                    {% endif %}
                 </div>
                 <div class="details">
                     <div class="tc_content">
@@ -61,11 +63,12 @@
                             {% endif %}
                         </div>
                         <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
-                        <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></h4>
-                        <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></p>
+                        <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></h4>
+                        <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></p>
                         <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                     </div>
                     <div class="fp_footer">
+                        <div class="fp_pdate float-left"><a href="#"><i class="fa fa-heart-o black-heart"></i></a></div>
                         <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
                     </div>
                 </div>
@@ -81,12 +84,13 @@
                         {% else %}
                             <img class="img-whp opc" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                         {% endif %}
+                        {% if not annonce.filePictures.empty %}
                         <div class="thmb_cntnt">
                             <ul class="icon mb0">
-                                <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}"><span class="flaticon-transfer-1"></span></a></li>
-                                <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                                <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.filePictures|length }}</a></li>
                             </ul>
                         </div>
+                        {% endif %}
                     </div>
                     <div class="details">
                         <div class="tc_content">
@@ -96,11 +100,12 @@
                                 {% endif %}
                             </div>
                             <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
-                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></h4>
-                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></p>
+                            <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title }}</a></h4>
+                            <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></p>
                             <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                         </div>
                             <div class="fp_footer">
+                                <div class="fp_pdate float-left"><a href="#"><i class="black-heart fa fa-heart-o"></i></a></div>
                                 <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
                             </div>
                     </div>

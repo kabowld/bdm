@@ -4433,14 +4433,14 @@ form.home5_advanced_search_form .form-group input.form-control::-ms-input-placeh
   right: 20px;
 }
 .feat_property .thumb .thmb_cntnt .icon li{
-  border-radius: 8px;
-  background-color: rgb(15, 21, 31);
-  height: 35px;
-  line-height: 35px;
+  border-radius: 50px;
+  background-color: rgba(0, 0, 0, .74);
+  height: 33px;
+  line-height: 33px;
   margin-right: 5px;
   opacity: 0.502;
   text-align: center;
-  width: 35px;
+  width: 33px;
 }
 .feat_property.home8 .icon li{
   border-radius: 8px;

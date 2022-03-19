@@ -660,7 +660,7 @@
 	.right_area.style2{text-align: left !important;}
 	.right_area.style2 .bootstrap-select>.dropdown-toggle{z-index: 0;}
 	.feat_property.list{display: grid;}
-	.feat_property.list .thumb{height: auto;width: auto;}
+	.feat_property.list .thumb{height: 250px;width: auto;}
 	.feat_property.list .details{width: auto;}
 	.home_content.listing{padding: 0 !important;}
 	.home_content.listing.slider_style{padding: 380px 0 0 !important;}

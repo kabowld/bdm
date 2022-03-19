@@ -21,7 +21,6 @@ class RegistrationParticular extends AbstractType
         $builder
             ->remove('name')
             ->remove('firstname')
-            ->remove('siret')
             ->remove('societyName')
             ->remove('adresse')
             ->remove('city')

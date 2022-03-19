@@ -123,34 +123,42 @@
                         <div class="feature_property_slider owl-carousel">
                             {% for annonce in annonces %}
                                 <div class="item">
-                                    <div class="feat_property">
-                                        <div class="thumb mgm-img">
+                                    <div class="feat_property home7">
+                                        <div class="thumb">
                                             {% if not annonce.filePictures.empty %}
-                                                <img class="img-whp" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
+                                                <img class="img-whp opcx" src="{{ vich_uploader_asset(annonce.filePicture, 'file') }}" alt="{{ annonce.filePicture.fileName }}">
                                             {% else %}
-                                                <img class="img-whp" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
+                                                <img class="img-whp opcx" src="{{ asset('front/images/empty.jpg') }}" alt="aucune image">
                                             {% endif %}
                                             <div class="thmb_cntnt">
+                                                {% if annonce.pack %}
                                                 <ul class="tag mb0">
-                                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
-                                                    <li class="list-inline-item"><a href="#">Featured</a></li>
+                                                    {% if annonce.pack.title == 'Pack VIP' %}
+                                                    <li class="list-inline-item gr-bg"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" style="font-weight: bold">A la une</a></li>
+                                                    <li class="list-inline-item or-bg"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" style="font-weight: bold">VIP</a></li>
+                                                    {% endif %}
+                                                    {% if annonce.pack.title == 'Pack Or' %}
+                                                    <li class="list-inline-item or-bg"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" style="font-weight: bold">Or</a></li>
+                                                    {% endif %}
                                                 </ul>
-                                                <ul class="icon mb0">
-                                                    <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
-                                                    <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
-                                                </ul>
-                                                {% if annonce.price is not null %}
-                                                    <a class="fp_price" href="#">{{ annonce.formatPrice }}<small>F cfa</small></a>
                                                 {% endif %}
+                                                {% if not annonce.filePictures.empty %}
+                                                    <ul class="icon mb0">
+                                                        <li class="list-inline-item"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.filePictures|length }}</a></li>
+                                                    </ul>
+                                                {% endif %}
+                                                <a class="fp_price" href="#">{{ annonce.formatPrice }}<small> F cfa</small></a>
                                             </div>
                                         </div>
                                         <div class="details">
                                             <div class="tc_content">
-                                                <p class="text-thm">{{ annonce.city.title }}</p>
-                                                <h4>{{ annonce.category.title }}</h4>
-                                                <p><span class="flaticon-placeholder"></span>{{ annonce.title|slice(0, 20) }}</p>
+                                                <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
+                                                <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title|slice(0, 20) }}</a></h4>
+                                                <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></p>
+                                                <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
                                             </div>
                                             <div class="fp_footer">
+                                                <div class="fp_pdate float-left"><a href="#"><i class="black-heart fa fa-heart-o"></i></a></div>
                                                 <div class="fp_pdate float-right">{{ duration(annonce.createdAt) }}</div>
                                             </div>
                                         </div>

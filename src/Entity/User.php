@@ -120,12 +120,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     private ?string $firstname;
 
     /**
-     * @Assert\Length(max=50, maxMessage="Le numéro  de sécurité social n'est pas correcte !")
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private ?string $siret;
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private ?string $societyName;
@@ -496,18 +490,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     public function setFirstname(?string $firstname): self
     {
         $this->firstname = $firstname;
-
-        return $this;
-    }
-
-    public function getSiret(): ?string
-    {
-        return $this->siret;
-    }
-
-    public function setSiret(?string $siret): self
-    {
-        $this->siret = $siret;
 
         return $this;
     }
