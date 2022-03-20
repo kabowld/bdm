@@ -48,10 +48,14 @@
                                             <p class="text-thm"><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.city.title }}</a></p>
                                             <h4><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.title|slice(0, 20) }}</a></h4>
                                             <p><a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}">{{ annonce.category.title }}</a></p>
-                                            <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.location }}</a>
+                                            <a href="{{ path('annonce_single_bdmk', {slug: annonce.slug}) }}" class="location-ann">{{ annonce.locationFormat }}</a>
                                         </div>
                                         <div class="fp_footer">
-                                            <div class="float-left"><a href="#"><i class="black-heart fa fa-heart-o"></i></a></div>
+                                            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                                            <div class="float-left"><a href="{{ path('login_bdmk') }}"><i class="black-heart fa fa-heart-o"></i></a></div>
+                                            {% else %}
+                                                {{ favorisTag(annonce) }}
+                                            {% endif %}
                                             <div class="float-right">{{ duration(annonce.createdAt) }}</div>
                                         </div>
                                     </div>

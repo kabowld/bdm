@@ -21,6 +21,8 @@ class Annonce
 
     use AnnonceFilePictureTrait;
 
+    const PATTERN_SEARCH_LOCATION = ", Côte d'Ivoire";
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -131,10 +133,16 @@ class Annonce
      */
     private string $slug = 'slug';
 
+    /**
+     * @ORM\ManyToMany(targetEntity=User::class, mappedBy="favoris")
+     */
+    private $usersFavoris;
+
     public function __construct()
     {
         $this->createdAt = new \DateTimeImmutable();
         $this->filePictures = new ArrayCollection();
+        $this->usersFavoris = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -360,6 +368,11 @@ class Annonce
         return $this->location;
     }
 
+    public function getLocationFormat(): ?string
+    {
+        return str_replace(self::PATTERN_SEARCH_LOCATION, "", $this->location);
+    }
+
     public function setLocation(string $location): self
     {
         $this->location = $location;
@@ -375,6 +388,33 @@ class Annonce
     public function setSlug(string $slug): self
     {
         $this->slug = (new Slugify())->slugify($slug);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsersFavoris(): Collection
+    {
+        return $this->usersFavoris;
+    }
+
+    public function addUsersFavori(User $usersFavori): self
+    {
+        if (!$this->usersFavoris->contains($usersFavori)) {
+            $this->usersFavoris[] = $usersFavori;
+            $usersFavori->addFavori($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersFavori(User $usersFavori): self
+    {
+        if ($this->usersFavoris->removeElement($usersFavori)) {
+            $usersFavori->removeFavori($this);
+        }
 
         return $this;
     }

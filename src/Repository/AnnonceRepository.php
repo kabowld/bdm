@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Annonce;
 use App\Entity\AnnonceSearch;
 use App\Entity\Category;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
@@ -256,6 +257,21 @@ class AnnonceRepository extends ServiceEntityRepository
                 ->addOrderBy('a.createdAt', 'DESC')
                 ->getQuery()
                 ->getResult()
+            ;
+    }
+
+    public function getFavoris(User $currentUser)
+    {
+        $query = $this->createQueryBuilder('a');
+
+        return
+            $query
+                ->innerJoin('a.usersFavoris', 'user')
+                ->addSelect('user')
+                ->where('user = :currentUser')
+                ->orderBy('a.createdAt', 'DESC')
+                ->setParameter('currentUser', $currentUser)
+                ->getQuery()
             ;
     }
 
