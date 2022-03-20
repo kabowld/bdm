@@ -55,10 +55,6 @@ class RegistrationType extends AbstractType
                 'attr' => ['placeholder' =>  'Saisir votre prénom','class' => 'form-control'],
                 'label'=> 'Prénom',
             ])
-            ->add('siret', TextType::class, [
-                'attr' => ['class' => 'form-control', 'placeholder' => 'Saisir le numéro de sécurité social'],
-                'label' => 'Numéro de sécurité social'
-            ])
             ->add('societyName', TextType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' => 'Saisir le nom de votre société',],
                 'label' => 'Nom de société'
