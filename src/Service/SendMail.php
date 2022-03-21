@@ -8,6 +8,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mime\Crypto\SMimeSigner;
 
 /**
  * Send Mail
@@ -54,7 +55,12 @@ class SendMail
                 ->htmlTemplate($tplPath)
                 ->context($context)
             ;
-            $this->mailer->send($email);
+
+            $signer = new SMimeSigner('/path/to/certificate.crt', '/path/to/certificate-private-key.key');
+
+            $signedEmail = $signer->sign($email);
+
+            $this->mailer->send($signedEmail);
         } catch (TransportExceptionInterface $e) {
             $this->logger->error(sprintf(self::MESSAGE_EXCEPTION_TRANSPORT, $e->getMessage()), ['exception' => $e]);
         }
