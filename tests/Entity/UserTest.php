@@ -70,7 +70,7 @@ class UserTest extends EntityTestCase
             ->setTel($this->str_random(16))
         ;
 
-        $this->assertHasErrors($user, 4);
+        $this->assertHasErrors($user, 3);
     }
 
 
