@@ -83,7 +83,7 @@
                 <img style="width: 120px; height: auto" class="nav_logo_img img-fluid mt20" src="{{ asset('front/images/logo.png') }}" alt="logo">
             </div>
             <ul class="menu_bar_home2">
-                <li class="list-inline-item list_s"><a href="{{ path('choice_registration_bdmk') }}"><span class="flaticon-user"></span></a></li>
+                <li class="list-inline-item list_s"><a href="#"><span class="flaticon-user"></span></a></li>
                 <li class="list-inline-item"><a href="#menu"><span></span></a></li>
             </ul>
         </div>
@@ -94,10 +94,22 @@
                 <a href="{{ path('home_bdmk') }}">Accueil</a>
             </li>
             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li><a href="{{ path('admin_dashboard_bdmk') }}"><i class="fa fa-dashboard"></i> Tableau de bord</a></li>
+                <li><a href="{{ path('list_search_annonces_bdmk') }}"><i class="fa fa-search"></i> Rechercher</a></li>
+                <li><a href="{{ path('admin_favoris_liste_bdmk') }}"><i class="fa fa-heart"></i> Favoris</a></li>
+                {% if is_granted('ROLE_USER')  %}
+                <li><a href="{{ path('edit_profile_admin_bdmk') }}"><i class="fa fa-user-circle"></i> Mon profil</a></li>
+                {% elseif is_granted('ROLE_PRO') %}
+                <li><a href="{{ path('edit_profile_pro_admin_bdmk') }}"><i class="fa fa-user-circle"></i> Mon profil</a></li>
+                {% endif %}
+                <li><a href="{{ path('reset_password_bdmk') }}"><i class="fa fa-lock"></i> Mot de passe</a></li>
+                <li><a href="{{ path('admin_annnonce_liste_bdmk') }}"><i class="fa fa-bars"></i> Mes annonces</a></li>
                 <li><a href="{{ path('app_logout') }}"><i class="fa fa-sign-out"></i> Se déconnecter</a></li>
             {% else %}
                 <li><a href="{{ path('login_bdmk') }}"><span class="flaticon-user"></span> Se connecter</a></li>
                 <li><a href="{{ path('choice_registration_bdmk') }}"><span class="flaticon-edit"></span> S'inscrire</a></li>
+                <li><a href="{{ path('login_bdmk') }}"><i class="fa fa-plus-circle"></i> Déposer une annonce</a></li>
+                <li><a href="{{ path('login_bdmk') }}"><i class="fa fa-heart"></i> Favoris</a></li>
             {% endif %}
             <li class="cl_btn"><a href="{{ path('admin_annnonce_add_bdmk') }}" class="btn btn-block btn-lg btn-bdmk-mb circle mm-listitem__text"><i class="fa fa-plus"></i> Déposer une annonce</a>
         </ul>
