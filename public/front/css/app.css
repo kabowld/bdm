@@ -753,16 +753,20 @@ a.dropdown-item.signout-head{
     cursor: pointer;
 }
 
-.nav-bdm li.nav-item.dropdown{
+.img-profile {
+    width: 55px;
+    height: 54px;
+    transform: translateY(20px);
     background-repeat: no-repeat;
-    background-position: center center;
-    background-size: 60px;
-    width: 60px;
-    height: auto;
+    background-position: center;
+    background-size: 100%;
+    border-radius: 50%;
 }
 
-.icon-iuser {
-    visibility: hidden;
+.nav-bdm .mvdrp span.arrow,
+.nav-bdm .dropdown-toggle::after
+{
+    display: none;
 }
 
 .form-img-el-particular {

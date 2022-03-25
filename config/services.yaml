@@ -47,6 +47,9 @@ services:
         tags:
             - { name: kernel.event_listener, method: onKernelException, event: kernel.exception }
 
+    App\EventListener\FirstLoginResponseEventListener:
+        tags:
+            - { name: kernel.event_listener, method: onKernelResponse, event: kernel.response }
 
     # EventListener Entity User Doctrine
     App\EventDoctrine\User\RegistrationUser:
