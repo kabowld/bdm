@@ -24,7 +24,7 @@ class UserManager extends Manager
     const ADMIN_DASHBOARD_PATH = 'admin_dashboard_bdmk';
     const ERROR_MESS_NOT_FOUND = 'La page que vous recherchez est introuvable !';
     const MESS_SUCCESS_ACTIVATION = 'Bravo, votre compte a été activé avec succès !';
-    const DURATION_TOKEN_VALIDATE = 3600;
+    const DURATION_TOKEN_VALIDATE = 604800;
     const CONFIRM_RESET_EMAIL_SUBJECT = 'Mot de passe modifié avec succès !';
     const CONFIRM_RESET_EMAIL_PATH = 'Email/confirm_reset.html.twig';
 

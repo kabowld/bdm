@@ -54,6 +54,24 @@ class ProfileController extends AbstractController
                );
            }
 
+            if (empty($form->get('name')->getData())) {
+                return $this->render(
+                    'Security/Profile/particular.html.twig',
+                    ['error' => 'Saisir votre nom s\'il vous plaît', 'form' => $form->createView(), 'profil' => $this->getUser()]
+                );
+            }
+
+            if (empty($form->get('firstname')->getData())) {
+                return $this->render(
+                    'Security/Profile/particular.html.twig',
+                    ['error' => 'Saisir votre prénom s\'il vous plaît', 'form' => $form->createView(), 'profil' => $this->getUser()]
+                );
+            }
+
+            if ($user->getFisrtLogin()) {
+                $user->setFisrtLogin(false);
+            };
+
             /** @var User $user */
             $user->setUpdatedAt(new \DateTimeImmutable());
             $this->em->flush();
@@ -92,7 +110,23 @@ class ProfileController extends AbstractController
                 );
 
             }
+            if (empty($form->get('name')->getData())) {
+                return $this->render(
+                    'Security/Profile/pro.html.twig',
+                    ['error' => 'Saisir votre nom s\'il vous plaît', 'form' => $form->createView(), 'profil' => $this->getUser()]
+                );
+            }
 
+            if (empty($form->get('firstname')->getData())) {
+                return $this->render(
+                    'Security/Profile/pro.html.twig',
+                    ['error' => 'Saisir votre prénom s\'il vous plaît', 'form' => $form->createView(), 'profil' => $this->getUser()]
+                );
+            }
+
+            if ($user->getFisrtLogin()) {
+                $user->setFisrtLogin(false);
+            };
             /** @var User $user */
             $user->setUpdatedAt(new \DateTimeImmutable());
             $this->em->flush();

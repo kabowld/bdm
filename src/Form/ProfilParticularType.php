@@ -36,12 +36,10 @@ class ProfilParticularType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' =>  'Saisir votre nom'],
                 'label'=> 'Nom',
-                'required' => false
             ])
             ->add('firstname', TextType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' =>  'Saisir votre prénom'],
                 'label'=> 'Prénom',
-                'required' => false
             ])
             ->add('adresse', TextType::class, [
                 'attr' => ['class' => 'form-control', 'placeholder' =>  'Saisir votre adresse'],

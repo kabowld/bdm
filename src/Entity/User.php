@@ -189,6 +189,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      */
     private $favoris;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $fisrtLogin = true;
+
     public function __construct()
     {
         $this->enabled = false;
@@ -688,6 +693,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
     public function removeFavori(Annonce $favori): self
     {
         $this->favoris->removeElement($favori);
+
+        return $this;
+    }
+
+    public function getFisrtLogin(): ?bool
+    {
+        return $this->fisrtLogin;
+    }
+
+    public function setFisrtLogin(bool $fisrtLogin): self
+    {
+        $this->fisrtLogin = $fisrtLogin;
 
         return $this;
     }
