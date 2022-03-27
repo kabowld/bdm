@@ -90,7 +90,11 @@ class UserManager extends Manager
     public function resetEmailPassword(ValidatorInterface $validator, ?string $emailInput): JsonResponse
     {
         if ($this->validateEmailPassword($validator, $emailInput)->count() > 0) {
-            return $this->createJsonResponseResetPassword(sprintf(ResetEmailPassword::INVALID_EMAIL, $emailInput), true);
+            return $this
+                ->createJsonResponseResetPassword(
+                    sprintf(ResetEmailPassword::INVALID_EMAIL, $emailInput),
+                    true
+                );
         }
 
         $user = $this->getEntityRepository(User::class)->findOneBy(['email' => $emailInput]);
@@ -157,8 +161,7 @@ class UserManager extends Manager
         if ($reset) {
             $user
                 ->setResetAt(null)
-                ->setResetToken(null)
-            ;
+                ->setResetToken(null);
             $this->em->flush();
 
             return;
@@ -166,8 +169,7 @@ class UserManager extends Manager
 
         $user
             ->setResetToken(GenerateToken::getGenerateConfirmationToken())
-            ->setResetAt(new \DateTimeImmutable())
-        ;
+            ->setResetAt(new \DateTimeImmutable());
         $this->em->flush();
     }
 
@@ -197,8 +199,8 @@ class UserManager extends Manager
     {
         $user
             ->setPassword($passwordHasher->hashPassword($credentials['user'], $credentials['resetPassword']))
-            ->setUpdatedAt(new \DateTimeImmutable())
-        ;
+            ->setUpdatedAt(new \DateTimeImmutable());
+
         $this->em->flush();
     }
 
@@ -229,8 +231,7 @@ class UserManager extends Manager
             ->setIsVerified(true)
             ->setConfirmatoken(null)
             ->setConfirmationAt(new \DateTimeImmutable())
-            ->setEnabled(true)
-        ;
+            ->setEnabled(true);
 
         $this->em->flush();
     }

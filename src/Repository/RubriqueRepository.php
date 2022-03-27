@@ -19,54 +19,28 @@ class RubriqueRepository extends ServiceEntityRepository
         parent::__construct($registry, Rubrique::class);
     }
 
-    // /**
-    //  * @return Rubrique[] Returns an array of Rubrique objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return array
+     */
+    public function getAllRubriqueByOrderAsc(): array
     {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Rubrique
-    {
-        return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
-
-    public function getAllRubriqueByOrderAsc()
-    {
-        return $this->createQueryBuilder('r')
+        return $this
+            ->createQueryBuilder('r')
             ->orderBy('r.title')
             ->getQuery()
-            ->getResult()
-        ;
+            ->getResult();
     }
 
+    /**
+     * @return array
+     */
     public function getAllRubriqueAndCategories(): array
     {
-        return
-            $this
-                ->createQueryBuilder('r')
-                ->innerJoin('r.categories', 'cat')
-                ->addSelect('cat')
-                ->getQuery()
-                ->getResult()
-            ;
+        return $this
+            ->createQueryBuilder('r')
+            ->innerJoin('r.categories', 'cat')
+            ->addSelect('cat')
+            ->getQuery()
+            ->getResult();
     }
 }

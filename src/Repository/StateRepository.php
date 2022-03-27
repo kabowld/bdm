@@ -20,46 +20,21 @@ class StateRepository extends ServiceEntityRepository
         parent::__construct($registry, State::class);
     }
 
-    // /**
-    //  * @return State[] Returns an array of State objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('s.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?State
-    {
-        return $this->createQueryBuilder('s')
-            ->andWhere('s.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
-
+    /**
+     * @param string $type
+     *
+     * @return array
+     */
     public function getStateArrayByCategoryType(string $type): array
     {
-        return
-            $this->createQueryBuilder('s')
-                ->innerJoin('s.categoryState', 'cat')
-                ->addSelect('cat')
-                ->where('cat.title = :type')
-                ->setParameter('type', $type)
-                ->getQuery()
-                ->getResult()
-            ;
+        return $this
+            ->createQueryBuilder('s')
+            ->innerJoin('s.categoryState', 'cat')
+            ->addSelect('cat')
+            ->where('cat.title = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult();
     }
 
 

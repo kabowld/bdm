@@ -57,7 +57,9 @@ class AnnonceManager extends Manager
             return $this->sendErrorResponse();
         }
 
-        /** @var Pack $pack */
+        /**
+         * @var Pack $pack
+         */
         return new JsonResponse([
             'message' => 'success',
             'filename' => $pack->getImage()->getFileName(),
@@ -113,7 +115,7 @@ class AnnonceManager extends Manager
         return $this->paginator->paginate(
             $this->getEntityRepository(Annonce::class)->findAllAnnonceQuery($search),
             $request->query->getInt('page', 1),
-                self::ITEMS_BY_PAGE
+            self::ITEMS_BY_PAGE
         );
     }
 

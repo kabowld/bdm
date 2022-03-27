@@ -30,7 +30,8 @@ class FirstLoginResponseEventListener
         if (!$user instanceof User) {
             return;
         }
-        if(!$user->getFisrtLogin()) {
+
+        if (!$user->getFisrtLogin()) {
             return;
         }
 

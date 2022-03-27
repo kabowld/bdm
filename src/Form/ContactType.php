@@ -28,12 +28,16 @@ class ContactType extends AbstractType
                 'placeholder' => 'Votre sujet *'
             ]])
             ->add('message', TextareaType::class, [
-                'attr' => ['rows' => 8, 'placeholder' => 'Votre message *', 'class' => 'form-control required']])
+                'attr' => [
+                    'rows' => 8,
+                    'placeholder' => 'Votre message *',
+                    'class' => 'form-control required'
+                ]
+            ])
             ->add('save', SubmitType::class, [
                 'label' => 'Envoyer',
                 'attr' => ['class' => 'btn-contact-send']
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

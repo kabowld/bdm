@@ -41,8 +41,7 @@ abstract class Manager
         PaginatorInterface $paginator,
         LoggerInterface $logger,
         string $localUrl
-    )
-    {
+    ) {
         $this->em = $em;
         $this->security = $security;
         $this->urlGenerator = $urlGenerator;

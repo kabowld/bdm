@@ -224,6 +224,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      * A visual identifier that represents this user.
      *
      * @see UserInterface
+     *
+     * @return string
      */
     public function getUserIdentifier(): string
     {
@@ -232,6 +234,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     /**
      * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     *
+     * @return string
      */
     public function getUsername(): string
     {
@@ -291,7 +295,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      *
      * @return $this
      */
-    public function removeRole(string $role)
+    public function removeRole(string $role): self
     {
         if (false !== $key = array_search(strtoupper($role), $this->roles, true)) {
             unset($this->roles[$key]);
@@ -303,6 +307,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     /**
      * @see PasswordAuthenticatedUserInterface
+     *
+     * @return string
      */
     public function getPassword(): string
     {
@@ -326,6 +332,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
      *
      * @see UserInterface
+     *
+     * @return string|null
      */
     public function getSalt(): ?string
     {
@@ -334,8 +342,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface, \Serial
 
     /**
      * @see UserInterface
+     *
+     * @return void
      */
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;

@@ -32,7 +32,9 @@ class FavorisTwigExtension extends AbstractExtension
     public function createFavorisButton(Annonce $annonce): void
     {
         $user = $this->security->getUser();
-        /** @var User $user */
+        /**
+         * @var User $user
+         */
         if (!$user->getFavoris()->contains($annonce)) {
             echo '<div class="float-left"><a href="#" class="fav-ann" data-id="'.$annonce->getId().'" data-action="enable"><i class="black-heart fa fa-heart-o"></i></a></div>';
         } else {

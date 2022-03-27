@@ -22,8 +22,12 @@ class RegistrationUser
     private $params;
     private $localUrl;
 
-    public function __construct(SendMail $sendMail, UserPasswordHasherInterface $passwordHasher, ContainerBagInterface $params, string $localUrl)
-    {
+    public function __construct(
+        SendMail $sendMail,
+        UserPasswordHasherInterface $passwordHasher,
+        ContainerBagInterface $params,
+        string $localUrl
+    ) {
         $this->sendMail = $sendMail;
         $this->passwordHasher = $passwordHasher;
         $this->params = $params;
@@ -33,6 +37,8 @@ class RegistrationUser
     /**
      * @param User               $user
      * @param LifecycleEventArgs $event
+     *
+     * @return void
      */
     public function postPersist(User $user, LifecycleEventArgs $event): void
     {
@@ -44,8 +50,10 @@ class RegistrationUser
 
     /**
      * @param User $user
+     *
+     * @return void
      */
-    private function sendVerifyMail(User $user)
+    private function sendVerifyMail(User $user): void
     {
         $url = sprintf('%s/validation/compte/%s', $this->getAppUrl(), $user->getConfirmatoken());
         $this->sendMail->createEmail(
@@ -57,7 +65,7 @@ class RegistrationUser
     }
 
     /**
-     * hashPassword
+     * HashPassword
      *
      * @param User $user
      *
@@ -79,8 +87,7 @@ class RegistrationUser
     {
         ($user->getGroupe()->getRole() === 'ROLE_USER') ?
             $user->addRole('ROLE_USER'):
-            $user->addRole('ROLE_PRO')
-        ;
+            $user->addRole('ROLE_PRO');
     }
 
     /**

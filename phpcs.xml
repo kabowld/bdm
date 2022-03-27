@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<ruleset name="Custom Standard" namespace="App">
+    <description>A custom coding standard</description>
+    <arg name="colors"/>
+    <exclude-pattern type="relative">^/vendor/*</exclude-pattern>
+    <exclude-pattern type="relative">^/tests/*</exclude-pattern>
+    <exclude-pattern type="relative">^/assets/*</exclude-pattern>
+    <rule ref="Generic.Commenting.Todo.CommentFound">
+        <type>error</type>
+    </rule>
+    <rule ref="Squiz.Strings.DoubleQuoteUsage.ContainsVar">
+        <type>warning</type>
+    </rule>
+    <rule ref="Generic.Files.LineEndings">
+        <exclude name="Generic.Files.LineEndings.InvalidEOLChar"/>
+    </rule>
+    <rule ref="PEAR">
+        <exclude name="PEAR.NamingConventions.ValidFunctionName"/>
+        <exclude name="PEAR.NamingConventions.ValidVariableName"/>
+        <exclude name="PEAR.Commenting.ClassComment"/>
+        <exclude name="Generic.Commenting.DocComment.MissingShort"/>
+        <exclude name="PEAR.Commenting.ClassComment.Missing"/>
+        <exclude name="PEAR.Commenting.FileComment.Missing"/>
+        <exclude name="PEAR.Commenting.FunctionComment.MissingParamComment"/>
+        <exclude name="PEAR.Commenting.FunctionComment.Missing"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.ContentAfterOpenBracket"/>
+        <exclude name="PEAR.Functions.FunctionCallSignature.CloseBracketLine"/>
+        <exclude name="PEAR.NamingConventions.ValidFunctionName.PrivateNoUnderscore"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingCategoryTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingPackageTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingLinkTag"/>
+        <exclude name="PEAR.Commenting.FileComment.MissingVersion"/>
+        <exclude name="PEAR.Commenting.InlineComment"/>
+    </rule>
+    <rule ref="Generic.Files.LineLength.MaxExceeded">
+        <message>Line contains %2$s chars, which is more than the limit of %1$s</message>
+    </rule>
+    <rule ref="Generic.Files.LineLength.TooLong">
+        <message>Line longer than %s characters; contains %s characters</message>
+    </rule>
+    <rule ref="Generic.Files.LineLength">
+        <properties>
+            <property phpcs-only="true" name="lineLimit" value="120"/>
+            <property phpcbf-only="true" name="lineLimit" value="120"/>
+        </properties>
+    </rule>
+</ruleset>

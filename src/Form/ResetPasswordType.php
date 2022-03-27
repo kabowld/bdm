@@ -43,8 +43,7 @@ class ResetPasswordType extends AbstractType
                 'attr' => [
                     'class' => 'btn btn-log btn-thm2 register-btn'
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

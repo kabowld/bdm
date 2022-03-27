@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Service;
 
 use Symfony\Component\Filesystem\Filesystem;
@@ -8,7 +7,7 @@ use Symfony\Component\Finder\Finder;
 /**
  * DeleteRubriqueFiles
  *
- * class to do processing on files
+ * Class to do processing on files
  */
 class DeleteRubriqueFiles
 {

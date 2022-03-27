@@ -16,7 +16,6 @@ use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
  * Event listener that implements error handling
  *
  * Class ExceptionListener
- * @package App\EventListener
  */
 class ExceptionListener
 {
@@ -29,11 +28,8 @@ class ExceptionListener
     const CONTAINER_EXCEPTION_MESSAGE = 'Error on entry "%s": %s';
     const NOTFOUND_EXCEPTION_MESSAGE = 'NotFound entry %s": %s';
 
-
     private HandleFrontError $handleError;
-
     private LoggerInterface $logger;
-
     private ContainerBagInterface $params;
 
     /**
@@ -54,8 +50,10 @@ class ExceptionListener
      * Fires on an exception
      *
      * @param ExceptionEvent $event
+     *
+     * @return void
      */
-    public function onKernelException(ExceptionEvent $event)
+    public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
         $message = $exception->getMessage();
@@ -65,18 +63,28 @@ class ExceptionListener
 
             if ($this->getKernelEnv() === self::PROD_ENV) {
                 $event->setResponse(
-                    $this->setResponseException($exception->getStatusCode(), $message, $exception->getHeaders())
+                    $this->setResponseException(
+                        $exception->getStatusCode(),
+                        $message,
+                        $exception->getHeaders()
+                    )
                 );
             }
 
             return;
         }
 
-        $this->logger->critical(sprintf(self::MESSAGE_CRITICAL_ERROR, $exception->getMessage()), ['exception' => $exception]);
+        $this->logger->critical(
+            sprintf(self::MESSAGE_CRITICAL_ERROR, $exception->getMessage()),
+            ['exception' => $exception]
+        );
 
         if ($this->getKernelEnv() === self::PROD_ENV) {
             $event->setResponse(
-                $this->setResponseException(Response::HTTP_INTERNAL_SERVER_ERROR, self::MESSAGE_INTERNAL_SERVER_ERROR)
+                $this->setResponseException(
+                    Response::HTTP_INTERNAL_SERVER_ERROR,
+                    self::MESSAGE_INTERNAL_SERVER_ERROR
+                )
             );
         }
     }
@@ -84,9 +92,9 @@ class ExceptionListener
     /**
      * Return response for exception
      *
-     * @param int         $statusCode
-     * @param string      $message
-     * @param array|null  $headers
+     * @param int        $statusCode
+     * @param string     $message
+     * @param array|null $headers
      *
      * @return Response
      */
@@ -97,11 +105,12 @@ class ExceptionListener
             $response->headers->replace($headers);
         }
 
-        return
-            $response
-                ->setStatusCode($statusCode)
-                ->setContent($this->handleError->getErrorTpl($message, $statusCode) ?: self::NO_RESPONSE_CONTENT)
-            ;
+        return $response
+            ->setStatusCode($statusCode)
+            ->setContent(
+                $this->handleError->getErrorTpl($message, $statusCode) ?:
+                    self::NO_RESPONSE_CONTENT
+            );
     }
 
     /**
