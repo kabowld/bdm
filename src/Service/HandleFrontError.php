@@ -62,6 +62,8 @@ class HandleFrontError
      * Log twig errors
      *
      * @param Error $e
+     *
+     * @return void
      */
     private function logTwigRender(Error $e): void
     {

@@ -30,8 +30,10 @@ class AuthenticationSuccessListener
      * Authentication success only if account activated
      *
      * @param AuthenticationSuccessEvent $event
+     *
+     * @return void
      */
-    public function onAuthenticationSuccessEvent(AuthenticationSuccessEvent $event)
+    public function onAuthenticationSuccessEvent(AuthenticationSuccessEvent $event): void
     {
         $token = $event->getAuthenticationToken();
         $user = $event->getAuthenticationToken()->getUser();

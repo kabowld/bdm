@@ -8,7 +8,8 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class PasswordRules extends Constraint {
+class PasswordRules extends Constraint
+{
 
     public string $message = 'Le mot de passe "{{ password }}" ne respecte pas les normes !';
 }

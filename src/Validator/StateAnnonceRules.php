@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraint;
  */
 class StateAnnonceRules extends Constraint
 {
-    public string $message = 'Aucun état ne doit être saisi pour les rubriques "Animaux", "Education", "Emploi et insertion" !';
+    public string $message = 'Aucun état à saisir pour les rubriques "Animaux", "Education", "Emploi et insertion" !';
 
     public function getTargets(): string
     {

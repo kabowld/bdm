@@ -20,7 +20,7 @@ class NewsletterManager extends Manager
             );
         }
 
-        $this->validatorSubscriber($validator, $email,$addressIp);
+        $this->validatorSubscriber($validator, $email, $addressIp);
 
         return new JsonResponse(
             ['message' => 'Votre inscription a bien été effectuée.', 'status' => 'success'],
@@ -34,8 +34,7 @@ class NewsletterManager extends Manager
         $suscriber
             ->setSuscribedAt(new \DateTimeImmutable())
             ->setEnable(true)
-            ->setConfirmToken(GenerateToken::getGenerateConfirmationToken())
-        ;
+            ->setConfirmToken(GenerateToken::getGenerateConfirmationToken());
     }
 
     private function validatorSubscriber(ValidatorInterface $validator, string $email, string $addressIp)
@@ -43,8 +42,8 @@ class NewsletterManager extends Manager
         $suscriber = new Suscriber($addressIp);
         $suscriber
             ->setEmail($email)
-            ->setConfirmToken(GenerateToken::getGenerateConfirmationToken())
-        ;
+            ->setConfirmToken(GenerateToken::getGenerateConfirmationToken());
+
         if ($validator->validate($suscriber)->count() === 0) {
             $this->em->persist($suscriber);
             $this->em->flush();

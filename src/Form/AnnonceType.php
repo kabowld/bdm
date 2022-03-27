@@ -103,11 +103,9 @@ class AnnonceType extends AbstractType
             ->add('pictureOneFile', FileType::class, [
                 'required' => false,
             ])
-            ->add('pictureTwoFile', FileType::class, [
-                'required' => false,
-             ])
+            ->add('pictureTwoFile', FileType::class, ['required' => false])
             ->add('pictureThreeFile', FileType::class, [
-                'required' => false,
+                'required' => false
             ])
             ->add('pictureFourFile', FileType::class, [
                 'required' => false,
@@ -135,12 +133,10 @@ class AnnonceType extends AbstractType
             ->add('save', SubmitType::class, [
                 'label' => 'Sauvegarder',
                 'attr' => ['class' => 'btn btn-log btn-thm2 register-btn']
-            ])
-        ;
+            ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, [$this, 'onPreSetData']);
-        $builder->addEventListener(FormEvents::POST_SET_DATA,[$this, 'onPostSetData']);
-
+        $builder->addEventListener(FormEvents::POST_SET_DATA, [$this, 'onPostSetData']);
         $builder->get('rubrique')->addEventListener(FormEvents::POST_SUBMIT, [$this, 'onPostSubmit']);
     }
 
@@ -225,21 +221,19 @@ class AnnonceType extends AbstractType
     {
         $required = true;
         $placeholder = 'Sélectionner un état';
+
         if (!is_null($rubrique) && $rubrique->getTitle() === 'Style et mode') {
             $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::FASHION_STATE);
-        }
-        elseif (!is_null($rubrique) && in_array($rubrique->getslug(), StateAnnonceRulesValidator::BANNED_RUBRIQUES)) {
+        } elseif (!is_null($rubrique) && in_array($rubrique->getslug(), StateAnnonceRulesValidator::BANNED_RUBRIQUES)) {
             $states = [];
             $required = false;
             $placeholder = 'Aucun état pour cette rubrique';
-        }
-        elseif ($rubrique === null) {
+        } elseif ($rubrique === null) {
             $states = $this->em->getRepository(State::class)->findAll();
             $required = false;
             $placeholder = 'Sélectionner la rubrique';
         } else {
             $states = $this->em->getRepository(State::class)->getStateArrayByCategoryType(self::NORMAL_STATE);
-
         }
 
         $form->add('state', EntityType::class, [

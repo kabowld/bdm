@@ -7,7 +7,8 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class PriceAnnonceRules extends Constraint {
+class PriceAnnonceRules extends Constraint
+{
 
     public string $message = 'Aucun prix ne doit être saisi pour la rubrique Emploi et insertion!';
 

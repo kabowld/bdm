@@ -55,8 +55,7 @@ class AnnonceSearchType extends AbstractType
                 'choice_label' => 'title',
                 'required' => false,
                 'choice_value' => 'slug'
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

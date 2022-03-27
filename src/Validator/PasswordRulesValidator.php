@@ -16,8 +16,10 @@ class PasswordRulesValidator extends ConstraintValidator
     /**
      * @param mixed      $value
      * @param Constraint $constraint
+     *
+     * @return void
      */
-    public function validate($value, Constraint $constraint)
+    public function validate($value, Constraint $constraint): void
     {
         if (!$constraint instanceof PasswordRules) {
             throw new UnexpectedTypeException($constraint, PasswordRules::class);
@@ -35,10 +37,10 @@ class PasswordRulesValidator extends ConstraintValidator
         }
 
         if (!$this->getRules($value)) {
-            $this->context->buildViolation($constraint->message)
+            $this->context
+                ->buildViolation($constraint->message)
                 ->setParameter('{{ password }}', $value)
-                ->addViolation()
-            ;
+                ->addViolation();
         }
     }
 

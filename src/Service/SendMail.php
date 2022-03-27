@@ -28,8 +28,7 @@ class SendMail
         LoggerInterface $logger,
         string $senderTo,
         string $senderName
-    )
-    {
+    ) {
         $this->mailer = $mailer;
         $this->logger = $logger;
         $this->senderTo = $senderTo;
@@ -52,8 +51,7 @@ class SendMail
                 ->to($to)
                 ->subject($subject)
                 ->htmlTemplate($tplPath)
-                ->context($context)
-            ;
+                ->context($context);
 
             $this->mailer->send($email);
         } catch (TransportExceptionInterface $e) {

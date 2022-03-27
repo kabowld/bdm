@@ -26,8 +26,7 @@ class RegistrationParticular extends AbstractType
             ->remove('city')
             ->remove('tel')
             ->remove('civility')
-            ->remove('rubrique')
-        ;
+            ->remove('rubrique');
     }
 
     /**

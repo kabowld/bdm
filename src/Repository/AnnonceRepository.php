@@ -7,6 +7,7 @@ use App\Entity\AnnonceSearch;
 use App\Entity\Category;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\NonUniqueResultException;
 use Doctrine\ORM\Query;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -32,27 +33,32 @@ class AnnonceRepository extends ServiceEntityRepository
      */
     public function getAnnoncesByOwner(UserInterface $user): array
     {
-        return
-            $this
-                ->createQueryBuilder('a')
-                ->where('a.owner = :user')
-                ->orderBy('a.createdAt', 'DESC')
-                ->setParameter('user', $user)
-                ->getQuery()
-                ->getResult()
-            ;
+        return $this
+            ->createQueryBuilder('a')
+            ->where('a.owner = :user')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
     }
 
 
-    public function getOneAnnonceByOwner(UserInterface $user, $id)
+    /**
+     * @param UserInterface $user
+     * @param mixed         $id
+     *
+     * @throws NonUniqueResultException
+     *
+     * @return Annonce|null
+     */
+    public function getOneAnnonceByOwner(UserInterface $user, $id): ?Annonce
     {
         return $this->createQueryBuilder('a')
             ->where('a.owner = :user')
             ->andWhere('a.id = :id')
             ->setParameters(['user' => $user, 'id' => $id])
             ->getQuery()
-            ->getOneOrNullResult()
-            ;
+            ->getOneOrNullResult();
     }
 
 
@@ -61,22 +67,22 @@ class AnnonceRepository extends ServiceEntityRepository
      *
      * @param string $slug
      *
-     * @return array
+     * @return Annonce[]
      */
     public function getAnnoncesByCategorySlug(string $slug): array
     {
         $qb = $this->createQueryBuilder('a');
-        $qb->innerJoin('a.category', 'cat')
-            ->addSelect('cat')
-            ->where($qb->expr()->eq('cat.slug', ':slug'))
+        return $qb
+            ->innerJoin('a.category', 'cat')
             ->leftJoin('a.pack', 'pack')
+            ->addSelect('cat')
             ->addSelect('pack')
+            ->where($qb->expr()->eq('cat.slug', ':slug'))
             ->addOrderBy('pack.id', 'DESC')
             ->addOrderBy('a.createdAt', 'DESC')
             ->setParameter('slug', $slug)
-        ;
-
-        return $qb->getQuery()->getResult();
+            ->getQuery()
+            ->getResult();
     }
 
     /**
@@ -94,8 +100,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->where('cat.id = :cate')
             ->orderBy('a.createdAt', 'DESC')
             ->setParameter('cate', $catEntity->getId())
-            ->setMaxResults(4)
-        ;
+            ->setMaxResults(4);
 
         return $qb->getQuery()->getResult();
     }
@@ -119,8 +124,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->addSelect('pack')
             ->addOrderBy('pack.id', 'DESC')
             ->addOrderBy('a.createdAt', 'DESC')
-            ->setParameter('slug', $slug)
-            ;
+            ->setParameter('slug', $slug);
 
         return $qb->getQuery()->getResult();
     }
@@ -142,8 +146,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->addSelect('pack')
             ->addOrderBy('pack.id', 'DESC')
             ->addOrderBy('a.createdAt', 'DESC')
-            ->setParameter('slug', $slug)
-        ;
+            ->setParameter('slug', $slug);
 
         return $qb->getQuery()->getResult();
     }
@@ -167,8 +170,7 @@ class AnnonceRepository extends ServiceEntityRepository
             ->addSelect('pack')
             ->addOrderBy('pack.id', 'DESC')
             ->addOrderBy('a.createdAt', 'DESC')
-            ->setParameter('slug', $slug)
-        ;
+            ->setParameter('slug', $slug);
 
         return $qb->getQuery()->getResult();
     }
@@ -185,32 +187,28 @@ class AnnonceRepository extends ServiceEntityRepository
             ->leftJoin('a.pack', 'pack')
             ->addSelect('pack')
             ->addOrderBy('pack.id', 'DESC')
-            ->addOrderBy('a.createdAt', 'DESC')
-        ;
+            ->addOrderBy('a.createdAt', 'DESC');
 
-        if (in_array($search->getType(), AnnonceSearch::TYPE))  {
+        if (in_array($search->getType(), AnnonceSearch::TYPE)) {
             $query = $query
                 ->andWhere('a.type = :type')
-                ->setParameter('type', $search->getType())
-            ;
+                ->setParameter('type', $search->getType());
         }
 
-        if ($search->getCategory())  {
+        if ($search->getCategory()) {
             $query = $query
                 ->innerJoin('a.category', 'cat')
                 ->addSelect('cat')
                 ->andWhere('cat.id = :category')
-                ->setParameter('category', $search->getCategory())
-            ;
+                ->setParameter('category', $search->getCategory());
         }
 
-        if ($search->getCity())  {
+        if ($search->getCity()) {
             $query = $query
                 ->innerJoin('a.city', 'city')
                 ->addSelect('city')
                 ->andWhere('city.id = :city')
-                ->setParameter('city', $search->getCity())
-            ;
+                ->setParameter('city', $search->getCity());
         }
 
         if (!empty($search->getSearch())) {
@@ -233,14 +231,12 @@ class AnnonceRepository extends ServiceEntityRepository
      */
     public function getLastFiveAnnonces(int $limit): array
     {
-        return
-            $this
-                ->createQueryBuilder('a')
-                ->orderBy('a.createdAt', 'DESC')
-                ->setMaxResults($limit)
-                ->getQuery()
-                ->getResult()
-        ;
+        return $this
+            ->createQueryBuilder('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
     }
 
     /**
@@ -248,31 +244,31 @@ class AnnonceRepository extends ServiceEntityRepository
      */
     public function findAllAnnonces(): array
     {
-        return
-            $this
-                ->createQueryBuilder('a')
-                ->leftJoin('a.pack', 'pack')
-                ->addSelect('pack')
-                ->addOrderBy('pack.id', 'DESC')
-                ->addOrderBy('a.createdAt', 'DESC')
-                ->getQuery()
-                ->getResult()
-            ;
+        return $this
+            ->createQueryBuilder('a')
+            ->leftJoin('a.pack', 'pack')
+            ->addSelect('pack')
+            ->addOrderBy('pack.id', 'DESC')
+            ->addOrderBy('a.createdAt', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
-    public function getFavoris(User $currentUser)
+    /**
+     * @param User $currentUser
+     *
+     * @return Query
+     */
+    public function getFavoris(User $currentUser): Query
     {
-        $query = $this->createQueryBuilder('a');
-
-        return
-            $query
-                ->innerJoin('a.usersFavoris', 'user')
-                ->addSelect('user')
-                ->where('user = :currentUser')
-                ->orderBy('a.createdAt', 'DESC')
-                ->setParameter('currentUser', $currentUser)
-                ->getQuery()
-            ;
+        return $this
+            ->createQueryBuilder('a')
+            ->innerJoin('a.usersFavoris', 'user')
+            ->addSelect('user')
+            ->where('user = :currentUser')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setParameter('currentUser', $currentUser)
+            ->getQuery();
     }
 
 }

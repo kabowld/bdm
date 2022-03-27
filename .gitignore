@@ -13,10 +13,16 @@
 .phpunit.result.cache
 /phpunit.xml
 ###< symfony/phpunit-bridge ###
-/node_modules/
 
 ###< phpunit/phpunit ###
 /.idea/
 /migrations/*
 /public/front/rubfiles/*
 /public/front/webfiles/*
+
+###> symfony/webpack-encore-bundle ###
+/node_modules/
+/public/build/
+npm-debug.log
+yarn-error.log
+###< symfony/webpack-encore-bundle ###

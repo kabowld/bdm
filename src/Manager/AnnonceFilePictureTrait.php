@@ -6,8 +6,8 @@ use App\Entity\FilePicture;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
 
-trait AnnonceFilePictureTrait {
-
+trait AnnonceFilePictureTrait
+{
 
     /**
      * @Assert\Image(
@@ -202,10 +202,11 @@ trait AnnonceFilePictureTrait {
     }
 
     /**
-     * @param mixed $pictureFourFile
-     * @return AnnonceFilePictureTrait
+     * @param $file
+     *
+     * @return self
      */
-    public function setPictureFourFile($file)
+    public function setPictureFourFile($file): self
     {
         $filePicture = new FilePicture();
         $filePicture->setFile($file);
